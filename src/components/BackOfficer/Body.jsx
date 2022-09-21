@@ -10,7 +10,7 @@ const Body = () => {
     <BodyContainer>
       <BodyContent>
         <BodyWrapper>
-          <BodyImageLayer>ddddddddd</BodyImageLayer>
+          <BodyImageLayer></BodyImageLayer>
           <BodyMain>
             <h2>
               Your Clutter is Our Bread <span>&</span> Butter
