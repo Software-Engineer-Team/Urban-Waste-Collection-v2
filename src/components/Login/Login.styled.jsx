@@ -51,6 +51,7 @@ export const SignInSection = styled.div`
       color: rgb(34, 197, 94);
       font-size: 30px;
       line-height: 36px;
+      margin: 10px 0;
     }
   }
 `;
@@ -212,4 +213,5 @@ export const LineBreak = styled.div`
   background-color: rgb(34, 197, 94);
   width: 224px;
   align-self: center;
+  margin-bottom: 10px;
 `;
