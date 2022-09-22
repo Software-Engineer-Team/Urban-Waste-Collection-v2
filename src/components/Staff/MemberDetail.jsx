@@ -61,6 +61,13 @@ const MemberDetail = () => {
             <Progress title="Waste Management" countText="90%" />
             <Progress title="Recycling" countText="48%" />
             <Progress title="Home Trash" countText="69%" />
+            <input
+              placeholder="Date"
+              class="textbox-n"
+              type="text"
+              onfocus="(this.type='date')"
+              id="date"
+            />
           </div>
         </div>
       </div>

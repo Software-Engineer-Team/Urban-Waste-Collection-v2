@@ -47,7 +47,7 @@ export const Body = styled.div`
         cursor: pointer;
         svg {
           font-size: 65px;
-          transition: all 0.35s ease-in-out;
+          transition: all 0.65s ease-in-out;
           position: relative;
           color: white;
           z-index: 1;
@@ -55,6 +55,7 @@ export const Body = styled.div`
         &:hover {
           svg {
             color: #000000;
+            transform: scale(0.9);
           }
           &:after {
             transform: scale(1);
