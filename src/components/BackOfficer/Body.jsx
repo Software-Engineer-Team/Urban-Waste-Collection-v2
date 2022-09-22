@@ -13,7 +13,8 @@ const Body = () => {
           <BodyImageLayer></BodyImageLayer>
           <BodyMain>
             <h2>
-              Your Clutter is Our Bread <span>&</span> Butter
+              Your Clutter is
+              <br /> Our Bread <span>&</span> Butter
             </h2>
             <a href="#">Request a pickup</a>
           </BodyMain>

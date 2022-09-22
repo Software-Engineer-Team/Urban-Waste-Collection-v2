@@ -5,6 +5,9 @@ export const MainHeader = styled.div`
   height: 70px;
   padding-right: 36px;
   min-width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 `;
 
 export const Container = styled.div`
@@ -218,7 +221,7 @@ export const HeaderMiddle = styled.div`
   }
 `;
 
-export const LogoutBtn = styled.div`
+export const LogoutBtn = styled.a`
   background-color: white;
   color: black;
   font-size: 1rem;
@@ -229,6 +232,7 @@ export const LogoutBtn = styled.div`
   cursor: pointer;
   letter-spacing: 0.025rem;
   transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  text-decoration: none;
 
   &:hover {
     background-color: black;

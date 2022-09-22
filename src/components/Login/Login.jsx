@@ -1,5 +1,6 @@
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
+import { Link } from "react-router-dom";
 import {
   LoginContainer,
   LoginMain,
@@ -60,11 +61,11 @@ export default function Home() {
                 <a href="#">Forgot password?</a>
               </div>
 
-              {/* <Link href="/home/backofficer"> */}
-              <div className="signin-btn">
-                <div>Sign in</div>
-              </div>
-              {/* </Link> */}
+              <Link to="/home/backofficer">
+                <div className="signin-btn">
+                  <div>Sign in</div>
+                </div>
+              </Link>
             </SocialLoginSection>
           </SignInSection>
           <SignUpSection>

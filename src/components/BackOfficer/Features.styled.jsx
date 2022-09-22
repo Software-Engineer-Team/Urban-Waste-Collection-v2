@@ -2,9 +2,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
   display: block;
-  z-index: 10;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
+  bottom: 300px;
   padding: 0 15px;
 `;
 
@@ -13,7 +14,6 @@ export const Body = styled.div`
   display: block;
   background-color: #404a3d;
   padding: 88px 0 74px;
-  /* change here */
   margin-top: 180px;
 
   & > ul {
@@ -49,11 +49,12 @@ export const Body = styled.div`
           font-size: 65px;
           transition: all 0.35s ease-in-out;
           position: relative;
+          color: white;
           z-index: 1;
         }
         &:hover {
           svg {
-            color: #00000095;
+            color: #000000;
           }
           &:after {
             transform: scale(1);
@@ -79,6 +80,7 @@ export const Body = styled.div`
 
         a {
           color: #ffffff;
+          text-decoration: none;
           font-size: 36px;
           font-weight: 600;
           line-height: 40px;

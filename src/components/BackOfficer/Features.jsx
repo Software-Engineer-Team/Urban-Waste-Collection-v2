@@ -13,7 +13,10 @@ const Features = () => {
               </span>
             </div>
             <h3>
-              <a href="/">You Estimate Load Size</a>
+              <a href="/">
+                You Estimate <br />
+                Load Size
+              </a>
             </h3>
           </li>
           <li>
@@ -23,7 +26,9 @@ const Features = () => {
               </span>
             </div>
             <h3>
-              <a href="/">You Estimate Load Size</a>
+              <a href="/">
+                You Choose <br />a Time
+              </a>
             </h3>
           </li>
           <li>
@@ -33,7 +38,9 @@ const Features = () => {
               </span>
             </div>
             <h3>
-              <a href="/">You Estimate Load Size</a>
+              <a href="/">
+                We Pick <br />& Clean up
+              </a>
             </h3>
           </li>
           <li>
@@ -43,7 +50,9 @@ const Features = () => {
               </span>
             </div>
             <h3>
-              <a href="/">You Estimate Load Size</a>
+              <a href="/">
+                We Responsibly <br /> dispose
+              </a>
             </h3>
           </li>
         </ul>

@@ -13,7 +13,10 @@ const Header = () => {
       <Container>
         <HeaderLeft>
           <a href="/">
-            <img src="/images/logo.png" alt="logo" />
+            <img
+              src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/logo.png`}
+              alt="logo"
+            />
           </a>
         </HeaderLeft>
         <HeaderMiddle>
@@ -27,16 +30,16 @@ const Header = () => {
                   <a href="/">Home Page 1</a>
                 </li>
                 <li>
-                  <a href="/">View Information</a>
+                  <a href="#">View Information</a>
                   <div>
                     <FaAngleRight />
                   </div>
                   <ul className="list small-drop">
                     <li>
-                      <a href="/">Collectors</a>
+                      <a href="/home/list-staffs">Collectors</a>
                     </li>
                     <li>
-                      <a href="/">Janitors</a>
+                      <a href="/home/list-staffs">Janitors</a>
                     </li>
                   </ul>
                 </li>
@@ -54,7 +57,9 @@ const Header = () => {
             </li>
           </ul>
         </HeaderMiddle>
-        <LogoutBtn className="logout">LOGOUT</LogoutBtn>
+        <LogoutBtn href="/" className="logout">
+          LOGOUT
+        </LogoutBtn>
       </Container>
     </MainHeader>
   );

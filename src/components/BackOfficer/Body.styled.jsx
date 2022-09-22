@@ -4,7 +4,9 @@ export const BodyContainer = styled.div`
   width: 100vw;
   height: 100vh;
   padding: auto;
+  z-index: -1;
 `;
+
 export const BodyContent = styled.div`
   display: flex;
   justify-content: center;
@@ -12,6 +14,7 @@ export const BodyContent = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 export const BodyWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -52,6 +55,7 @@ export const BodyMain = styled.div`
     font-size: 120px;
     white-space: no-wrap;
     color: #ffffff;
+    text-align: center;
     margin-top: 0;
     font-weight: 700;
     line-height: 110px;
