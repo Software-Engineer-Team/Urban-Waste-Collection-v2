@@ -1,23 +1,11 @@
-import {
-  PageHeader,
-  PageHeaderBg,
-  PageHeaderContainer,
-  AssignTasksHeader,
-} from "./AssignTasks.styled";
+import GeneralHeader from "../Util/GeneralHeader";
+import { AssignTasksHeader } from "./AssignTasks.styled";
 import AssignTasksDetails from "./AssignTasksDetails";
 
 const AssignTasks = () => {
   return (
     <div style={{ overflow: "scroll", height: "100vh" }}>
-      <PageHeader>
-        <PageHeaderBg></PageHeaderBg>
-        <PageHeaderContainer>
-          <h2>Assign Tasks</h2>
-          <div>
-            UWC2.0 <span>Assign Tasks</span>
-          </div>
-        </PageHeaderContainer>
-      </PageHeader>
+      <GeneralHeader type="Assign Tasks" />
       <AssignTasksHeader>
         <div className="container">
           <div className="row">

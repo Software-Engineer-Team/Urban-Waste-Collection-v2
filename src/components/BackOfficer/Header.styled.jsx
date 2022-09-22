@@ -132,7 +132,7 @@ export const HeaderMiddle = styled.div`
             .small-drop {
               opacity: 1;
               visibility: visible;
-              transform: translate(230px, -40px);
+              transform: translate(210px, -40px);
             }
           }
         }

@@ -12,7 +12,7 @@ const Header = () => {
     <MainHeader>
       <Container>
         <HeaderLeft>
-          <a href="/">
+          <a href="#">
             <img
               src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/logo.png`}
               alt="logo"
@@ -27,7 +27,7 @@ const Header = () => {
               </div>
               <ul className="list">
                 <li>
-                  <a href="/">Home Page 1</a>
+                  <a href="/home/backofficer">Home Page 1</a>
                 </li>
                 <li>
                   <a href="#">View Information</a>
@@ -36,10 +36,10 @@ const Header = () => {
                   </div>
                   <ul className="list small-drop">
                     <li>
-                      <a href="/home/list-staffs">Collectors</a>
+                      <a href="/home/list-staffs/collectors">Collectors</a>
                     </li>
                     <li>
-                      <a href="/home/list-staffs">Janitors</a>
+                      <a href="/home/list-staffs/janitors">Janitors</a>
                     </li>
                   </ul>
                 </li>
@@ -49,6 +49,14 @@ const Header = () => {
               <div className="dropdown">
                 <span className="text">Manage Tasks</span>
               </div>
+              <ul className="list small-drop">
+                <li>
+                  <a href="/home/assign-tasks">Collectors</a>
+                </li>
+                <li>
+                  <a href="/home/assign-tasks">Janitors</a>
+                </li>
+              </ul>
             </li>
             <li>
               <div className="dropdown">

@@ -8,7 +8,7 @@ export const AssignTasksSession = styled.section`
 export const AssignTasksContainer = styled.div`
   position: relative;
   display: block;
-  padding: 112px 0 100px;
+  /* padding: 112px 0 100px; */
   width: 100%;
 `;
 export const AssignTasksContent = styled.div`

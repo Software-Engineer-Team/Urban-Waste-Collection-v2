@@ -78,9 +78,15 @@ export const Body = styled.div`
       h3 {
         margin: 0;
         font-family: "Amatic SC";
+        &:hover {
+          a {
+            color: #ecdd5e;
+          }
+        }
 
         a {
           color: #ffffff;
+          transition: all 0.35s ease-in-out;
           text-decoration: none;
           font-size: 36px;
           font-weight: 600;

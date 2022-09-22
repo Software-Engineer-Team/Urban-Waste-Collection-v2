@@ -38,7 +38,7 @@ const Member = (props) => {
             </a>
           </div>
           <div className="arrow">
-            <a href="#">
+            <a href={`/home/staff-details/${props.name}`}>
               <BiRightArrowAlt />
             </a>
           </div>

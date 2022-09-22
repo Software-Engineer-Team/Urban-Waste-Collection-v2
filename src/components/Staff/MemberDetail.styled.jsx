@@ -12,7 +12,6 @@ export const Container = styled.div`
   align-items: center;
 
   .member-detail {
-    padding: 120px 0;
     height: 836px;
 
     .member-body {

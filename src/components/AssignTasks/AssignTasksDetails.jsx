@@ -110,15 +110,30 @@ const AssignTasksDetails = () => {
                     />
                     <AssignTasksListFormDate>
                       <AssignTasksListFormInputText
-                        type="date"
+                        type="text"
                         wid="45%"
+                        onMouseEnter={(e) => {
+                          e.target.disabled = false;
+                          return (e.target.type = "date");
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.disabled = true;
+                          return (e.target.type = "text");
+                        }}
                         placeholder="Pick up date"
                       />
                       <AssignTasksListFormInputText
                         type="text"
                         wid="45%"
-                        onFocus="(this.type = 'date')"
-                        placeholder="Pick up date"
+                        onMouseEnter={(e) => {
+                          e.target.disabled = false;
+                          return (e.target.type = "time");
+                        }}
+                        onMouseLeave={(e) => {
+                          e.target.disabled = true;
+                          return (e.target.type = "text");
+                        }}
+                        placeholder="Pick up time"
                       />
                     </AssignTasksListFormDate>
                   </AssignTasksListFormCol>
