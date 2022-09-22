@@ -4,12 +4,12 @@ import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { GrTwitter } from "react-icons/gr";
 import { FaPinterestP } from "react-icons/fa";
 
-const Member = () => {
+const Member = (props) => {
   return (
     <Container>
       <div className="image">
         <img
-          src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/member-1.jpg`}
+          src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/${props.url}`}
           alt=""
         />
         <div className="shape">
@@ -20,8 +20,8 @@ const Member = () => {
         </div>
       </div>
       <div className="content">
-        <p className="job">Account</p>
-        <h3 className="name">Kiet Cao Hoang</h3>
+        <p className="job">{props.job}</p>
+        <h3 className="name">{props.name}</h3>
         <div className="box">
           <div className="social">
             <a href="#">
