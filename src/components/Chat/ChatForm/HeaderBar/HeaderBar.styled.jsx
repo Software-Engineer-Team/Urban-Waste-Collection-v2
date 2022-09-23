@@ -4,7 +4,7 @@ export const ChatHeader = styled.header`
   position: fixed;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 300px);
   background-color: hsla(0, 0%, 100%, 0.05);
   border-bottom: 1px solid #eaeaf1;
   color: #666;

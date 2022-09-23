@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const ChatFooter = styled.form`
   display: flex;
-  width: 100%;
   z-index: 10;
   height: 5rem;
   padding: 0.75rem 1.25rem;
@@ -9,7 +8,7 @@ export const ChatFooter = styled.form`
   border-top: 1px solid #eaeaf1;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - 300px);
   backdrop-filter: blur(7px);
   button {
     display: flex;

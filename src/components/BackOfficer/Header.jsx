@@ -62,7 +62,7 @@ const Header = () => {
               <div className="dropdown">
                 <span className="text">
                   <a
-                    href="/chat"
+                    href="/chat-room"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
                     Send Messages
