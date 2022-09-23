@@ -14,4 +14,7 @@ export const ChatRoomContainer = styled.div`
     background-color: #ffffffcc;
     z-index: -1;
   }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

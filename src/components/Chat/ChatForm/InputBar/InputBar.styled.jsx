@@ -10,6 +10,7 @@ export const ChatFooter = styled.form`
   position: fixed;
   bottom: 0;
   width: 100%;
+  backdrop-filter: blur(7px);
   button {
     display: flex;
     align-items: center;

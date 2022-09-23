@@ -1,6 +1,7 @@
 import styled from "styled-components";
 export const ChatHeader = styled.header`
   display: flex;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -10,6 +11,7 @@ export const ChatHeader = styled.header`
   padding: 0.75rem 2.25rem;
   height: 5rem;
   z-index: 100;
+  backdrop-filter: blur(7px);
 `;
 
 export const AvatarUser = styled.div`
