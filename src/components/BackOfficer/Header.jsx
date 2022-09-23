@@ -60,7 +60,14 @@ const Header = () => {
             </li>
             <li>
               <div className="dropdown">
-                <span className="text">Send Messages</span>
+                <span className="text">
+                  <a
+                    href="/chat"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Send Messages
+                  </a>
+                </span>
               </div>
             </li>
           </ul>
