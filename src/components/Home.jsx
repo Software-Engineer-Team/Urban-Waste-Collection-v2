@@ -4,6 +4,7 @@ import BackOfficer from "./BackOfficer/BackOfficer";
 import Header from "./BackOfficer/Header";
 import MemberDetail from "./Staff/MemberDetail";
 import Staffs from "./Staff/Staffs";
+import Calendar from "./Calendar/Calendar";
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
           element={<Staffs type="Janitors Information" />}
         />
         <Route path="/staff-details/:id" element={<MemberDetail />} />
+        <Route path="/work-calendar" element={<Calendar />} />
       </Routes>
     </>
   );
