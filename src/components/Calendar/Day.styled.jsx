@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const DayContainer = styled.div`
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
+  border-color: #dadce0;
+  border-width: 0.5px;
   display: flex;
   flex-direction: column;
   border-style: solid;
