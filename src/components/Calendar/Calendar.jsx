@@ -5,7 +5,6 @@ import Month from "./Month";
 import { useDispatch, useSelector } from "react-redux";
 
 const Calendar = () => {
-  const dispatch = useDispatch();
   const { isMaking: isJobMaking } = useSelector((state) => state.jobMaker);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
 

@@ -1,5 +1,5 @@
 import { useRef, memo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   DayContainer,
   DayText,
@@ -15,27 +15,30 @@ const CARD_WIDTH = 450;
 const Day = ({ day, rowIdx }) => {
   const jobColRef = useRef();
   const dispatch = useDispatch();
+  const { isMaking } = useSelector((state) => state.jobMaker);
   const handleJobClick = (e) => {
-    /* mount JobMaker */
-    const colPos = {
-      left: e.target.offsetLeft,
-      top: e.target.offsetTop,
-    };
-    let isTranslateToRight = false;
-    const calcPosX = () => {
-      const colWidth = jobColRef.current?.clientWidth;
-      if (colPos.left - CARD_WIDTH < 0) {
-        isTranslateToRight = true;
-        return colWidth + colPos.left;
-      } else {
-        isTranslateToRight = false;
-        return colPos.left - CARD_WIDTH;
-      }
-    };
-    const calcPosY = () => {
-      return colPos.top - 50;
-    };
-    dispatch(jobMakerPreMounted(calcPosX(), calcPosY(), isTranslateToRight));
+    if (!isMaking) {
+      /* mount JobMaker */
+      const colPos = {
+        left: e.target.offsetLeft,
+        top: e.target.offsetTop,
+      };
+      let isTranslateToRight = false;
+      const calcPosX = () => {
+        const colWidth = jobColRef.current?.clientWidth;
+        if (colPos.left - CARD_WIDTH < 0) {
+          isTranslateToRight = true;
+          return colWidth + colPos.left;
+        } else {
+          isTranslateToRight = false;
+          return colPos.left - CARD_WIDTH;
+        }
+      };
+      const calcPosY = () => {
+        return colPos.top - 50;
+      };
+      dispatch(jobMakerPreMounted(calcPosX(), calcPosY(), isTranslateToRight));
+    }
   };
   return (
     <DayContainer>
