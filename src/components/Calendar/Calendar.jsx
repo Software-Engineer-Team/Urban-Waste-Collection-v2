@@ -1,42 +1,19 @@
-import { getMonth } from "../Util/util.js";
+import { getMonth } from "~/components/Util/util.js";
 import { useState, useRef } from "react";
-import JobMaker from "./JobMaker";
+import JobMaker from "~/features/jobMaker/JobMaker";
 import Month from "./Month";
+import { useDispatch, useSelector } from "react-redux";
 
 const Calendar = () => {
+  const dispatch = useDispatch();
+  const { isMaking: isJobMaking } = useSelector((state) => state.jobMaker);
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const [isJobMaking, setIsJobMaking] = useState(false);
-  const [isTranslateToRight, setIsTranslateToRight] = useState(false);
-  const [pos, setPos] = useState({
-    x: 0,
-    y: 0,
-  });
-
-  const jobMakerCardRef = useRef(null);
-  const jobContainerRef = useRef(null);
 
   return (
     <div>
       <div style={{ height: 70 }}></div>
-      <Month
-        month={currentMonth}
-        setIsJobMaking={setIsJobMaking}
-        jobContainerRef={jobContainerRef}
-        jobMakerCardRef={jobMakerCardRef}
-        setIsTranslateToRight={setIsTranslateToRight}
-        setPos={setPos}
-      />
-      {isJobMaking && (
-        <JobMaker
-          posX={pos.x}
-          posY={pos.y}
-          cardRef={jobMakerCardRef}
-          dayColWidth={jobContainerRef.current?.clientWidth}
-          isJobMaking={isJobMaking}
-          setIsJobMaking={setIsJobMaking}
-          isTranslateToRight={isTranslateToRight}
-        />
-      )}
+      <Month month={currentMonth} />
+      {isJobMaking && <JobMaker />}
     </div>
   );
 };

@@ -42,7 +42,7 @@ export const MoveDown = styled.div`
 `;
 
 export const FormCard = styled.form`
-  width: 491.67px;
+  width: 450px;
   height: 515px;
   background-color: #fff;
   box-shadow: 0px 24px 38px 3px rgb(0 0 0 / 14%),
@@ -50,13 +50,10 @@ export const FormCard = styled.form`
   pointer-events: all;
   opacity: 0;
   transform: translateX(
-    ${(props) =>
-        props.isTranslateToRight
-          ? -props.dayColWidth / 2
-          : props.dayColWidth / 2}px
+    ${(props) => (props.isTranslateRight ? -50 : 50)}px
       /* props.isTranslateToRight ? -50 : 50}px */
   );
-  transition: all 0.2s linear;
+  transition: all 0.2s ease-in-out 0s;
   ${({ isJobMakerMount }) =>
     isJobMakerMount &&
     `
