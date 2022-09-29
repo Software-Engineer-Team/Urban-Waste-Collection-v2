@@ -18,4 +18,3 @@ const Month = ({ month }) => {
 };
 
 export default React.memo(Month);
-/* export default Month; */

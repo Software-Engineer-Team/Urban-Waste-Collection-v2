@@ -1,4 +1,12 @@
-import { Container, MoveLeft, MoveDown, FormCard } from "./JobMaker.styled";
+import CloseIcon from "@mui/icons-material/Close";
+import {
+  Container,
+  MoveLeft,
+  MoveDown,
+  FormCard,
+  FormHeader,
+  CloseBtn,
+} from "./JobMaker.styled";
 import useClickOutside from "~/hook/useClickOutside";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +21,10 @@ const JobMaker = () => {
     isTranslateRight,
   } = useSelector((state) => state.jobMaker);
   const cardRef = useRef(null);
+
+  const handleCloseBtnClick = () => {
+    dispatch(isMakingTurnOff());
+  };
 
   useClickOutside(cardRef, (e) => {
     dispatch(isMakingTurnOff());
@@ -31,7 +43,13 @@ const JobMaker = () => {
             ref={cardRef}
             isTranslateRight={isTranslateRight}
             isJobMakerMount={isJobMakerMount}
-          ></FormCard>
+          >
+            <FormHeader>
+              <CloseBtn onClick={handleCloseBtnClick}>
+                <CloseIcon />
+              </CloseBtn>
+            </FormHeader>
+          </FormCard>
         </MoveLeft>
       </Container>
     </div>

@@ -1,4 +1,4 @@
-import { useRef, memo } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DayContainer,
@@ -54,4 +54,4 @@ const Day = ({ day, rowIdx }) => {
   );
 };
 
-export default memo(Day);
+export default Day;
