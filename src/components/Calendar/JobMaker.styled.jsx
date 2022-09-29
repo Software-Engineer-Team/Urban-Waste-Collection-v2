@@ -50,9 +50,13 @@ export const FormCard = styled.form`
   pointer-events: all;
   opacity: 0;
   transform: translateX(
-    ${(props) => (props.isTranslateToRight ? -100 : 100)}px
+    ${(props) =>
+        props.isTranslateToRight
+          ? -props.dayColWidth / 2
+          : props.dayColWidth / 2}px
+      /* props.isTranslateToRight ? -50 : 50}px */
   );
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
   ${({ isJobMakerMount }) =>
     isJobMakerMount &&
     `

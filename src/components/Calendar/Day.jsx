@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   DayContainer,
   DayText,
@@ -11,13 +10,14 @@ import {
 const Day = ({
   day,
   rowIdx,
+  setIsJobMaking,
+  jobContainerRef,
+  setIsTranslateToRight,
   setPos,
   cardWidth,
   cardHeight,
-  setIsJobMaking,
-  setIsTranslateToRight,
 }) => {
-  const JobContainerRef = useRef(null);
+  /* const JobContainerRef = useRef(null); */
   const handleJobClick = (e) => {
     /* mount JobMaker */
     setIsJobMaking(true);
@@ -28,15 +28,16 @@ const Day = ({
     const calcPosX = () => {
       if (dayPos.left - cardWidth < 0) {
         setIsTranslateToRight(true);
-        return JobContainerRef.current?.clientWidth + dayPos.left;
+        return jobContainerRef.current?.clientWidth + dayPos.left;
+      } else {
+        setIsTranslateToRight(false);
+        return dayPos.left - cardWidth;
       }
-      setIsTranslateToRight(false);
-      return dayPos.left - cardWidth;
     };
     const calcPosY = () => {
-      if (dayPos.top - 50 + cardHeight > window.innerHeight) {
-        return dayPos.top - cardHeight;
-      }
+      /* if (dayPos.top - 50 + cardHeight > window.innerHeight) { */
+      /*   return dayPos.top - cardHeight; */
+      /* } */
       return dayPos.top - 50;
     };
     setPos({
@@ -50,7 +51,7 @@ const Day = ({
         {rowIdx === 0 && <WeekDay>{day.format("ddd").toUpperCase()}</WeekDay>}
         <DayText>{day.format("DD")}</DayText>
       </Header>
-      <JobContainer onClick={handleJobClick} ref={JobContainerRef}>
+      <JobContainer onClick={handleJobClick} ref={jobContainerRef}>
         <JobName>cook</JobName>
         <JobName>study</JobName>
       </JobContainer>

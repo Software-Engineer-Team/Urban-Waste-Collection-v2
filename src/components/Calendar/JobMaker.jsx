@@ -1,6 +1,6 @@
 import { Container, MoveLeft, MoveDown, FormCard } from "./JobMaker.styled";
 import useClickOutside from "../../hook/useClickOutside";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const JobMaker = ({
   posX,
@@ -9,6 +9,7 @@ const JobMaker = ({
   isJobMaking,
   setIsJobMaking,
   isTranslateToRight,
+  dayColWidth,
 }) => {
   const [isJobMakerMount, setIsJobMakerMount] = useState(false);
   useClickOutside(cardRef, (e) => {
@@ -16,7 +17,7 @@ const JobMaker = ({
   });
 
   useEffect(() => {
-    setIsJobMakerMount(true);
+    setIsJobMakerMount(isJobMaking);
   }, [isJobMaking]);
 
   return (
@@ -28,6 +29,7 @@ const JobMaker = ({
             ref={cardRef}
             isTranslateToRight={isTranslateToRight}
             isJobMakerMount={isJobMakerMount}
+            dayColWidth={dayColWidth}
           ></FormCard>
         </MoveLeft>
       </Container>
