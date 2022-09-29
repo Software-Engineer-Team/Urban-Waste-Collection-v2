@@ -1,6 +1,6 @@
 import { Container, MoveLeft, MoveDown, FormCard } from "./JobMaker.styled";
-import useClickOutside from "../../hook/useClickOutside";
-import { useEffect, useLayoutEffect, useState } from "react";
+import useClickOutside from "~/hook/useClickOutside";
+import { useEffect, useState } from "react";
 
 const JobMaker = ({
   posX,
