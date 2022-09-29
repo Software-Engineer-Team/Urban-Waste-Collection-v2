@@ -1,5 +1,5 @@
-import Body from "./Body";
-import Features from "./Features";
+import Body from "@components/BackOfficer/Body";
+import Features from "@components/BackOfficer/Features";
 
 const BackOfficer = () => {
   return (

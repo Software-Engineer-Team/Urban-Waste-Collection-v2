@@ -1,9 +1,9 @@
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { FaPinterestP } from "react-icons/fa";
 import { GrTwitter } from "react-icons/gr";
-import GeneralHeader from "../Util/GeneralHeader";
+import GeneralHeader from "@utils/GeneralHeader";
 import { Container } from "./MemberDetail.styled";
-import Progress from "./Progress";
+import Progress from "@components/Staffs/Progress";
 
 const MemberDetail = () => {
   return (

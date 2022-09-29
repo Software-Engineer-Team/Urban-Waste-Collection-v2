@@ -2,7 +2,7 @@ import {
   PageHeader,
   PageHeaderBg,
   PageHeaderContainer,
-} from "../AssignTasks/AssignTasks.styled";
+} from "@pages/Home/AssignTasks/AssignTasks.styled";
 
 const GeneralHeader = (props) => {
   return (

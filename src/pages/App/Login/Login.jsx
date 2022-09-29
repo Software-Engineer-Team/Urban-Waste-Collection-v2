@@ -12,6 +12,7 @@ import {
   SocialLoginSectionHeader,
   LineBreak,
 } from "./Login.styled";
+
 export default function Home() {
   return (
     <LoginContainer>

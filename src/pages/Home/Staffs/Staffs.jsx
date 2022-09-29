@@ -1,5 +1,5 @@
-import GeneralHeader from "../Util/GeneralHeader";
-import Member from "./Member";
+import GeneralHeader from "@utils/GeneralHeader";
+import Member from "@components/Staffs/Member";
 import { Container } from "./Staffs.styled";
 
 const Staffs = (props) => {
