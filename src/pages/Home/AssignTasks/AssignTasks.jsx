@@ -1,6 +1,6 @@
-import GeneralHeader from "../Util/GeneralHeader";
+import GeneralHeader from "@utils/GeneralHeader";
 import { AssignTasksHeader } from "./AssignTasks.styled";
-import AssignTasksDetails from "./AssignTasksDetails";
+import AssignTasksDetails from "@components/AssignTasks/AssignTasksDetails";
 
 const AssignTasks = () => {
   return (
