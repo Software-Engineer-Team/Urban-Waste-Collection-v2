@@ -1,4 +1,5 @@
 import { AssignTasks, BackOfficer, MemberDetail, Staffs } from "@pages/Home";
+import { Calendar } from "@components";
 
 export const homeRoutes = [
   { path: "/backofficer", component: BackOfficer },
@@ -14,4 +15,5 @@ export const homeRoutes = [
     type: "Janitors Information",
   },
   { path: "/staff-details/:id", component: MemberDetail },
+  { path: "home/work-calendar", component: Calendar },
 ];

@@ -1,6 +1,6 @@
-import { getMonth } from "~/components/Util/util.js";
+import { getMonth } from "@utils/util";
 import { useState, useRef } from "react";
-import JobMaker from "~/features/jobMaker/JobMaker";
+import JobMaker from "@features/jobMaker/JobMaker";
 import Month from "./Month";
 import { useDispatch, useSelector } from "react-redux";
 
