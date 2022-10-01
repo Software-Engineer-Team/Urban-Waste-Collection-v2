@@ -1,16 +1,17 @@
-import CloseIcon from "@mui/icons-material/Close";
+import { GrClose } from "react-icons/gr";
 import {
   Container,
   MoveLeft,
   MoveDown,
-  FormCard,
-  FormHeader,
+  FormContainer,
+  Header,
   CloseBtn,
 } from "./JobMaker.styled";
 import useClickOutside from "~/hook/useClickOutside";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isMakingTurnOff } from "~/features/jobMaker/jobMakerSlice";
+import JobMakerForm from "./JobMakerForm/JobMakerForm";
 
 const JobMaker = () => {
   const dispatch = useDispatch();
@@ -39,17 +40,18 @@ const JobMaker = () => {
       <Container>
         <MoveLeft posX={jobMakerPos.x}>
           <MoveDown posY={jobMakerPos.y}></MoveDown>
-          <FormCard
+          <FormContainer
             ref={cardRef}
             isTranslateRight={isTranslateRight}
             isJobMakerMount={isJobMakerMount}
           >
-            <FormHeader>
+            <Header>
               <CloseBtn onClick={handleCloseBtnClick}>
-                <CloseIcon />
+                <GrClose />
               </CloseBtn>
-            </FormHeader>
-          </FormCard>
+            </Header>
+            <JobMakerForm></JobMakerForm>
+          </FormContainer>
         </MoveLeft>
       </Container>
     </div>

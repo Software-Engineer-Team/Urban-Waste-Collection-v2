@@ -31,7 +31,9 @@ export const DayText = styled.p`
 `;
 
 export const JobContainer = styled.div`
-  flex: 1 1 0%;
+  /* flex: 1 1 0%; */
+  flex-grow: 1;
+  height: 100%;
   cursor: pointer;
 `;
 

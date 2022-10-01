@@ -41,7 +41,7 @@ export const MoveDown = styled.div`
   flex-grow: 1;
 `;
 
-export const FormCard = styled.form`
+export const FormContainer = styled.div`
   width: 450px;
   height: 500px;
   background-color: #fff;
@@ -51,6 +51,8 @@ export const FormCard = styled.form`
   opacity: 0;
   transition: all 0.2s ease-in-out 0s;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
   transform: translateX(
     ${(props) => (props.isTranslateRight ? -50 : 50)}px
       /* props.isTranslateToRight ? -50 : 50}px */
@@ -63,10 +65,12 @@ export const FormCard = styled.form`
   `}
 `;
 
-export const FormHeader = styled.header`
+export const Header = styled.header`
   background-color: rgb(241, 243, 244);
   height: 36px;
   position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
 `;
 
 export const CloseBtn = styled.button`
@@ -82,6 +86,7 @@ export const CloseBtn = styled.button`
   outline: none;
   border: 0;
   cursor: pointer;
+  color: rgb(95, 99, 104);
   background-color: transparent;
   &:hover {
     background-color: #E8E9EA;

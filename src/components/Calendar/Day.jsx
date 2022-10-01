@@ -40,14 +40,15 @@ const Day = ({ day, rowIdx }) => {
       dispatch(jobMakerPreMounted(calcPosX(), calcPosY(), isTranslateToRight));
     }
   };
+
   return (
     <DayContainer>
       <Header>
         {rowIdx === 0 && <WeekDay>{day.format("ddd").toUpperCase()}</WeekDay>}
         <DayText>{day.format("DD")}</DayText>
       </Header>
-      <JobContainer onClick={handleJobClick} ref={jobColRef}>
-        <JobName>cook</JobName>
+      <JobContainer ref={jobColRef}>
+        <JobName onClick={handleJobClick}>cook</JobName>
         <JobName>study</JobName>
       </JobContainer>
     </DayContainer>

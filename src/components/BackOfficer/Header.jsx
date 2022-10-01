@@ -6,18 +6,19 @@ import {
   LogoutBtn,
   MainHeader,
 } from "./Header.styled";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <MainHeader>
       <Container>
         <HeaderLeft>
-          <a href="#">
+          <NavLink to="/home/backofficer">
             <img
               src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/logo.png`}
               alt="logo"
             />
-          </a>
+          </NavLink>
         </HeaderLeft>
         <HeaderMiddle>
           <ul>
@@ -27,7 +28,7 @@ const Header = () => {
               </div>
               <ul className="list">
                 <li>
-                  <a href="/home/backofficer">Home Page 1</a>
+                  <NavLink to="/home/backofficer">Home Page 1</NavLink>
                 </li>
                 <li>
                   <a href="#">View Information</a>
@@ -36,10 +37,14 @@ const Header = () => {
                   </div>
                   <ul className="list small-drop">
                     <li>
-                      <a href="/home/list-staffs/collectors">Collectors</a>
+                      <NavLink to="/home/list-staffs/collectors">
+                        Collectors
+                      </NavLink>
                     </li>
                     <li>
-                      <a href="/home/list-staffs/janitors">Janitors</a>
+                      <NavLink to="/home/list-staffs/janitors">
+                        Janitors
+                      </NavLink>
                     </li>
                   </ul>
                 </li>
@@ -47,27 +52,35 @@ const Header = () => {
             </li>
             <li>
               <div className="dropdown">
+                <NavLink
+                  to="/chat-room"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span className="text">Send Messages</span>
+                </NavLink>
+              </div>
+            </li>
+            <li>
+              <div className="dropdown">
                 <span className="text">Manage Tasks</span>
               </div>
               <ul className="list small-drop">
                 <li>
-                  <a href="/home/assign-tasks">Collectors</a>
+                  <NavLink to="/home/assign-tasks">Collectors</NavLink>
                 </li>
                 <li>
-                  <a href="/home/assign-tasks">Janitors</a>
+                  <NavLink to="/home/assign-tasks">Janitors</NavLink>
                 </li>
               </ul>
             </li>
             <li>
               <div className="dropdown">
-                <span className="text">
-                  <a
-                    href="/chat-room"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    Send Messages
-                  </a>
-                </span>
+                <NavLink
+                  to="/home/work-calendar"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span className="text">Work Calendar</span>
+                </NavLink>
               </div>
             </li>
           </ul>

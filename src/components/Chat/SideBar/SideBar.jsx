@@ -1,5 +1,5 @@
 import { IoReturnDownBackOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Avatar,
   ChatContent,
@@ -22,11 +22,11 @@ const SideBar = () => {
             <div className="title-header">
               <h4>Chats</h4>
             </div>
-            <a href="/home/backofficer">
+            <NavLink to="/home/backofficer">
               <div className="add-contact">
                 <IoReturnDownBackOutline />
               </div>
-            </a>
+            </NavLink>
           </div>
           <div className="search">
             <input type="text" placeholder="Search here" />

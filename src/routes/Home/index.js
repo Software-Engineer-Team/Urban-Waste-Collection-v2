@@ -15,5 +15,5 @@ export const homeRoutes = [
     type: "Janitors Information",
   },
   { path: "/staff-details/:id", component: MemberDetail },
-  { path: "home/work-calendar", component: Calendar },
+  { path: "/work-calendar", component: Calendar },
 ];
