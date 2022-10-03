@@ -40,14 +40,14 @@ export const HeaderMiddle = styled.div`
 
     & > li {
       display: inline-block;
-      padding: 20px 40px 20px 0;
+      margin: 20px 40px 20px 0;
       position: relative;
 
       &:hover {
         .list {
           opacity: 1;
           visibility: visible;
-          transform: translateY(0.15rem);
+          transform: translateY(20px);
         }
       }
 

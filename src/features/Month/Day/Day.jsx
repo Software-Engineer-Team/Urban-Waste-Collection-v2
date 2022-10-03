@@ -8,7 +8,7 @@ import {
   JobContainer,
   JobName,
 } from "./Day.styled";
-import { jobMakerPreMounted } from "~/features/jobMaker/jobMakerSlice";
+import { jobMakerPreMounted } from "~/features/JobMaker/jobMakerSlice";
 
 const CARD_WIDTH = 450;
 

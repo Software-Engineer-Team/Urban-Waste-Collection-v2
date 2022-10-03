@@ -10,7 +10,7 @@ import {
 import useClickOutside from "~/hook/useClickOutside";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isMakingTurnOff } from "~/features/jobMaker/jobMakerSlice";
+import { isMakingTurnOff } from "~/features/JobMaker/jobMakerSlice";
 import JobMakerForm from "./JobMakerForm/JobMakerForm";
 
 const JobMaker = () => {

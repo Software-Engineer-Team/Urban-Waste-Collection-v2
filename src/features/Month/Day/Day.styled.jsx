@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const DayContainer = styled.div`
   border-color: #dadce0;
-  border-width: 0.5px;
+  border-width: 1px 1px 0 0;
   display: flex;
   flex-direction: column;
   border-style: solid;

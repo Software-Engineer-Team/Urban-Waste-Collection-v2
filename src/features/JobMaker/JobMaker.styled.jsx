@@ -1,25 +1,10 @@
 import styled from "styled-components";
 
-export const DayContainer = styled.div`
-  border-color: #dadce0;
-  border-width: 0.5px;
-  display: flex;
-  flex-direction: column;
-  border-style: solid;
-`;
-
-export const StaticPos = styled.div`
-  top: 0;
-  left: 0;
-  width: 0 !important;
-  height: 0 !important;
-  position: absolute;
-`;
-
 export const Container = styled.div`
   z-index: 100;
   width: 100%;
   top: 0;
+  left: 0;
   bottom: 0;
   position: fixed;
   pointer-events: none;
