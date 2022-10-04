@@ -1,3 +1,4 @@
+import React from "react";
 import Body from "@components/BackOfficer/Body";
 import Features from "@components/BackOfficer/Features";
 

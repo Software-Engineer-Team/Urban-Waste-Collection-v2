@@ -1,3 +1,4 @@
+import React from "react";
 import { ChatFooter, InputGroup } from "./InputBar.styled";
 import { MdOutlineInsertEmoticon } from "react-icons/md";
 import { ImImages, ImAttachment } from "react-icons/im";

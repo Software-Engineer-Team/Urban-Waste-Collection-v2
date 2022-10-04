@@ -1,3 +1,4 @@
+import React from "react";
 import GeneralHeader from "@utils/GeneralHeader";
 import { AssignTasksHeader } from "./AssignTasks.styled";
 import AssignTasksDetails from "@components/AssignTasks/AssignTasksDetails";

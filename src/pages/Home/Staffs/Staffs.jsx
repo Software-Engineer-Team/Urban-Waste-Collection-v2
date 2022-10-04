@@ -1,3 +1,4 @@
+import React from "react";
 import GeneralHeader from "@utils/GeneralHeader";
 import Member from "@components/Staffs/Member";
 import { Container } from "./Staffs.styled";

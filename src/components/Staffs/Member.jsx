@@ -1,3 +1,4 @@
+import React from "react";
 import { Container } from "./Member.styled";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { BsFacebook, BsInstagram } from "react-icons/bs";

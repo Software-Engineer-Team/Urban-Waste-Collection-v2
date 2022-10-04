@@ -1,3 +1,4 @@
+import React from "react";
 import { BodyContainer, BodyContent } from "./BodyBar.styled";
 import Message from "./Message";
 const BodyBar = () => {
