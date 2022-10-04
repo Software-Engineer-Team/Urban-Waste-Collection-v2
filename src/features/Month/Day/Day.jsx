@@ -48,8 +48,8 @@ const Day = ({ day, rowIdx }) => {
         <DayText>{day.format("DD")}</DayText>
       </Header>
       <JobContainer ref={jobColRef}>
-        <JobName onClick={handleJobClick}>cook</JobName>
-        <JobName>study</JobName>
+        <JobName onClick={handleJobClick}>Task for collector</JobName>
+        <JobName>Task for janitor</JobName>
       </JobContainer>
     </DayContainer>
   );
