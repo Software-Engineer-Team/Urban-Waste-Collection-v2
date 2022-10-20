@@ -49,7 +49,7 @@ export const AssignTasksButtons = styled.div`
         transform: scaleY(0);
         z-index: -1;
       }
-      &:hover {
+      &.active {
         color: #ffffff;
         &:before {
           transform: scaleY(1);
@@ -198,12 +198,16 @@ export const AssignTasksListFormInputSelect = styled.div`
   }
   div.drop-down {
     display: none;
-    // z-index: 1;
+    transition: all 0.3s ease-in-out;
+    &.show-drop-down {
+      display: block;
+    }
+    z-index: 1;
 
     font-family: "DM Sans";
     font-size: 600;
     position: absolute;
-    min-width: 100%;
+    width: 100%;
     top: 0;
     transform: translate(0px, 65px);
     overflow: hidden;
@@ -223,7 +227,7 @@ export const AssignTasksListFormInputSelect = styled.div`
       border-top: 1px solid rgba(255, 255, 255, 0.2);
       cursor: pointer;
       span {
-        transition: all 0.4s ease-in-out;
+        transition: all 0.3s ease-in-out;
         color: #212529;
       }
     }

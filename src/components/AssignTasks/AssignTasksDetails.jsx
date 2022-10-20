@@ -18,22 +18,46 @@ import {
   AssignTasksListFormBtn,
 } from "./AssignTasksDetails.styled";
 import { TiTick } from "react-icons/ti";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { RiArrowDropDownLine, RiArrowDropRightLine } from "react-icons/ri";
+import { useRef, useState } from "react";
 
 const AssignTasksDetails = () => {
+  const collectorsRef = useRef(null);
+  const janitorsRef = useRef(null);
+  const [dropDownUsers, setDropDownUsers] = useState(false);
+
+  const removeAllRefs = () => {
+    collectorsRef.current.classList.remove("active");
+    janitorsRef.current.classList.remove("active");
+  };
+
+  const clickCollectorsHandler = (e) => {
+    removeAllRefs();
+    collectorsRef.current.classList.add("active");
+    console.log(collectorsRef.current.classList.contains("active"));
+  };
+
+  const clickJanitorsHandler = (e) => {
+    removeAllRefs();
+    janitorsRef.current.classList.add("active");
+  };
+
+  const showDropDownUsers = (e) => {
+    setDropDownUsers((oldDrop) => !oldDrop);
+  };
+
   return (
     <AssignTasksSession>
       <AssignTasksContainer>
         <AssignTasksContent>
           <AssignTasksButtons>
-            <div>
-              <span className="active">Collectors</span>
+            <div onClick={clickCollectorsHandler}>
+              <span className="active" ref={collectorsRef}>
+                Collectors
+              </span>
             </div>
-            <div>
-              <span>Collectors</span>
-            </div>
-            <div>
-              <span>Collectors</span>
+            <div onClick={clickJanitorsHandler}>
+              <span ref={janitorsRef}>Janitors</span>
             </div>
           </AssignTasksButtons>
           <AssignTasksList>
@@ -70,7 +94,7 @@ const AssignTasksDetails = () => {
                 </ul>
               </AssignTasksListCheckBoxes>
               <AssignTasksListImg>
-                <img src="/images/rubish1.jpg" alt="" />
+                <img src="/images/rubish1.jpg" alt="Rubish" />
               </AssignTasksListImg>
               <AssignTasksListFormContent>
                 <AssignTasksListFormRow>
@@ -84,22 +108,30 @@ const AssignTasksDetails = () => {
                         <option value="64 Gallon">64 Gallon</option>
                         <option value="96 Gallon">96 Gallon</option>
                       </select>
-                      <div className="btn">
-                        <div>Select Waste Type</div>
+                      <div className="btn" onClick={showDropDownUsers}>
+                        <div>Choose Collectors</div>
                         <span>
-                          <RiArrowDropDownLine />
+                          {!dropDownUsers ? (
+                            <RiArrowDropRightLine />
+                          ) : (
+                            <RiArrowDropDownLine />
+                          )}
                         </span>
                       </div>
-                      <div className="drop-down">
+                      <div
+                        className={`drop-down ${
+                          dropDownUsers ? "show-drop-down" : ""
+                        }`}
+                      >
                         <ul>
                           <li>
                             <div>
-                              <span>Select Waste Type</span>
+                              <span>Cao Tuan Kiet</span>
                             </div>
                           </li>
                           <li>
                             <div className="selected">
-                              <span>Select Waste Type</span>
+                              <span>Cao Hoang Kiet</span>
                             </div>
                           </li>
                         </ul>

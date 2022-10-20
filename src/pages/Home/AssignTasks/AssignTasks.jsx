@@ -20,7 +20,7 @@ const AssignTasks = () => {
           </div>
         </div>
       </AssignTasksHeader>
-      <AssignTasksDetails>ddd</AssignTasksDetails>
+      <AssignTasksDetails></AssignTasksDetails>
     </div>
   );
 };
