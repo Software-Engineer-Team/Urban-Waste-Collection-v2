@@ -74,6 +74,6 @@ export const CloseBtn = styled.button`
   color: rgb(95, 99, 104);
   background-color: transparent;
   &:hover {
-    background-color: #E8E9EA;
+    background-color: #e8e9ea;
   }
 `;

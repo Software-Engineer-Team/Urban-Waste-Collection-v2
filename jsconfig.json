@@ -7,24 +7,13 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@routes/*": [
-        "src/routes/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@features/*": [
-        "src/features/*"
-      ]
+      "~/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@routes/*": ["src/routes/*"],
+      "@utils/*": ["src/utils/*"],
+      "@features/*": ["src/features/*"],
+      "@hook/*": ["src/hook/*"]
     }
   }
 }

@@ -9,7 +9,8 @@
           "@pages": "./src/pages",
           "@routes": "./src/routes",
           "@utils": "./src/utils",
-          "@features": "./src/features"
+          "@features": "./src/features",
+          "@hook": "./src/hook"
         }
       }
     ]
