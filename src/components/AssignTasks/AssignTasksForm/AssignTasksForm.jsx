@@ -13,6 +13,7 @@ import {
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
 import { RiArrowDropDownLine, RiArrowDropRightLine } from "react-icons/ri";
+import useRouteDirection from "~/hook/useRouteDirection";
 
 const DropDownUsers = ({ dropDownUsers }) => {
   return (
@@ -36,6 +37,7 @@ const DropDownUsers = ({ dropDownUsers }) => {
 
 const AssignTasksForm = ({ url, type }) => {
   const [dropDownUsers, setDropDownUsers] = useState(false);
+  const [isAssignRoute, setIsAssignRoute] = useState(false);
   const showDropDownUsers = (e) => {
     setDropDownUsers((oldDrop) => !oldDrop);
   };
@@ -74,6 +76,7 @@ const AssignTasksForm = ({ url, type }) => {
             <AssignTasksListFormInputText
               placeholder={type == "Collectors" ? "Assign MCP" : "Assign area"}
               wid="100%"
+              onClick={() => setIsAssignRoute(!isAssignRoute)}
             />
             <AssignTasksListFormDate>
               <AssignTasksListFormInputText

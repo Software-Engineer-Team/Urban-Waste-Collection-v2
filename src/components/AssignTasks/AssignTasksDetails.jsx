@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   AssignTasksSession,
   AssignTasksContainer,
@@ -13,7 +13,6 @@ const AssignTasksDetails = () => {
   const janitorsRef = useRef(null);
   const [collectorsState, setCollectorsState] = useState(true);
   const [janitorsState, setJanitorsState] = useState(false);
-  const [clickRoute, setClickRoute] = useState(false);
 
   const removeAllRefs = () => {
     collectorsRef.current.classList.remove("active");
