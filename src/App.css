@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@1,500;1,600;1,700;1,800&display=swap");
 
+/* https://blog.logrocket.com/react-leaflet-tutorial/ */
+.leaflet-container {
+}
+
 *,
 *::after,
 *::before {
@@ -21,8 +25,8 @@ html ::-webkit-scrollbar {
 }
 
 #root {
-  height: 100%;
   width: 100%;
+  height: 100vh;
 }
 
 body {

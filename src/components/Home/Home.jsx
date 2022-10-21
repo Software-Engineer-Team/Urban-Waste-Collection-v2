@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 const Home = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         {homeRoutes.map(({ path, component: SubPage, type }) => {
           return (

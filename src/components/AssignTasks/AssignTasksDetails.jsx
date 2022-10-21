@@ -12,7 +12,7 @@ import AssignTasksForm from "./AssignTasksForm/AssignTasksForm";
 const AssignTasksDetails = () => {
   const collectorsRef = useRef(null);
   const janitorsRef = useRef(null);
-  const [collectorsState, setCollectorsState] = useState(false);
+  const [collectorsState, setCollectorsState] = useState(true);
   const [janitorsState, setJanitorsState] = useState(false);
 
   const removeAllRefs = () => {
