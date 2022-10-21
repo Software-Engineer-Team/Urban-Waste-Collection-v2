@@ -17,6 +17,7 @@ const Day = ({ day, rowIdx }) => {
   const jobColRef = useRef();
   const dispatch = useDispatch();
   const { isMaking } = useSelector((state) => state.jobMaker);
+  /* console.log(day); */
   const handleJobClick = (e) => {
     if (!isMaking) {
       /* mount JobMaker */

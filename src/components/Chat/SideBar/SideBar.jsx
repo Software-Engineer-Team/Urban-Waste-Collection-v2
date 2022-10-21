@@ -13,6 +13,7 @@ import {
   ContentBody,
   ContentTop,
 } from "./SideBar.styled";
+import { v4 as uuidv4 } from "uuid";
 
 const SideBar = () => {
   return (
@@ -40,7 +41,7 @@ const SideBar = () => {
               .fill()
               .map(() => {
                 return (
-                  <ChatItem>
+                  <ChatItem key={uuidv4()}>
                     <Link to="#">
                       <Avatar isLoggined={true}>
                         <img

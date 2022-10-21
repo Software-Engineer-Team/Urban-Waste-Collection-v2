@@ -38,6 +38,25 @@ export const TitleBody = styled.div`
   }
 `;
 
-export const AssignContent = styled.div``;
+export const AssignContent = styled.div`
+  display: flex;
+  min-height: 32px;
+  width: 100%;
+  padding-right: 16px;
+  align-items: center;
 
-export const Icon = styled.div``;
+  & > div:last-child {
+    padding: 6px 0;
+  }
+`;
+
+export const Icon = styled.div`
+  width: 40px;
+  max-height: 52px;
+  color: #5f6368;
+  margin-left: 19px;
+
+  i {
+    font-size: 20px;
+  }
+`;

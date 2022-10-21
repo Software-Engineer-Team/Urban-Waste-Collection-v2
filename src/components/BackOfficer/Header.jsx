@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FaAngleRight } from "react-icons/fa";
 import {
   Container,
@@ -7,9 +7,39 @@ import {
   LogoutBtn,
   MainHeader,
 } from "./Header.styled";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const Header = () => {
+  const params = useParams();
+  const ulEl = useRef(null);
+
+  useEffect(() => {
+    let el = null;
+    switch (params["*"]) {
+      case "backofficer":
+      case "list-staffs/collectors":
+      case "list-staffs/janitors":
+        el = ulEl.current.querySelector("#backofficer span");
+        break;
+      case "work-calendar":
+        el = ulEl.current.querySelector("#work-calendar span");
+        break;
+      case "assign-tasks":
+        el = ulEl.current.querySelector("#assign-tasks span");
+        break;
+      default:
+        break;
+    }
+
+    if (el !== null) {
+      el.classList.add("active");
+    }
+
+    return () => {
+      el.classList.remove("active");
+    };
+  }, [params]);
+
   return (
     <MainHeader>
       <Container>
@@ -22,10 +52,10 @@ const Header = () => {
           </NavLink>
         </HeaderLeft>
         <HeaderMiddle>
-          <ul>
+          <ul ref={ulEl}>
             <li>
-              <div className="dropdown">
-                <span className="text active">Home</span>
+              <div className="dropdown" id="backofficer">
+                <span className="text">Home</span>
               </div>
               <ul className="list">
                 <li>
@@ -62,7 +92,7 @@ const Header = () => {
               </div>
             </li>
             <li>
-              <div className="dropdown">
+              <div className="dropdown" id="assign-tasks">
                 <span className="text">Manage Tasks</span>
               </div>
               <ul className="list small-drop">
@@ -75,7 +105,7 @@ const Header = () => {
               </ul>
             </li>
             <li>
-              <div className="dropdown">
+              <div className="dropdown" id="work-calendar">
                 <NavLink
                   to="/home/work-calendar"
                   style={{ textDecoration: "none", color: "inherit" }}
