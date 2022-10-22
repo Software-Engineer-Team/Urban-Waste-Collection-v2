@@ -1,14 +1,15 @@
-import useScript from "@hook/useScript";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import usePlaceSearch from "@hook/usePlaceSearch";
 
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
+const mapEl = document.getElementById("map");
 const key = "S8d7L47mdyAG5nHG09dUnSPJjreUVPeC";
 
 const AssignRoute = () => {
-  const [map, setMap] = useState(null);
-  const [placeSearch, setPlaceSearch] = useState(null);
+  const map = useRef(null);
+  const placeSearch = useRef(null);
   const coords = useRef([]);
   const points = useRef([]);
   const layers = useRef([]);
@@ -16,40 +17,38 @@ const AssignRoute = () => {
   const makerStart = useRef(null),
     makerEnd = useRef(null);
 
-  useScript(`${process.env.REACT_APP_ENDPOINT_CLIENT}/js/route-direction.js`);
+  const [formBlock] = usePlaceSearch("/home/backofficer", () => {
+    mapEl.style.display = "none";
+    map.current.remove();
+  });
 
-  const runDirection = useCallback(
-    (pos) => {
-      let dir = window.MQ.routing.directions();
-      console.log(pos);
+  const runDirection = useCallback((pos) => {
+    let dir = window.MQ.routing.directions();
 
-      dir.route({
-        /* locations: ["13.98366,108.002701", "10.8326,106.6581"], */
-        locations: [...pos],
-      });
+    dir.route({
+      /* locations: ["13.98366,108.002701", "10.8326,106.6581"], */
+      locations: [...pos],
+    });
 
-      let CustomRouteLayer = window.MQ.Routing.RouteLayer.extend({
-        createStartMarker: (location) => {
-          return makerStart.current;
-        },
+    let CustomRouteLayer = window.MQ.Routing.RouteLayer.extend({
+      createStartMarker: (location) => {
+        return makerStart.current;
+      },
 
-        createEndMarker: (location) => {
-          return makerEnd.current;
-        },
-      });
+      createEndMarker: (location) => {
+        return makerEnd.current;
+      },
+    });
 
-      const layer = new CustomRouteLayer({
-        directions: dir,
-        fitBounds: true,
-      });
-      console.log("layer", layer);
+    const layer = new CustomRouteLayer({
+      directions: dir,
+      fitBounds: true,
+    });
 
-      layers.current.push(layer);
+    layers.current.push(layer);
 
-      map.addLayer(layer);
-    },
-    [map]
-  );
+    map.current.addLayer(layer);
+  }, []);
 
   const onMapClick = useCallback(
     (e) => {
@@ -90,7 +89,7 @@ const AssignRoute = () => {
             const maker = window.L.marker(location.latLng, {
               icon: custom_icon,
             })
-              .addTo(map)
+              .addTo(map.current)
               .bindPopup(
                 window.L.popup({
                   maxWidth: 250,
@@ -118,75 +117,71 @@ const AssignRoute = () => {
           });
       }
     },
-    [map, points, runDirection]
+    [points, runDirection]
   );
 
   useEffect(() => {
-    setPlaceSearch(
-      window.placeSearch({
-        key: key,
-        container: document.querySelector("#MCP"),
-      })
-    );
-    setMap(
-      window.L.map("map", {
-        layers: window.MQ.mapLayer(),
-        center: hcmCity,
-        zoom: 12,
-      })
-    );
+    mapEl.style.display = "block";
+
+    placeSearch.current = window.placeSearch({
+      key: key,
+      container: document.querySelector("#MCP"),
+    });
+
+    map.current = window.L.map("map", {
+      layers: window.MQ.mapLayer(),
+      center: hcmCity,
+      zoom: 12,
+    });
+
+    placeSearch.current.on("change", (e) => {
+      try {
+        const { lat, lng } = e.result.latlng;
+        map.current.panTo([lat, lng]);
+        map.current.zoomIn(2);
+      } catch (err) {
+        console.error(err);
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (map) {
-      map.on("click", onMapClick);
-
-      placeSearch.on("change", (e) => {
-        try {
-          const { lat, lng } = e.result.latlng;
-          map.panTo([lat, lng]);
-          map.zoomIn(2);
-        } catch (err) {
-          console.error(err);
-        }
-      });
+    if (map.current) {
+      map.current.on("click", onMapClick);
       return () => {
-        map.off("click", onMapClick);
+        map.current.off("click", onMapClick);
       };
     }
-  }, [onMapClick, map]);
+  }, [onMapClick]);
 
-  const clearMCPBtn = document.querySelector("#MCP-btn");
   useEffect(() => {
-    clearMCPBtn?.addEventListener("click", (e) => {
+    const clearMCPBtn = formBlock?.querySelector("#MCP-btn");
+    const handleClearMCPBtn = () => {
       if (layers.current.length > 0 && coords.current.length > 0) {
         layers.current?.forEach((el) => {
-          map.removeLayer(el);
+          map.current.removeLayer(el);
         });
-        /* coords.current.forEach((coord) => */
-        /*   coord.forEach((el) => { */
-        /*     map.removeLayer(el); */
-        /*   }) */
-        /* ); */
-        if (makerStart.current) map.removeLayer(makerStart.current);
+        if (makerStart.current) map.current.removeLayer(makerStart.current);
         makerStart.current = null;
         makerEnd.current = null;
         layers.current = [];
         coords.current = [];
         points.current = [];
-        map.remove();
-        /**/
-        setMap(
-          window.L.map("map", {
-            layers: window.MQ.mapLayer(),
-            center: hcmCity,
-            zoom: 12,
-            zoomControl: true,
-          })
-        );
+        map.current.remove();
+        map.current = window.L.map("map", {
+          layers: window.MQ.mapLayer(),
+          center: hcmCity,
+          zoom: 12,
+          zoomControl: true,
+        });
+        map.current.on("click", onMapClick);
       }
-    });
-  }, [clearMCPBtn, map]);
+    };
+    clearMCPBtn?.addEventListener("click", handleClearMCPBtn);
+    return () => {
+      clearMCPBtn?.removeEventListener("click", handleClearMCPBtn);
+    };
+  }, [formBlock, onMapClick]);
 };
 
 export default AssignRoute;

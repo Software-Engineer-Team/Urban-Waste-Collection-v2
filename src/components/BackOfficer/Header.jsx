@@ -36,7 +36,7 @@ const Header = () => {
     }
 
     return () => {
-      el.classList.remove("active");
+      if (el && el.classList) el.classList.remove("active");
     };
   }, [params]);
 
@@ -111,6 +111,16 @@ const Header = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <span className="text">Work Calendar</span>
+                </NavLink>
+              </div>
+            </li>
+            <li>
+              <div className="dropdown" id="assign-route">
+                <NavLink
+                  to="/home/route"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <span className="text">Assign Route</span>
                 </NavLink>
               </div>
             </li>

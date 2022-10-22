@@ -11,6 +11,7 @@ import {
 const Header = () => {
   const dispatch = useDispatch();
   const { monthIndex } = useSelector((state) => state.month);
+  console.log(monthIndex);
 
   return (
     <Container>
