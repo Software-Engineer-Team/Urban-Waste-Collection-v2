@@ -5,11 +5,30 @@ const urlRedIcon =
   "https://www.mapquestapi.com/staticmap/geticon?uri=poi-red_1.png";
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
+const key = "S8d7L47mdyAG5nHG09dUnSPJjreUVPeC";
 
 let map = window.L.map("map", {
   layers: window.MQ.mapLayer(),
   center: hcmCity,
   zoom: 12,
+  zoomControl: true,
+});
+
+let current_place = [10.8326, 106.6581];
+let placeSearch = window.placeSearch({
+  key: key,
+  container: document.querySelector("#MCP"),
+});
+
+placeSearch.on("change", (e) => {
+  try {
+    const { lat, lng } = e.result.latlng;
+    current_place = [lat, lng];
+    map.panTo(current_place);
+    map.zoomIn(2);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 let listCoord = [];
@@ -62,7 +81,7 @@ function onMapClick(e) {
     loading_spinner.style.display = "inline-block";
     background_blur.style.display = "block";
     fetch(
-      `http://www.mapquestapi.com/geocoding/v1/reverse?key=S8d7L47mdyAG5nHG09dUnSPJjreUVPeC&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+      `http://www.mapquestapi.com/geocoding/v1/reverse?key=${key}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
     )
       .then((res) => {
         return res.json();
@@ -115,5 +134,29 @@ function onMapClick(e) {
       });
   }
 }
-
 map.on("click", onMapClick);
+
+const clearMCPBtn = document.querySelector("#MCP-btn");
+console.log(clearMCPBtn);
+clearMCPBtn.addEventListener("click", (e) => {
+  console.log(listLayer);
+  console.log(listCoord);
+  if (listLayer.length > 0 && listCoord.length > 0) {
+    listLayer.forEach((el) => map.removeLayer(el));
+    listCoord.forEach((el) => map.removeLayer(el));
+    makerStart = null;
+    makerEnd = null;
+    listLayer = [];
+    listCoord = [];
+    points = [];
+    map.remove();
+
+    map = window.L.map("map", {
+      layers: window.MQ.mapLayer(),
+      center: hcmCity,
+      zoom: 12,
+      zoomControl: true,
+    });
+    map.on("click", onMapClick);
+  }
+});

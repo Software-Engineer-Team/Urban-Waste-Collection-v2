@@ -4,15 +4,19 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
+const key = "S8d7L47mdyAG5nHG09dUnSPJjreUVPeC";
 
 const AssignRoute = () => {
   const [map, setMap] = useState(null);
+  const [placeSearch, setPlaceSearch] = useState(null);
   const coords = useRef([]);
   const points = useRef([]);
   const layers = useRef([]);
   const makers = useRef([]);
   const makerStart = useRef(null),
     makerEnd = useRef(null);
+
+  useScript(`${process.env.REACT_APP_ENDPOINT_CLIENT}/js/route-direction.js`);
 
   const runDirection = useCallback(
     (pos) => {
@@ -55,7 +59,7 @@ const AssignRoute = () => {
         loading_spinner.style.display = "inline-block";
         background_blur.style.display = "inline-block";
         fetch(
-          `http://www.mapquestapi.com/geocoding/v1/reverse?key=S8d7L47mdyAG5nHG09dUnSPJjreUVPeC&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+          `http://www.mapquestapi.com/geocoding/v1/reverse?key=${key}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
         )
           .then((res) => {
             return res.json();
@@ -118,6 +122,12 @@ const AssignRoute = () => {
   );
 
   useEffect(() => {
+    setPlaceSearch(
+      window.placeSearch({
+        key: key,
+        container: document.querySelector("#MCP"),
+      })
+    );
     setMap(
       window.L.map("map", {
         layers: window.MQ.mapLayer(),
@@ -130,12 +140,53 @@ const AssignRoute = () => {
   useEffect(() => {
     if (map) {
       map.on("click", onMapClick);
+
+      placeSearch.on("change", (e) => {
+        try {
+          const { lat, lng } = e.result.latlng;
+          map.panTo([lat, lng]);
+          map.zoomIn(2);
+        } catch (err) {
+          console.error(err);
+        }
+      });
       return () => {
         map.off("click", onMapClick);
       };
     }
   }, [onMapClick, map]);
-  /* useScript(`${process.env.REACT_APP_ENDPOINT_CLIENT}/js/route-direction.js`); */
+
+  const clearMCPBtn = document.querySelector("#MCP-btn");
+  useEffect(() => {
+    clearMCPBtn?.addEventListener("click", (e) => {
+      if (layers.current.length > 0 && coords.current.length > 0) {
+        layers.current?.forEach((el) => {
+          map.removeLayer(el);
+        });
+        /* coords.current.forEach((coord) => */
+        /*   coord.forEach((el) => { */
+        /*     map.removeLayer(el); */
+        /*   }) */
+        /* ); */
+        if (makerStart.current) map.removeLayer(makerStart.current);
+        makerStart.current = null;
+        makerEnd.current = null;
+        layers.current = [];
+        coords.current = [];
+        points.current = [];
+        map.remove();
+        /**/
+        setMap(
+          window.L.map("map", {
+            layers: window.MQ.mapLayer(),
+            center: hcmCity,
+            zoom: 12,
+            zoomControl: true,
+          })
+        );
+      }
+    });
+  }, [clearMCPBtn, map]);
 };
 
 export default AssignRoute;
