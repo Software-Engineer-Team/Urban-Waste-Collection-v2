@@ -5,7 +5,7 @@ export { default as Features } from "@components/BackOfficer/Features";
 export { default as Header } from "@components/BackOfficer/Header";
 
 export { default as Calendar } from "@components/Calendar/Calendar";
-export { default as AssignRoute } from "@components/AssignRoute/AssignRoute";
+export { default as AssignRoute } from "@components/AssignTasks/AssignRoute/AssignRoute";
 export { default as SideBar } from "@components/Chat/SideBar/SideBar";
 export { default as HeaderBar } from "@components/Chat/ChatForm/HeaderBar/HeaderBar";
 export { default as InputBar } from "@components/Chat/ChatForm/InputBar/InputBar";

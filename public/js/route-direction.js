@@ -3,8 +3,10 @@ const urlBlueIcon =
   "https://www.mapquestapi.com/staticmap/geticon?uri=poi-blue_1.png";
 const urlRedIcon =
   "https://www.mapquestapi.com/staticmap/geticon?uri=poi-red_1.png";
+const loading_spinner = document.getElementById("loader");
+const background_blur = document.getElementById("background-blur");
 
-let map = window.L.map("root", {
+let map = window.L.map("map", {
   layers: window.MQ.mapLayer(),
   center: hcmCity,
   zoom: 12,
@@ -13,6 +15,7 @@ let map = window.L.map("root", {
 let listCoord = [];
 let points = [];
 let listLayer = [];
+let listMaker = [];
 let makerStart = null,
   makerEnd = null;
 
@@ -43,18 +46,21 @@ const runDirection = (pos) => {
   map.addLayer(layer);
 };
 
+const removeRoute = () => {
+  listLayer.forEach((l) => map.removeLayer(l));
+  listMaker.forEach((m) => map.removeLayer(m));
+  makerStart = null;
+  makerEnd = null;
+  listCoord = [];
+  listLayer = [];
+};
+
 function onMapClick(e) {
-  /* if (listPosition.length >= 2) { */
-  /*   listPosition = []; */
-  /*   listLayer.forEach((el) => map.removeLayer(el)); */
-  /*   makerStart = null; */
-  /*   makerEnd = null; */
-  /*   listLayer = []; */
-  /*   return; */
-  /* } */
   const { lat, lng } = e.latlng;
 
   if (lat && lng) {
+    loading_spinner.style.display = "inline-block";
+    background_blur.style.display = "block";
     fetch(
       `http://www.mapquestapi.com/geocoding/v1/reverse?key=S8d7L47mdyAG5nHG09dUnSPJjreUVPeC&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
     )
@@ -62,6 +68,8 @@ function onMapClick(e) {
         return res.json();
       })
       .then((data) => {
+        loading_spinner.style.display = "none";
+        background_blur.style.display = "none";
         const location = data.results[0].locations[0];
         const street = location.street !== "" ? location.street + ", " : "";
         const city =
@@ -91,6 +99,7 @@ function onMapClick(e) {
           )
           .setPopupContent(street + city + country + state)
           .openPopup();
+        listMaker.push(maker);
 
         if (points.length === 1) {
           makerStart = maker;
