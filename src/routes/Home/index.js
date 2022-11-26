@@ -1,5 +1,5 @@
 import { AssignTasks, BackOfficer, MemberDetail, Staffs } from "@pages/Home";
-import { Calendar, AssignRoute } from "@components";
+import { Calendar, AssignRoute, AssignArea } from "@components/index";
 
 export const homeRoutes = [
   { path: "/backofficer", component: BackOfficer },
@@ -17,4 +17,5 @@ export const homeRoutes = [
   { path: "/staff-details/:id", component: MemberDetail },
   { path: "/task-management/calendar", component: Calendar },
   { path: "/task-management/route", component: AssignRoute },
+  { path: "/task-management/area", component: AssignArea },
 ];
