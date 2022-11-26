@@ -10,12 +10,12 @@ const Home = () => {
       <Header />
       <Routes>
         {homeRoutes.map(({ path, component: SubPage, type }) => {
+          console.log(type);
           return (
             <Route
               key={uuidv4()}
               path={path}
-              element={<SubPage />}
-              type={type}
+              element={<SubPage type={type} />}
             />
           );
         })}

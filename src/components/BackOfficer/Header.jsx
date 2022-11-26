@@ -15,17 +15,21 @@ const Header = () => {
 
   useEffect(() => {
     let el = null;
-    switch (params["*"]) {
+    console.log(params["*"].split("/")[0]);
+    switch (params["*"].split("/")[0]) {
       case "backofficer":
-      case "list-staffs/collectors":
-      case "list-staffs/janitors":
         el = ulEl.current.querySelector("#backofficer span");
         break;
       case "work-calendar":
         el = ulEl.current.querySelector("#work-calendar span");
         break;
-      case "assign-tasks":
-        el = ulEl.current.querySelector("#assign-tasks span");
+      case "task-assignment":
+        el = ulEl.current.querySelector("#task-assignment span");
+        break;
+      case "task-management":
+      case "list-staffs":
+      case "staff-details":
+        el = ulEl.current.querySelector("#task-management span");
         break;
       default:
         break;
@@ -61,8 +65,51 @@ const Header = () => {
                 <li>
                   <NavLink to="/home/backofficer">Home Page 1</NavLink>
                 </li>
+                {/* <li> */}
+                {/*   <a href="#">View Information</a> */}
+                {/*   <div> */}
+                {/*     <FaAngleRight /> */}
+                {/*   </div> */}
+                {/*   <ul className="list small-drop"> */}
+                {/*     <li> */}
+                {/*       <NavLink to="/home/list-staffs/collectors"> */}
+                {/*         Collectors */}
+                {/*       </NavLink> */}
+                {/*     </li> */}
+                {/*     <li> */}
+                {/*       <NavLink to="/home/list-staffs/janitors"> */}
+                {/*         Janitors */}
+                {/*       </NavLink> */}
+                {/*     </li> */}
+                {/*   </ul> */}
+                {/* </li> */}
+              </ul>
+            </li>
+            <li>
+              <div className="dropdown" id="task-management">
+                <span className="text">Task Management</span>
+              </div>
+              <ul className="list">
                 <li>
-                  <a href="#">View Information</a>
+                  <NavLink to="/home/task-management/area">Manage Area</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/home/task-management/calendar">
+                    Manage Calendar
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/home/task-management/route">
+                    Manage Route
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/home/task-management/vehicle">
+                    Manage Vehicle
+                  </NavLink>
+                </li>
+                <li>
+                  <a href="#">Manage Worker</a>
                   <div>
                     <FaAngleRight />
                   </div>
@@ -82,45 +129,25 @@ const Header = () => {
               </ul>
             </li>
             <li>
+              <div className="dropdown" id="task-assignment">
+                <span className="text">Task Assignment</span>
+              </div>
+              <ul className="list small-drop">
+                <li>
+                  <NavLink to="/home/task-assignment">Collectors</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/home/task-assignment">Janitors</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li>
               <div className="dropdown">
                 <NavLink
                   to="/chat-room"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
                   <span className="text">Send Messages</span>
-                </NavLink>
-              </div>
-            </li>
-            <li>
-              <div className="dropdown" id="assign-tasks">
-                <span className="text">Manage Tasks</span>
-              </div>
-              <ul className="list small-drop">
-                <li>
-                  <NavLink to="/home/assign-tasks">Collectors</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/home/assign-tasks">Janitors</NavLink>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <div className="dropdown" id="work-calendar">
-                <NavLink
-                  to="/home/work-calendar"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <span className="text">Work Calendar</span>
-                </NavLink>
-              </div>
-            </li>
-            <li>
-              <div className="dropdown" id="assign-route">
-                <NavLink
-                  to="/home/route"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <span className="text">Assign Route</span>
                 </NavLink>
               </div>
             </li>

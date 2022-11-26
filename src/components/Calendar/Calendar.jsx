@@ -19,7 +19,7 @@ const Calendar = () => {
     <div>
       <div style={{ height: 70 }}></div>
       <Container>
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Month month={currentMonth} />
         {isJobMaking && <JobMaker />}
       </Container>

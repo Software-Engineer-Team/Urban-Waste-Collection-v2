@@ -17,7 +17,7 @@ const usePlaceSearch = (url, cb) => {
     const link = div.querySelector("#turn-back");
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      cb();
+      /* cb(); */
       navigate(url);
     });
 
@@ -26,6 +26,7 @@ const usePlaceSearch = (url, cb) => {
     document.body.appendChild(div);
     setFormBlock(div);
     return () => {
+      cb();
       document.body.removeChild(div);
       setFormBlock(null);
     };

@@ -9,7 +9,13 @@ function App() {
       <Routes>
         {appRoutes.map(({ path, component: Page }) => {
           if (path === "/") {
-            return <Route key={uuidv4()} path={path} element={<Page to="/auth/login" />} />;
+            return (
+              <Route
+                key={uuidv4()}
+                path={path}
+                element={<Page to="/auth/login" />}
+              />
+            );
           }
           return <Route key={uuidv4()} path={path} element={<Page />} />;
         })}

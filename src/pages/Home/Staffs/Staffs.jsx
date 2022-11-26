@@ -4,6 +4,7 @@ import Member from "@components/Staffs/Member";
 import { Container } from "./Staffs.styled";
 
 const Staffs = (props) => {
+  console.log(props);
   return (
     <div>
       <GeneralHeader type={props.type} />

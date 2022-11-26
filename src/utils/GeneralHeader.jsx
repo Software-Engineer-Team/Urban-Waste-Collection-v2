@@ -6,6 +6,7 @@ import {
 } from "@pages/Home/AssignTasks/AssignTasks.styled";
 
 const GeneralHeader = (props) => {
+  console.log(props);
   return (
     <PageHeader>
       <PageHeaderBg />

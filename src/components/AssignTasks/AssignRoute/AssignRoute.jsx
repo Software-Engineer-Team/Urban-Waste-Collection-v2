@@ -19,7 +19,7 @@ const AssignRoute = () => {
 
   const [formBlock] = usePlaceSearch("/home/backofficer", () => {
     mapEl.style.display = "none";
-    map.current.remove();
+    map?.current.remove();
   });
 
   const runDirection = useCallback((pos) => {

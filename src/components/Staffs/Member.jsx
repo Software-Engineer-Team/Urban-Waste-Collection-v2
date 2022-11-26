@@ -4,6 +4,7 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { GrTwitter } from "react-icons/gr";
 import { FaPinterestP } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const Member = (props) => {
   return (
@@ -39,9 +40,9 @@ const Member = (props) => {
             </a>
           </div>
           <div className="arrow">
-            <a href={`/home/staff-details/${props.name}`}>
+            <NavLink to={`/home/staff-details/${props.name}`}>
               <BiRightArrowAlt />
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

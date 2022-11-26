@@ -37,7 +37,7 @@ const SideBar = () => {
         <ContentBody>
           <h5>Collectors</h5>
           <ChatsList>
-            {Array(18)
+            {Array(1)
               .fill()
               .map(() => {
                 return (
