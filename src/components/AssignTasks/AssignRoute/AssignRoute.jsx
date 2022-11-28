@@ -58,7 +58,7 @@ const AssignRoute = () => {
         loading_spinner.style.display = "inline-block";
         background_blur.style.display = "inline-block";
         fetch(
-          `http://www.mapquestapi.com/geocoding/v1/reverse?key=${key}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+          `https://www.mapquestapi.com/geocoding/v1/reverse?key=${key}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
         )
           .then((res) => {
             return res.json();
