@@ -80,6 +80,7 @@ const AssignArea = () => {
     }
   }, [map.current]);
 
+  // Draw item
   useEffect(() => {
     if (map.current) {
       const drawnItems = new window.L.FeatureGroup();
