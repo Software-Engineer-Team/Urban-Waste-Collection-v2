@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import usePlaceSearch from "@hook/usePlaceSearch";
-import { postData } from "~/utils/util";
+import { postData, fetchData } from "@utils/util";
 
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
@@ -10,28 +10,16 @@ const mapEl = document.getElementById("map");
 const AssignArea = () => {
   const map = useRef(null);
   const placeSearch = useRef(null);
-  const coords = useRef([]);
-  const points = useRef([]);
-  const layers = useRef([]);
-  const makers = useRef([]);
-  const makerStart = useRef(null),
-    makerEnd = useRef(null);
-  const [areas, setAreas] = useState([
-    {
-      location: [10.79585, 106.65873],
-      description: "Area: TEST",
-    },
-    { location: [10.84943, 106.76849], description: "Area: sdfasdfsdfsdf" },
-  ]);
 
   const [formBlock] = usePlaceSearch("/home/backofficer", () => {
     mapEl.style.display = "none";
     map?.current.remove();
   });
 
+  // show MCPs
   useEffect(() => {
     if (map.current) {
-      var bounds = [
+      const bounds = [
         [10.722361730840149, 106.57699584960938],
         [10.916598861226174, 106.57699584960938],
         [10.916598861226174, 106.85028076171875],
@@ -43,40 +31,68 @@ const AssignArea = () => {
         map.current
       );
 
-      areas.forEach((area) => {
-        let custom_icon = window.L.icon({
-          iconUrl: "/images/leaf-green.png",
-          iconSize: [38, 95],
-          iconAnchor: [22, 94],
-          popupAnchor: [-3, -76],
-          shadowUrl: "/images/leaf-shadow.png",
-          shadowSize: [50, 64],
-          shadowAnchor: [4, 62],
+      fetchData(`/api/MCPs`).then((Mcps) => {
+        console.log(Mcps);
+        Mcps.forEach((mcp) => {
+          let custom_icon = window.L.icon({
+            iconUrl: "/images/leaf-green.png",
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76],
+            shadowUrl: "/images/leaf-shadow.png",
+            shadowSize: [50, 64],
+            shadowAnchor: [4, 62],
+          });
+
+          window.L.marker([mcp.point.latitude, mcp.point.longitude], {
+            icon: custom_icon,
+          })
+            .addTo(map.current)
+            .bindPopup(
+              window.L.popup({
+                maxWidth: 250,
+                minWidth: 100,
+                top: -20,
+                autoClose: false,
+                closeOnClick: false,
+                /* className: ${workout.type}-popup, */
+              })
+            )
+            .setPopupContent(mcp.name)
+            .openPopup();
+
+          window.L.circleMarker([mcp.point.latitude, mcp.point.longitude], {
+            radius: 150,
+            color: "green",
+            fillColor: "#ffd77a",
+            fillOpacity: 0.5,
+          }).addTo(map.current);
+
+          // show Areas around Mcp
+          fetchData(`/api/areas/${mcp.id}`).then((areas) => {
+            areas.forEach(
+              ({
+                centerPoint: { latitude, longitude },
+                radius,
+                description,
+              }) => {
+                window.L.circleMarker([latitude, longitude], {
+                  radius: radius * 30,
+                  color: "#3388ff",
+                  fillOpacity: 0.4,
+                })
+                  .bindPopup(description, {
+                    maxWidth: 250,
+                    minWidth: 100,
+                    top: -20,
+                    autoClose: false,
+                    closeOnClick: false,
+                  })
+                  .addTo(map.current);
+              }
+            );
+          });
         });
-
-        window.L.marker(area.location, {
-          icon: custom_icon,
-        })
-          .addTo(map.current)
-          .bindPopup(
-            window.L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              top: -20,
-              autoClose: false,
-              closeOnClick: false,
-              /* className: ${workout.type}-popup, */
-            })
-          )
-          .setPopupContent(area.description)
-          .openPopup();
-
-        window.L.circleMarker(area.location, {
-          radius: 150,
-          color: "green",
-          fillColor: "#ffd77a",
-          fillOpacity: 0.5,
-        }).addTo(map.current);
       });
     }
   }, [map.current]);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AssignTasksCheckBoxes from "../AssignTasksCheckBoxes/AssignTasksCheckBoxes";
 import {
   AssignTasksListForm,
@@ -12,35 +12,48 @@ import {
   AssignTasksListFormRow,
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
-import { RiArrowDropDownLine, RiArrowDropRightLine } from "react-icons/ri";
-import SelectOptions from "~/components/UI/SelectOptions";
-
-const DropDownUsers = ({ dropDownUsers }) => {
-  return (
-    <div className={`drop-down ${dropDownUsers ? "show-drop-down" : ""}`}>
-      <ul>
-        <li>
-          <div>
-            <span>Cao Tuan Kiet</span>
-          </div>
-        </li>
-        <li>
-          {/* <div className="selected"> */}
-          <div>
-            <span>Cao Hoang Kiet</span>
-          </div>
-        </li>
-      </ul>
-    </div>
-  );
-};
+import { fetchData } from "@utils/util";
+import Swal from "sweetalert2";
 
 const AssignTasksForm = ({ url, type }) => {
-  const [dropDownUsers, setDropDownUsers] = useState(false);
   const [isAssignRoute, setIsAssignRoute] = useState(false);
-  const showDropDownUsers = (e) => {
-    setDropDownUsers((oldDrop) => !oldDrop);
+  const [areas, setAreas] = useState([]);
+  const [mcps, setMcps] = useState([]);
+
+  useEffect(() => {
+    if (type === "Collectors") {
+      fetchData("/api/MCPs").then((mcps) => setMcps(mcps));
+    } else {
+      fetchData("/api/areas").then((areas) => setAreas(areas));
+    }
+  }, [type]);
+
+  const submitHandler = () => {
+    let timerInterval;
+    Swal.fire({
+      title: "<strong>Processing...</strong>",
+      html: "Please wait for a minute!!!",
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Task Assignment done",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
+
   return (
     <AssignTasksListForm>
       <AssignTasksCheckBoxes />
@@ -51,16 +64,34 @@ const AssignTasksForm = ({ url, type }) => {
         <AssignTasksListFormRow>
           <AssignTasksListFormCol>
             <AssignTasksListFormInputSelect>
-              <option value="Select Waste Type">Select Waste Type</option>
-              <option value="32 Gallon">32 Gallon</option>
-              <option value="64 Gallon">64 Gallon</option>
-              <option value="96 Gallon">96 Gallon</option>
+              <option
+                value={`${
+                  type === "Collectors" ? "Assign MCP" : "Assign area"
+                }`}
+              >
+                {type === "Collectors" ? "Assign MCP" : "Assign area"}
+              </option>
+              {type !== "Collectors"
+                ? areas?.map(({ description }, idx) => {
+                    return (
+                      <option key={idx} value={`${description}`}>
+                        {description}
+                      </option>
+                    );
+                  })
+                : mcps?.map(({ name }, idx) => {
+                    return (
+                      <option key={idx} value={`${name}`}>
+                        {name}
+                      </option>
+                    );
+                  })}
             </AssignTasksListFormInputSelect>
-            <AssignTasksListFormInputText
-              placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"}
-              wid="100%"
-              onClick={() => setIsAssignRoute(!isAssignRoute)}
-            />
+            {/* <AssignTasksListFormInputText */}
+            {/*   placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"} */}
+            {/*   wid="100%" */}
+            {/*   onClick={() => setIsAssignRoute(!isAssignRoute)} */}
+            {/* /> */}
             <AssignTasksListFormDate>
               <AssignTasksListFormInputText
                 type="text"
@@ -95,7 +126,9 @@ const AssignTasksForm = ({ url, type }) => {
           </AssignTasksListFormCol>
         </AssignTasksListFormRow>
         <AssignTasksListFormBtn>
-          <a href="#">Submit</a>
+          <a href="#" onClick={submitHandler}>
+            Submit
+          </a>
         </AssignTasksListFormBtn>
       </AssignTasksListFormContent>
     </AssignTasksListForm>
