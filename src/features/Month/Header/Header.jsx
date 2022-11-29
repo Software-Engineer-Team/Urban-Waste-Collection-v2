@@ -28,7 +28,7 @@ const Header = () => {
         </span>
       </MonthNav>
       <CurrentMonth>
-        <span>{dayjs().set("month", monthIndex).format("MMMM YYYY")}</span>
+        {dayjs().set("month", monthIndex).format("MMMM YYYY")}
       </CurrentMonth>
       <MonthNav
         onClick={() => {

@@ -12,4 +12,9 @@ export const GridLayout = styled.div`
   display: grid;
   grid-template-rows: repeat(5, minmax(0, 1fr));
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 20px;
+`;
+
+export const Content = styled.div`
+  border: 1px solid #dadce0;
 `;

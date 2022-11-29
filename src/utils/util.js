@@ -32,6 +32,7 @@ export const postData = async (data, typeUrl) => {
 
 export const fetchData = async (url) => {
   try {
+    console.log(`${process.env.REACT_APP_ENDPOINT_SERVER}${url}`);
     const data = await fetch(`${process.env.REACT_APP_ENDPOINT_SERVER}${url}`);
     return data.json();
   } catch (err) {

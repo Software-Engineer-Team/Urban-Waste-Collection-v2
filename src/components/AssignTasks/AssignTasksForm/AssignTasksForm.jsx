@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AssignTasksCheckBoxes from "../AssignTasksCheckBoxes/AssignTasksCheckBoxes";
 import {
   AssignTasksListForm,
@@ -14,18 +14,23 @@ import {
 } from "./AssignTasksForm.styled";
 import { fetchData } from "@utils/util";
 import Swal from "sweetalert2";
+import { AiFillGithub } from "react-icons/ai";
 
 const AssignTasksForm = ({ url, type }) => {
   const [isAssignRoute, setIsAssignRoute] = useState(false);
   const [areas, setAreas] = useState([]);
+  const areasRef = useRef([]);
   const [mcps, setMcps] = useState([]);
 
   useEffect(() => {
-    if (type === "Collectors") {
-      fetchData("/api/MCPs").then((mcps) => setMcps(mcps));
-    } else {
-      fetchData("/api/areas").then((areas) => setAreas(areas));
+    if (type !== "Collectors") {
+      fetchData("/api/areas").then((areas) => {
+        areasRef.current = areas;
+        setAreas(areas);
+      });
     }
+
+    fetchData("/api/MCPs").then((mcps) => setMcps(mcps));
   }, [type]);
 
   const submitHandler = () => {
@@ -63,30 +68,45 @@ const AssignTasksForm = ({ url, type }) => {
       <AssignTasksListFormContent>
         <AssignTasksListFormRow>
           <AssignTasksListFormCol>
-            <AssignTasksListFormInputSelect>
-              <option
-                value={`${
-                  type === "Collectors" ? "Assign MCP" : "Assign area"
-                }`}
-              >
-                {type === "Collectors" ? "Assign MCP" : "Assign area"}
-              </option>
-              {type !== "Collectors"
-                ? areas?.map(({ description }, idx) => {
-                    return (
-                      <option key={idx} value={`${description}`}>
-                        {description}
-                      </option>
-                    );
-                  })
-                : mcps?.map(({ name }, idx) => {
-                    return (
-                      <option key={idx} value={`${name}`}>
-                        {name}
-                      </option>
-                    );
-                  })}
+            <AssignTasksListFormInputSelect
+              onChange={(e) => {
+                console.log(e.target.value);
+                const mcpName = e.target.value;
+                console.log(areas);
+                setAreas((_preAreas) => {
+                  const newAreas = areasRef.current.filter(({ mcp }) => {
+                    return mcp.name === mcpName;
+                  });
+                  return [...newAreas];
+                });
+              }}
+            >
+              <option value="Assign MCP">Assign MCP</option>
+              {mcps?.map(({ name }, idx) => {
+                return (
+                  <option key={idx} value={`${name}`}>
+                    {name}
+                  </option>
+                );
+              })}
             </AssignTasksListFormInputSelect>
+
+            {type !== "Collectors" && (
+              <AssignTasksListFormInputSelect
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
+              >
+                <option value="Assign area">Assign area</option>
+                {areas?.map(({ description }, idx) => {
+                  return (
+                    <option key={idx} value={`${description}`}>
+                      {description}
+                    </option>
+                  );
+                })}
+              </AssignTasksListFormInputSelect>
+            )}
             {/* <AssignTasksListFormInputText */}
             {/*   placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"} */}
             {/*   wid="100%" */}
@@ -96,6 +116,9 @@ const AssignTasksForm = ({ url, type }) => {
               <AssignTasksListFormInputText
                 type="text"
                 wid="45%"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
                 onMouseEnter={(e) => {
                   e.target.disabled = false;
                   return (e.target.type = "date");
@@ -109,6 +132,9 @@ const AssignTasksForm = ({ url, type }) => {
               <AssignTasksListFormInputText
                 type="text"
                 wid="45%"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
                 onMouseEnter={(e) => {
                   e.target.disabled = false;
                   return (e.target.type = "time");

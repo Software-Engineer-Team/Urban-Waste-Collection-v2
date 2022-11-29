@@ -51,7 +51,7 @@ const Day = ({ day, rowIdx }) => {
   return (
     <DayContainer>
       <Header>
-        {rowIdx === 0 && <WeekDay>{day.format("ddd").toUpperCase()}</WeekDay>}
+        {rowIdx === 0 && <WeekDay>{day.format("dddd").toUpperCase()}</WeekDay>}
         <DayText>{day.format("DD")}</DayText>
       </Header>
       <JobContainer ref={jobColRef}>

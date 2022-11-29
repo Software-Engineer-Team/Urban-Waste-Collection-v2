@@ -12,6 +12,7 @@ export const Container = styled.div`
 
 export const MonthNav = styled.button`
   outline: none;
+  cursor: pointer;
   border: 0;
   background-color: transparent;
   font-size: 1.2rem;
@@ -30,4 +31,6 @@ export const CurrentMonth = styled.div`
   color: #006940;
   font-weight: 700;
   font-size: 1.5rem;
+  min-width: 500px;
+  text-align: center;
 `;
