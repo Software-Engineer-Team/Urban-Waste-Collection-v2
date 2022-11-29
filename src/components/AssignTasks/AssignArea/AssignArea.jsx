@@ -5,7 +5,6 @@ const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
 const mapEl = document.getElementById("map");
-const key = "S8d7L47mdyAG5nHG09dUnSPJjreUVPeC";
 
 const AssignArea = () => {
   const map = useRef(null);
@@ -112,7 +111,7 @@ const AssignArea = () => {
     mapEl.style.display = "block";
 
     placeSearch.current = window.placeSearch({
-      key: key,
+      key: process.env.REACT_APP_MAPQUEST_KEY,
       container: document.querySelector("#MCP"),
     });
 

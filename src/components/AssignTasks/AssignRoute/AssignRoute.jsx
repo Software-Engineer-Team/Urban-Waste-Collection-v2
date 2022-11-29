@@ -5,7 +5,6 @@ const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
 const mapEl = document.getElementById("map");
-const key = "S8d7L47mdyAG5nHG09dUnSPJjreUVPeC";
 
 const AssignRoute = () => {
   const map = useRef(null);
@@ -58,7 +57,7 @@ const AssignRoute = () => {
         loading_spinner.style.display = "inline-block";
         background_blur.style.display = "inline-block";
         fetch(
-          `https://www.mapquestapi.com/geocoding/v1/reverse?key=${key}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+          `https://www.mapquestapi.com/geocoding/v1/reverse?key=${process.env.REACT_APP_MAPQUEST_KEY}&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
         )
           .then((res) => {
             return res.json();
@@ -124,7 +123,7 @@ const AssignRoute = () => {
     mapEl.style.display = "block";
 
     placeSearch.current = window.placeSearch({
-      key: key,
+      key: process.env.REACT_APP_MAPQUEST_KEY,
       container: document.querySelector("#MCP"),
     });
 
