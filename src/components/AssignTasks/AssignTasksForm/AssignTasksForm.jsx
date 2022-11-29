@@ -13,6 +13,7 @@ import {
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
 import { RiArrowDropDownLine, RiArrowDropRightLine } from "react-icons/ri";
+import SelectOptions from "~/components/UI/SelectOptions";
 
 const DropDownUsers = ({ dropDownUsers }) => {
   return (
@@ -50,30 +51,13 @@ const AssignTasksForm = ({ url, type }) => {
         <AssignTasksListFormRow>
           <AssignTasksListFormCol>
             <AssignTasksListFormInputSelect>
-              <select id="" name="">
-                <option value="Select Waste Type">Select Waste Type</option>
-                <option value="32 Gallon">32 Gallon</option>
-                <option value="64 Gallon">64 Gallon</option>
-                <option value="96 Gallon">96 Gallon</option>
-              </select>
-              <div className="btn" onClick={showDropDownUsers}>
-                <div>
-                  {type == "Collectors"
-                    ? "Choose Collectors"
-                    : "Choose Janitors"}
-                </div>
-                <span>
-                  {!dropDownUsers ? (
-                    <RiArrowDropRightLine />
-                  ) : (
-                    <RiArrowDropDownLine />
-                  )}
-                </span>
-              </div>
-              <DropDownUsers dropDownUsers={dropDownUsers} />
+              <option value="Select Waste Type">Select Waste Type</option>
+              <option value="32 Gallon">32 Gallon</option>
+              <option value="64 Gallon">64 Gallon</option>
+              <option value="96 Gallon">96 Gallon</option>
             </AssignTasksListFormInputSelect>
             <AssignTasksListFormInputText
-              placeholder={type == "Collectors" ? "Assign MCP" : "Assign area"}
+              placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"}
               wid="100%"
               onClick={() => setIsAssignRoute(!isAssignRoute)}
             />

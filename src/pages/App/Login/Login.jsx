@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { Link } from "react-router-dom";

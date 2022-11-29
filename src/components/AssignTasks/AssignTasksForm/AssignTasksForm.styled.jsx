@@ -41,86 +41,24 @@ export const AssignTasksListFormCol = styled.div`
   }
 `;
 
-export const AssignTasksListFormInputSelect = styled.div`
+export const AssignTasksListFormInputSelect = styled.select`
   position: relative;
   width: 100%;
   margin: 15px 0;
-  select {
-    display: none;
-  }
-  div.btn {
-    cursor: pointer;
-    position: relative;
-    height: 63px;
-    background-color: #f5f0e9;
-    padding: 0 15px;
-    font-size: 14px;
-    line-height: 63px;
-    font-weight: 500;
-    color: #878986;
-    span {
-      position: absolute;
-      content: "";
-      top: 0;
-      bottom: 0;
-      right: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      svg {
-        font-weight: 900;
-        font-size: 30px;
-      }
-    }
-  }
-  div.drop-down {
-    display: none;
-    transition: all 0.3s ease-in-out;
-    &.show-drop-down {
-      display: block;
-    }
-    z-index: 1;
-
-    font-family: "DM Sans";
-    font-size: 600;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    transform: translate(0px, 65px);
-    overflow: hidden;
-    min-height: 117px;
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
-    div {
-      transition: all 0.4s ease-in-out;
-      padding: 6px 20px;
-      font-size: 16px;
-      font-weight: 500;
-      background-color: #404a3d;
-      white-space: nowrap;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      span {
-        transition: all 0.3s ease-in-out;
-        color: #fff;
-      }
-    }
-    div:hover {
-      background-color: #558e4c;
-      span {
-        color: #fff;
-      }
-    }
-    div.selected {
-      background-color: #558e4c;
-      span {
-        color: #fff;
-      }
-    }
-  }
+  position: relative;
+  height: 63px;
+  width: 100%;
+  outline-style: none;
+  border: 0;
+  background-color: #f5f0e9;
+  padding: 0 15px;
+  font-size: 14px;
+  line-height: 63px;
+  font-weight: 500;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
 `;
 
 export const AssignTasksListFormInputText = styled.input`
@@ -135,7 +73,6 @@ export const AssignTasksListFormInputText = styled.input`
   font-size: 14px;
   line-height: 63px;
   font-weight: 500;
-  color: #878986;
 `;
 
 export const AssignTasksListFormInputTextArea = styled.textarea`
@@ -147,9 +84,8 @@ export const AssignTasksListFormInputTextArea = styled.textarea`
   background-color: #f5f0e9;
   padding: 25px 30px 30px;
   outline: none;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  color: #878986;
   resize: none;
 `;
 

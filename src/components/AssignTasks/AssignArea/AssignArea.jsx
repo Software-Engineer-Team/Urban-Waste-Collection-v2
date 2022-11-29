@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import usePlaceSearch from "@hook/usePlaceSearch";
+import { postData } from "~/utils/util";
 
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
@@ -18,7 +19,7 @@ const AssignArea = () => {
   const [areas, setAreas] = useState([
     {
       location: [10.79585, 106.65873],
-      description: "Area: sdfasdfsdfsdf",
+      description: "Area: TEST",
     },
     { location: [10.84943, 106.76849], description: "Area: sdfasdfsdfsdf" },
   ]);

@@ -16,3 +16,25 @@ export const getMonth = (month = DEFAULT_MONTH) => {
   });
   return daysMatrix;
 };
+
+export const postData = async (data, typeUrl) => {
+  const res = await fetch(typeUrl, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ ...data }),
+  });
+  return res;
+};
+
+export const fetchData = async (url) => {
+  try {
+    const data = await fetch(`${process.env.REACT_APP_ENDPOINT_SERVER}${url}`);
+    return data.json();
+  } catch (err) {
+    console.error(err);
+  }
+};

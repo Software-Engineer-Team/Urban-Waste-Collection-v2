@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import usePlaceSearch from "@hook/usePlaceSearch";
+import { fetchData } from "~/utils/util";
 
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
@@ -59,6 +60,7 @@ const AssignRoute = () => {
   const onMapClick = useCallback(
     (e) => {
       const { lat, lng } = e.latlng;
+      console.log([lat, lng]);
 
       if (lat && lng) {
         loading_spinner.style.display = "inline-block";
@@ -203,8 +205,60 @@ const AssignRoute = () => {
     });
   }, []);
 
+  const showMCPs = async () => {
+    const mcps = await fetchData("/api/MCPs");
+    console.log(mcps);
+    mcps.forEach(async ({ id, name, point }) => {
+      const mcpLocation = [point.latitude, point.longitude];
+      let custom_icon = window.L.icon({
+        iconUrl: "/images/leaf-green.png",
+        iconSize: [38, 95],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowUrl: "/images/leaf-shadow.png",
+        shadowSize: [50, 64],
+        shadowAnchor: [4, 62],
+      });
+
+      window.L.marker(mcpLocation, {
+        icon: custom_icon,
+      })
+        .addTo(map.current)
+        .bindPopup(
+          window.L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+            top: -20,
+            autoClose: false,
+            closeOnClick: false,
+            /* className: ${workout.type}-popup, */
+          })
+        )
+        .setPopupContent(name)
+        .openPopup();
+
+      window.L.circleMarker(mcpLocation, {
+        radius: 150,
+        color: "green",
+        fillColor: "#ffd77a",
+        fillOpacity: 0.5,
+      }).addTo(map.current);
+
+      const areas = await fetchData(`/api/areas/${id}`);
+      areas.forEach(({ centerPoint, radius }) => {
+        const areaLocation = [centerPoint.latitude, centerPoint.longitude];
+        window.L.circleMarker(areaLocation, {
+          radius: radius * 30,
+          color: "#3388ff",
+          fillOpacity: 0.5,
+        }).addTo(map.current);
+      });
+    });
+  };
+
   useEffect(() => {
     if (map.current) {
+      showMCPs();
       map.current.on("click", onMapClick);
       return () => {
         map.current.off("click", onMapClick);
