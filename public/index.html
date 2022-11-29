@@ -3,30 +3,29 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="icon" href="%PUBLIC_URL%/UWC-logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#000000">
   <meta name="description" content="Web site created using create-react-app">
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png">
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/UWC-logo.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
     integrity="sha512-gc3xjCmIy673V6MyOAZhIW93xhM9ei1I+gLbmFjUHIjocENRsLX/QUE1htk5q1XV2D/iie/VQ8DXI6Vu8bexvQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer">
   <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css">
-  <title>React App</title>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer data-deferred="1"></script>
+  <title>UWC-V2</title>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div><!-- use for map -->
-  <div id="map">
-    <!-- <div id="formBlock"> -->
-    <!--   <input type="text" name="MCP" id="MCP" placeholder="Search MCP point"> <button id="MCP-btn">Clear all MCP -->
-    <!--     points</button> -->
-    <!-- </div> -->
-  </div>
+  <div id="map"></div>
   <div id="background-blur"></div>
   <div id="loader"></div>
+  <div id="particles-js" style="visibility: hidden"></div>
+  <script src="/assets/js/particles.js"></script> <!-- stats.js -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
   <script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=vAFYFqcVD8nKFM0TGANoo9zuxBjhfbDP"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"

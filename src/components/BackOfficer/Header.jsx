@@ -50,7 +50,7 @@ const Header = () => {
         <HeaderLeft>
           <NavLink to="/home/backofficer">
             <img
-              src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/logo.png`}
+              src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/UWC-logo.png`}
               alt="logo"
             />
           </NavLink>

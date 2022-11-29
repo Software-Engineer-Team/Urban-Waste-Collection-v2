@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useBackDrop from "@hook/useBackDrop";
 import {
   LoginContainer,
   LoginMain,
@@ -13,10 +14,50 @@ import {
   SocialLoginSectionHeader,
   LineBreak,
 } from "./Login.styled";
+import { useGoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
 
 export default function Home() {
+  const navigate = useNavigate();
+  useBackDrop("login-container");
+
+  useEffect(() => {
+    document.getElementById("particles-js").style.visibility = "visible";
+    return () => {
+      document.getElementById("particles-js").style.visibility = "hidden";
+    };
+  }, []);
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        scope: "",
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  }, []);
+
+  const { signIn } = useGoogleLogin({
+    clientId: process.env.REACT_APP_CLIEND_ID,
+    scope: "",
+    cookiePolicy: "single_host_origin",
+    isSignedIn: false,
+    onSuccess: (e) => {
+      console.log(e);
+      navigate("/home/backofficer");
+    },
+    onFailure: (e) => {
+      console.log(e);
+    },
+  });
+
+  const googleLoginHandler = () => {
+    signIn();
+  };
+
   return (
-    <LoginContainer>
+    <LoginContainer id="login-container">
       <LoginMain>
         <LoginContent>
           <SignInSection>
@@ -36,7 +77,7 @@ export default function Home() {
                 <FaFacebookF />
               </a>
 
-              <a href="#" className="google">
+              <a href="#" className="google" onClick={googleLoginHandler}>
                 <FaGoogle />
               </a>
             </OthersLoginSection>

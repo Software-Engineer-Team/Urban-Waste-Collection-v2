@@ -6,7 +6,10 @@ export const LoginContainer = styled.div`
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: rgb(243, 244, 246);
+  /* background-color: rgb(243, 244, 246); */
+  background-color: transparent;
+  position: relative;
+  z-index: 100;
 `;
 
 export const LoginMain = styled.main`
@@ -25,6 +28,9 @@ export const LoginContent = styled.div`
   border-radius: 16px;
   text-align: center;
   max-width: 896px;
+  box-shadow: 0px -1px 34px 0px rgba(0, 0, 0, 0.61);
+  -webkit-box-shadow: 0px -1px 34px 0px rgba(0, 0, 0, 0.61);
+  -moz-box-shadow: 0px -1px 34px 0px rgba(0, 0, 0, 0.61);
 `;
 
 export const SignInSection = styled.div`
