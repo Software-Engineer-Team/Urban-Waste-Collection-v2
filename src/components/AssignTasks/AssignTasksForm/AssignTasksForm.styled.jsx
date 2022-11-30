@@ -37,7 +37,7 @@ export const AssignTasksListFormCol = styled.div`
   width: 50%;
   padding: 15px;
   height: 100%;
-  height: 270px;
+  height: 330px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +80,7 @@ export const AssignTasksListFormInputText = styled.input`
 
 export const AssignTasksListFormInputTextArea = styled.textarea`
   position: relative;
-  height: 270px;
+  height: 330px;
   width: 100%;
   outline-style: none;
   border: 0;

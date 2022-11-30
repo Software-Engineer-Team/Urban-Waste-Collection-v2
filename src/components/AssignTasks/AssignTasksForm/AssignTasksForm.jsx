@@ -12,15 +12,17 @@ import {
   AssignTasksListFormRow,
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
-import { fetchData, sweetAlertHelper } from "@utils/util";
-import { AiFillGithub } from "react-icons/ai";
+import { fetchData, sweetAlertHelper, postData } from "@utils/util";
 
 const AssignTasksForm = ({ url, type }) => {
-  const [isAssignRoute, setIsAssignRoute] = useState(false);
   const [areas, setAreas] = useState([]);
+  const collectorTaskRef = useRef({});
+  const janitorTaskRef = useRef({});
   const areasRef = useRef([]);
   const [routes, setRoutes] = useState([]);
   const routesRef = useRef([]);
+  const [users, setUsers] = useState([]);
+  const usersRef = useRef([]);
   const [mcps, setMcps] = useState([]);
 
   useEffect(() => {
@@ -37,44 +39,71 @@ const AssignTasksForm = ({ url, type }) => {
     }
 
     fetchData("/api/MCPs").then((mcps) => setMcps(mcps));
+    let url = "";
+    if (type === "Collectors") {
+      url = `/api/users-role?roleName=ROLE_COLLECTOR`;
+    } else {
+      url = "/api/users-role?roleName=ROLE_JANITOR";
+    }
+
+    fetchData(url).then((users) => {
+      usersRef.current = users;
+      setUsers(users);
+    });
   }, [type]);
 
   const submitHandler = () => {
-    sweetAlertHelper("Task Assignment done", () => {});
+    console.log(collectorTaskRef.current);
+    console.log(janitorTaskRef.current);
+    let url = "";
+    let data = {};
+    if (type === "Collectors") {
+      const collectorTaskData = collectorTaskRef.current;
+      url = `/api/collector-task/save?userName=${collectorTaskData.userName}&routeName=${collectorTaskData.routeName}&mcpName=${collectorTaskData.mcpName}`;
+      data = {
+        description: collectorTaskData.description,
+        taskTime: {
+          day: collectorTaskData.day,
+          time: collectorTaskData.time,
+        },
+      };
+    } else {
+      const janitorTaskData = janitorTaskRef.current;
+      url = `/api/janitor-task/save?userName=${janitorTaskData.userName}&mcpName=${janitorTaskData.mcpName}&areaName=${janitorTaskData.areaName}`;
+      data = {
+        description: janitorTaskData.description,
+        taskTime: {
+          day: janitorTaskData.day,
+          time: janitorTaskData.time,
+        },
+      };
+    }
+    sweetAlertHelper("Task Assignment done", () => {
+      postData(data, url);
+    });
   };
 
   const changeMCPHandler = (e) => {
     const mcpName = e.target.value;
+    console.log(mcpName);
     if (type !== "Collectors") {
-      console.log(areasRef.current);
-      if (areasRef.current.length > 0) {
-        setAreas((_preAreas) => {
-          const newAreas = areasRef.current?.filter(({ mcp }) => {
-            return mcp.name === mcpName;
-          });
-          return [...newAreas];
+      janitorTaskRef.current.mcpName = mcpName;
+      setAreas((_preAreas) => {
+        const newAreas = areasRef.current.filter(({ mcp }) => {
+          return mcp.name === mcpName;
         });
-      }
+        return [...newAreas];
+      });
     } else {
-      if (routesRef.current.length > 0) {
-        setRoutes((_preRoutes) => {
-          console.log(routesRef.current);
-          const newRoutes = routesRef.current?.filter(({ mcp }) => {
-            return mcp.name === mcpName;
-          });
-          return [...newRoutes];
+      collectorTaskRef.current.mcpName = mcpName;
+      setRoutes((_preRoutes) => {
+        const newRoutes = routesRef.current.filter(({ mcp }) => {
+          return mcp.name === mcpName;
         });
-      }
+        return [...newRoutes];
+      });
     }
   };
-
-  /* const submitTaskHandler = (type) => { */
-  /*   if(type === "Collectors"){ */
-  /**/
-  /*   }else{ */
-  /**/
-  /*   } */
-  /* } */
 
   return (
     <AssignTasksListForm>
@@ -85,6 +114,26 @@ const AssignTasksForm = ({ url, type }) => {
       <AssignTasksListFormContent>
         <AssignTasksListFormRow>
           <AssignTasksListFormCol>
+            <AssignTasksListFormInputSelect
+              onChange={(e) => {
+                console.log(e.target.value);
+                if (type === "Collectors") {
+                  collectorTaskRef.current.userName = e.target.value;
+                } else {
+                  janitorTaskRef.current.userName = e.target.value;
+                }
+              }}
+            >
+              <option value="Assign route">Choose {type}</option>
+              {users?.map(({ name, email }, idx) => {
+                return (
+                  <option key={idx} value={`${name}`}>
+                    {name}
+                  </option>
+                );
+              })}
+            </AssignTasksListFormInputSelect>
+
             <AssignTasksListFormInputSelect onChange={changeMCPHandler}>
               <option value="Assign MCP">Assign MCP</option>
               {mcps?.map(({ name }, idx) => {
@@ -100,6 +149,7 @@ const AssignTasksForm = ({ url, type }) => {
               <AssignTasksListFormInputSelect
                 onChange={(e) => {
                   console.log(e.target.value);
+                  collectorTaskRef.current.routeName = e.target.value;
                 }}
               >
                 <option value="Assign route">Assign route</option>
@@ -117,9 +167,10 @@ const AssignTasksForm = ({ url, type }) => {
               <AssignTasksListFormInputSelect
                 onChange={(e) => {
                   console.log(e.target.value);
+                  janitorTaskRef.current.areaName = e.target.value;
                 }}
               >
-                <option value="Assign area">Assign area</option>
+                <option value="Assign Area">Assign Area</option>
                 {areas?.map(({ description }, idx) => {
                   return (
                     <option key={idx} value={`${description}`}>
@@ -140,6 +191,11 @@ const AssignTasksForm = ({ url, type }) => {
                 wid="45%"
                 onChange={(e) => {
                   console.log(e.target.value);
+                  if (type === "Collectors") {
+                    collectorTaskRef.current.day = e.target.value;
+                  } else {
+                    janitorTaskRef.current.day = e.target.value;
+                  }
                 }}
                 onMouseEnter={(e) => {
                   e.target.disabled = false;
@@ -156,6 +212,11 @@ const AssignTasksForm = ({ url, type }) => {
                 wid="45%"
                 onChange={(e) => {
                   console.log(e.target.value);
+                  if (type === "Collectors") {
+                    collectorTaskRef.current.time = e.target.value;
+                  } else {
+                    janitorTaskRef.current.time = e.target.value;
+                  }
                 }}
                 onMouseEnter={(e) => {
                   e.target.disabled = false;
@@ -170,7 +231,16 @@ const AssignTasksForm = ({ url, type }) => {
             </AssignTasksListFormDate>
           </AssignTasksListFormCol>
           <AssignTasksListFormCol>
-            <AssignTasksListFormInputTextArea placeholder="Brief description of waste to be removed" />
+            <AssignTasksListFormInputTextArea
+              placeholder="Brief description of waste to be removed"
+              onChange={(e) => {
+                if (type === "Collectors") {
+                  collectorTaskRef.current.description = e.target.value;
+                } else {
+                  janitorTaskRef.current.description = e.target.value;
+                }
+              }}
+            />
           </AssignTasksListFormCol>
         </AssignTasksListFormRow>
         <AssignTasksListFormBtn>
