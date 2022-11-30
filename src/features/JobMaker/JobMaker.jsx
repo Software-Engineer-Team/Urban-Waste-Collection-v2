@@ -21,6 +21,9 @@ const JobMaker = () => {
     pos: jobMakerPos,
     isMaking: isJobMaking,
     isTranslateRight,
+    janitorTasks,
+    collectorTasks,
+    type,
   } = useSelector((state) => state.jobMaker);
   const cardRef = useRef(null);
 
@@ -51,7 +54,11 @@ const JobMaker = () => {
                 <GrClose />
               </CloseBtn>
             </Header>
-            <JobMakerForm></JobMakerForm>
+            <JobMakerForm
+              type={type}
+              janitorTasks={janitorTasks}
+              collectorTasks={collectorTasks}
+            />
           </FormContainer>
         </MoveLeft>
       </Container>

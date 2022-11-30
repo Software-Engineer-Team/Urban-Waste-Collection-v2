@@ -15,19 +15,14 @@ import { fetchData } from "~/utils/util";
 
 const CARD_WIDTH = 450;
 
-const Day = ({ day, rowIdx, janitorTasks, colletorTasks }) => {
+const Day = ({ day, rowIdx, janitorTasks, collectorTasks }) => {
   useEffect(() => {}, [day]);
   const jobColRef = useRef();
   const dispatch = useDispatch();
   const { isMaking } = useSelector((state) => state.jobMaker);
   /* console.log(day); */
-  const handleJobClick = (e) => {
+  const handleJobClick = (e, type) => {
     if (!isMaking) {
-      /* mount JobMaker */
-      /* console.log(e.target.offsetLeft); */
-      /* console.log(e.target.offsetTop); */
-      /* console.log(e.target.offsetWidth); */
-      /* console.log(e.target.offsetHeight); */
       const colPos = {
         left: e.target.offsetLeft,
         top: e.target.offsetTop,
@@ -35,7 +30,6 @@ const Day = ({ day, rowIdx, janitorTasks, colletorTasks }) => {
       let isTranslateToRight = false;
       const calcPosX = () => {
         const colWidth = jobColRef.current?.clientWidth;
-        console.log(colWidth);
         if (colPos.left - CARD_WIDTH < 0) {
           isTranslateToRight = true;
           return colWidth + colPos.left;
@@ -47,7 +41,16 @@ const Day = ({ day, rowIdx, janitorTasks, colletorTasks }) => {
       const calcPosY = () => {
         return colPos.top - 50;
       };
-      dispatch(jobMakerPreMounted(calcPosX(), calcPosY(), isTranslateToRight));
+      dispatch(
+        jobMakerPreMounted(
+          calcPosX(),
+          calcPosY(),
+          isTranslateToRight,
+          type,
+          janitorTasks,
+          collectorTasks
+        )
+      );
     }
   };
 
@@ -58,8 +61,12 @@ const Day = ({ day, rowIdx, janitorTasks, colletorTasks }) => {
         <DayText>{day.format("DD")}</DayText>
       </Header>
       <JobContainer ref={jobColRef}>
-        <JobName onClick={handleJobClick}>Task for collectors</JobName>
-        <JobName onClick={handleJobClick}>Task for janitors</JobName>
+        <JobName onClick={(e) => handleJobClick(e, "Collectors")}>
+          Task for collectors
+        </JobName>
+        <JobName onClick={(e) => handleJobClick(e, "Janitors")}>
+          Task for janitors
+        </JobName>
       </JobContainer>
     </DayContainer>
   );

@@ -51,7 +51,7 @@ export const AssignContent = styled.div`
 `;
 
 export const Icon = styled.div`
-  width: 40px;
+  min-width: 40px;
   max-height: 52px;
   color: #5f6368;
   margin-left: 19px;

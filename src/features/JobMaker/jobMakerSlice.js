@@ -7,6 +7,9 @@ const initialState = {
   },
   isTranslateRight: false,
   isMaking: false,
+  janitorTasks: [],
+  collectorTasks: [],
+  type: "",
 };
 
 const jobMakerSlice = createSlice({
@@ -25,20 +28,40 @@ const jobMakerSlice = createSlice({
     },
     jobMakerPreMounted: {
       reducer: (state, action) => {
-        const { posX, posY, isTranslateRight } = action.payload;
+        const {
+          posX,
+          posY,
+          isTranslateRight,
+          type,
+          janitorTasks,
+          collectorTasks,
+        } = action.payload;
         state.isMaking = true;
         state.pos = {
           x: posX,
           y: posY,
         };
         state.isTranslateRight = isTranslateRight;
+        state.janitorTasks = janitorTasks;
+        state.collectorTasks = collectorTasks;
+        state.type = type;
       },
-      prepare: (posX, posY, isTranslateRight) => {
+      prepare: (
+        posX,
+        posY,
+        isTranslateRight,
+        type,
+        janitorTasks,
+        collectorTasks
+      ) => {
         return {
           payload: {
             posX,
             posY,
             isTranslateRight,
+            janitorTasks,
+            collectorTasks,
+            type,
           },
         };
       },

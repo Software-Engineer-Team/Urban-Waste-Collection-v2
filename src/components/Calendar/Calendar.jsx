@@ -12,9 +12,13 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState([[]]);
   console.log(currentMonth);
   const { monthIndex } = useSelector((state) => state.month);
-  /* useEffect(() => { */
-  /*   setCurrentMonth(getMonth(monthIndex).daysMatrix); */
-  /* }, [monthIndex]); */
+  useEffect(() => {
+    getMonth(monthIndex).then((data) => {
+      console.log(data);
+      setCurrentMonth(data);
+    });
+  }, [monthIndex]);
+
   useEffect(() => {
     getMonth().then((data) => {
       console.log(data);
