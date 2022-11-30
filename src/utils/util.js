@@ -3,41 +3,44 @@ import Swal from "sweetalert2";
 
 const DEFAULT_MONTH = dayjs().month();
 
-export const getMonth = async (month = DEFAULT_MONTH) => {
+export const getMonth = async (isFetching = false, month = DEFAULT_MONTH) => {
   month = Math.floor(month);
   const year = dayjs().year();
   const firstDayOfTheMonth = dayjs(new Date(year, month, 1)).day();
-  console.log("firstDayOfTheMonth: ", firstDayOfTheMonth);
   let currentMonthCount = 0 - firstDayOfTheMonth;
-  const jTasks = await fetchData(`/api/janitor-tasks`);
-  const cTasks = await fetchData(`/api/collector-tasks`);
+  let jTasks = [];
+  let cTasks = [];
+  if (isFetching) {
+    jTasks = await fetchData(`/api/janitor-tasks`);
+    cTasks = await fetchData(`/api/collector-tasks`);
+  }
 
   const daysMatrix = new Array(5).fill([]).map(() => {
     return new Array(7).fill(null).map(() => {
       currentMonthCount++;
       const date = dayjs(new Date(year, month, currentMonthCount));
-      const janitorTasks = jTasks.filter((jTask) => {
-        return (
-          jTask.taskTime.day === date.format("YYYY/MM/DD") ||
-          jTask.taskTime.day === date.format("YYYY-MM-DD") ||
-          jTask.taskTime.day === date.format("MM/DD/YYYY")
-        );
-      });
-      const collectorTasks = cTasks.filter((cTask) => {
-        return (
-          cTask.taskTime.day === date.format("YYYY/MM/DD") ||
-          cTask.taskTime.day === date.format("YYYY-MM-DD") ||
-          cTask.taskTime.day === date.format("MM/DD/YYYY")
-        );
-      });
-      /* console.log(date.format("YYYY/MM/DD")); */
-      /* console.log(janitorTasks); */
-      /* console.log(collectorTasks); */
+      let janitorTasks = [];
+      let collectorTasks = [];
+      if (isFetching) {
+        janitorTasks = jTasks.filter((jTask) => {
+          return (
+            jTask.taskTime.day === date.format("YYYY/MM/DD") ||
+            jTask.taskTime.day === date.format("YYYY-MM-DD") ||
+            jTask.taskTime.day === date.format("MM/DD/YYYY")
+          );
+        });
+        collectorTasks = cTasks.filter((cTask) => {
+          return (
+            cTask.taskTime.day === date.format("YYYY/MM/DD") ||
+            cTask.taskTime.day === date.format("YYYY-MM-DD") ||
+            cTask.taskTime.day === date.format("MM/DD/YYYY")
+          );
+        });
+      }
 
       return { date, janitorTasks, collectorTasks };
     });
   });
-  console.log(daysMatrix);
   return daysMatrix;
 };
 
