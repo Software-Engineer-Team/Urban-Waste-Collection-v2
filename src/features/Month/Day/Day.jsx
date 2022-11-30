@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,10 +10,13 @@ import {
   JobName,
 } from "./Day.styled";
 import { jobMakerPreMounted } from "~/features/JobMaker/jobMakerSlice";
+import dayjs from "dayjs";
+import { fetchData } from "~/utils/util";
 
 const CARD_WIDTH = 450;
 
-const Day = ({ day, rowIdx }) => {
+const Day = ({ day, rowIdx, janitorTasks, colletorTasks }) => {
+  useEffect(() => {}, [day]);
   const jobColRef = useRef();
   const dispatch = useDispatch();
   const { isMaking } = useSelector((state) => state.jobMaker);
@@ -55,8 +58,8 @@ const Day = ({ day, rowIdx }) => {
         <DayText>{day.format("DD")}</DayText>
       </Header>
       <JobContainer ref={jobColRef}>
-        <JobName onClick={handleJobClick}>Task for collector</JobName>
-        <JobName>Task for janitor</JobName>
+        <JobName onClick={handleJobClick}>Task for collectors</JobName>
+        <JobName onClick={handleJobClick}>Task for janitors</JobName>
       </JobContainer>
     </DayContainer>
   );

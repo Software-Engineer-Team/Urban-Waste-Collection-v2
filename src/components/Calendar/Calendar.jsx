@@ -9,11 +9,18 @@ import { getMonth } from "@utils/util";
 
 const Calendar = () => {
   const { isMaking: isJobMaking } = useSelector((state) => state.jobMaker);
-  const [currentMonth, setCurrentMonth] = useState(getMonth());
+  const [currentMonth, setCurrentMonth] = useState([[]]);
+  console.log(currentMonth);
   const { monthIndex } = useSelector((state) => state.month);
+  /* useEffect(() => { */
+  /*   setCurrentMonth(getMonth(monthIndex).daysMatrix); */
+  /* }, [monthIndex]); */
   useEffect(() => {
-    setCurrentMonth(getMonth(monthIndex));
-  }, [monthIndex]);
+    getMonth().then((data) => {
+      console.log(data);
+      setCurrentMonth(data);
+    });
+  }, []);
 
   return (
     <div>

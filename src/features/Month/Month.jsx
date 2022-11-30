@@ -12,7 +12,13 @@ const Month = ({ month }) => {
         {month.map((row, rowIdx) => (
           <React.Fragment key={uuidv4()}>
             {row.map((col) => (
-              <Day day={col} rowIdx={rowIdx} key={uuidv4()} />
+              <Day
+                day={col.date}
+                rowIdx={rowIdx}
+                key={uuidv4()}
+                janitorTasks={col.janitorTasks}
+                collectorTasks={col.collectorTasks}
+              />
             ))}
           </React.Fragment>
         ))}
