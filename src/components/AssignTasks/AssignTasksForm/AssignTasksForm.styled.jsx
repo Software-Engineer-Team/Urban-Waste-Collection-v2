@@ -36,15 +36,18 @@ export const AssignTasksListFormRow = styled.div`
 export const AssignTasksListFormCol = styled.div`
   width: 50%;
   padding: 15px;
-
-  .date {
-  }
+  height: 100%;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const AssignTasksListFormInputSelect = styled.select`
   position: relative;
   width: 100%;
-  margin: 15px 0;
+  /* margin: 15px 0; */
   position: relative;
   height: 63px;
   width: 100%;
@@ -77,7 +80,7 @@ export const AssignTasksListFormInputText = styled.input`
 
 export const AssignTasksListFormInputTextArea = styled.textarea`
   position: relative;
-  height: 249px;
+  height: 270px;
   width: 100%;
   outline-style: none;
   border: 0;
@@ -93,7 +96,8 @@ export const AssignTasksListFormDate = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 15px;
+  width: 100%;
+  /* margin-top: 15px; */
 `;
 
 export const AssignTasksListFormBtn = styled.div`

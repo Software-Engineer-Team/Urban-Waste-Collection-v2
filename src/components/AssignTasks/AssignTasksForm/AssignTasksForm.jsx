@@ -20,6 +20,8 @@ const AssignTasksForm = ({ url, type }) => {
   const [isAssignRoute, setIsAssignRoute] = useState(false);
   const [areas, setAreas] = useState([]);
   const areasRef = useRef([]);
+  const [routes, setRoutes] = useState([]);
+  const routesRef = useRef([]);
   const [mcps, setMcps] = useState([]);
 
   useEffect(() => {
@@ -27,6 +29,11 @@ const AssignTasksForm = ({ url, type }) => {
       fetchData("/api/areas").then((areas) => {
         areasRef.current = areas;
         setAreas(areas);
+      });
+    } else {
+      fetchData("/api/routes").then((routes) => {
+        routesRef.current = routes;
+        setRoutes(routes);
       });
     }
 
@@ -40,6 +47,9 @@ const AssignTasksForm = ({ url, type }) => {
       html: "Please wait for a minute!!!",
       timer: 2000,
       timerProgressBar: true,
+      allowOutsideClick: false,
+      showCancelButton: true,
+      cancelButtonColor: "green",
       didOpen: () => {
         Swal.showLoading();
       },
@@ -59,6 +69,34 @@ const AssignTasksForm = ({ url, type }) => {
     });
   };
 
+  const changeMCPHandler = (e) => {
+    const mcpName = e.target.value;
+    if (type !== "Collectors") {
+      setAreas((_preAreas) => {
+        const newAreas = areasRef.current.filter(({ mcp }) => {
+          return mcp.name === mcpName;
+        });
+        return [...newAreas];
+      });
+    } else {
+      setRoutes((_preRoutes) => {
+        console.log(routesRef.current);
+        const newRoutes = routesRef.current.filter(({ mcp }) => {
+          return mcp.name === mcpName;
+        });
+        return [...newRoutes];
+      });
+    }
+  };
+
+  /* const submitTaskHandler = (type) => { */
+  /*   if(type === "Collectors"){ */
+  /**/
+  /*   }else{ */
+  /**/
+  /*   } */
+  /* } */
+
   return (
     <AssignTasksListForm>
       <AssignTasksCheckBoxes />
@@ -68,19 +106,7 @@ const AssignTasksForm = ({ url, type }) => {
       <AssignTasksListFormContent>
         <AssignTasksListFormRow>
           <AssignTasksListFormCol>
-            <AssignTasksListFormInputSelect
-              onChange={(e) => {
-                console.log(e.target.value);
-                const mcpName = e.target.value;
-                console.log(areas);
-                setAreas((_preAreas) => {
-                  const newAreas = areasRef.current.filter(({ mcp }) => {
-                    return mcp.name === mcpName;
-                  });
-                  return [...newAreas];
-                });
-              }}
-            >
+            <AssignTasksListFormInputSelect onChange={changeMCPHandler}>
               <option value="Assign MCP">Assign MCP</option>
               {mcps?.map(({ name }, idx) => {
                 return (
@@ -90,6 +116,23 @@ const AssignTasksForm = ({ url, type }) => {
                 );
               })}
             </AssignTasksListFormInputSelect>
+
+            {type === "Collectors" && (
+              <AssignTasksListFormInputSelect
+                onChange={(e) => {
+                  console.log(e.target.value);
+                }}
+              >
+                <option value="Assign route">Assign route</option>
+                {routes?.map(({ name, point, endPoint }, idx) => {
+                  return (
+                    <option key={idx} value={`${name}`}>
+                      {name}
+                    </option>
+                  );
+                })}
+              </AssignTasksListFormInputSelect>
+            )}
 
             {type !== "Collectors" && (
               <AssignTasksListFormInputSelect
