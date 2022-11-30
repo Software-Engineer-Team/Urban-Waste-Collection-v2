@@ -14,3 +14,4 @@ export { default as BodyBar } from "@components/Chat/ChatForm/BodyBar/BodyBar";
 export { default as Home } from "@components/Home/Home";
 export { default as Member } from "@components/Staffs/Member";
 export { default as Progress } from "@components/Staffs/Progress";
+export { default as LoaderWrap } from "@components/Loading/LoaderWrap";

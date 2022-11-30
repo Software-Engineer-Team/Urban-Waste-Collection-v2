@@ -10,7 +10,8 @@ const usePlaceSearch = (url, cb) => {
     div.innerHTML = `
                 <div id="formBlock">
                   <input type="text" name="MCP" id="MCP" placeholder="Search MCP point" /> 
-                  <button id="MCP-btn">Clear all MCP points</button>
+                  <button id="MCP-btn">Clear points</button>
+                  <button id="save-route">Save route</button>
                   <button id="turn-back">Turn back</button>
                 </div>
               `;

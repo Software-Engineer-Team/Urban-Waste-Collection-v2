@@ -1,28 +1,28 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import usePlaceSearch from "@hook/usePlaceSearch";
-import { fetchData } from "~/utils/util";
+import { fetchData, postData, sweetAlertHelper } from "@utils/util";
+import { getDistance } from "geolib";
 
 const hcmCity = [10.8326, 106.6581];
 const loading_spinner = document.getElementById("loader");
 const background_blur = document.getElementById("background-blur");
 const mapEl = document.getElementById("map");
+const routesElInitState = {
+  mcpId: "",
+  name: "",
+  points: [],
+};
 
 const AssignRoute = () => {
   const map = useRef(null);
   const placeSearch = useRef(null);
-  const coords = useRef([]);
-  const points = useRef([]);
   const layers = useRef([]);
-  const makers = useRef([]);
   const makerStart = useRef(null),
     makerEnd = useRef(null);
-  const [areas, setAreas] = useState([
-    {
-      location: [10.79585, 106.65873],
-      description: "Area: sdfasdfsdfsdf",
-    },
-    { location: [10.84943, 106.76849], description: "Area: sdfasdfsdfsdf" },
-  ]);
+  const mcpsEl = useRef(null);
+  const [mcps, setMcps] = useState([]);
+  const [areas, setAreas] = useState([]);
+  const routesEl = useRef(routesElInitState);
 
   const [formBlock] = usePlaceSearch("/home/backofficer", () => {
     mapEl.style.display = "none";
@@ -35,6 +35,53 @@ const AssignRoute = () => {
     dir.route({
       /* locations: ["13.98366,108.002701", "10.8326,106.6581"], */
       locations: [...pos],
+    });
+
+    let CustomRouteLayer = window.MQ.Routing.RouteLayer.extend({
+      createStartMarker: (_location) => {
+        return makerStart.current;
+      },
+
+      createEndMarker: (_location) => {
+        return makerEnd.current;
+      },
+    });
+
+    const layer = new CustomRouteLayer({
+      directions: dir,
+      fitBounds: true,
+    });
+
+    layers.current.push(layer);
+
+    map.current.addLayer(layer);
+  }, []);
+
+  const findMinDistance = useCallback((mcps, toPoint) => {
+    mcps?.sort((mcp1, mcp2) => {
+      const mcp1ToPointDistance = getDistance(
+        { latitude: mcp1.point.latitude, longitude: mcp1.point.longitude },
+        { latitude: toPoint.latitude, longitude: toPoint.longitude }
+      );
+
+      const mcp2ToPointDistance = getDistance(
+        { latitude: mcp2.point.latitude, longitude: mcp2.point.longitude },
+        { latitude: toPoint.latitude, longitude: toPoint.longitude }
+      );
+      return mcp1ToPointDistance - mcp2ToPointDistance;
+    });
+
+    console.log(mcps?.[0]);
+    const point = mcps?.[0].point;
+    routesEl.current.mcpId = mcps?.[0].id;
+    makerStart.current = mcps?.[0].maker;
+    let dir = window.MQ.routing.directions();
+
+    dir.route({
+      locations: [
+        `${point.latitude},${point.longitude}`,
+        `${toPoint.latitude},${toPoint.longitude}`,
+      ],
     });
 
     let CustomRouteLayer = window.MQ.Routing.RouteLayer.extend({
@@ -81,14 +128,10 @@ const AssignRoute = () => {
             const country =
               location.adminArea5 !== "" ? location.adminArea5 + ", " : "";
             const state = location.adminArea1 !== "" ? location.adminArea1 : "";
-
-            points.current.push(`${lat},${lng}`);
+            const popupContent = street + city + country + state;
 
             let custom_icon = window.L.icon({
-              iconUrl:
-                points.current.length === 1
-                  ? "/images/blue_maker.png"
-                  : "/images/red_maker.png",
+              iconUrl: "/images/red_maker.png",
               iconSize: [20, 29],
               iconAnchor: [10, 29],
               popupAnchor: [0, -29],
@@ -104,81 +147,43 @@ const AssignRoute = () => {
                   minWidth: 100,
                   autoClose: false,
                   closeOnClick: false,
-                  /* className: ${workout.type}-popup, */
                 })
               )
-              .setPopupContent(street + city + country + state)
+              .setPopupContent(popupContent)
               .openPopup();
-            makers.current.push(maker);
 
-            if (points.current.length === 1) {
-              makerStart.current = maker;
-            } else if (points.current.length === 2) {
-              makerEnd.current = maker;
+            const oldMakerEnd = makerEnd.current;
+            makerEnd.current = maker;
+
+            routesEl.current.points.push({
+              longitude: lng,
+              latitude: lat,
+            });
+
+            if (makerEnd.current && layers.current?.length === 0) {
+              findMinDistance(mcpsEl.current, {
+                latitude: lat,
+                longitude: lng,
+              });
+
+              routesEl.current.name =
+                mcpsEl.current?.[0].name + " -> " + popupContent;
+            } else {
+              const oldLocation = oldMakerEnd.location.latLng;
+              runDirection([
+                `${oldLocation.lat},${oldLocation.lng}`,
+                `${lat},${lng}`,
+              ]);
+              routesEl.current.name =
+                routesEl.current.name + " -> " + popupContent;
             }
 
-            if (points.current.length === 2) {
-              runDirection(points.current);
-              coords.current.push(points.current);
-              points.current = [];
-            }
+            console.log(routesEl.current);
           });
       }
     },
-    [points, runDirection]
+    [findMinDistance]
   );
-
-  useEffect(() => {
-    if (map.current) {
-      /* var bounds = [ */
-      /*   [10.722361730840149, 106.57699584960938], */
-      /*   [10.916598861226174, 106.57699584960938], */
-      /*   [10.916598861226174, 106.85028076171875], */
-      /*   [10.722361730840149, 106.85028076171875], */
-      /* ]; */
-      /**/
-      /* // create an orange rectangle */
-      /* window.L.rectangle(bounds, { color: "#ff7800", weight: 1 }).addTo( */
-      /*   map.current */
-      /* ); */
-
-      areas.forEach((area) => {
-        let custom_icon = window.L.icon({
-          iconUrl: "/images/leaf-green.png",
-          iconSize: [38, 95],
-          iconAnchor: [22, 94],
-          popupAnchor: [-3, -76],
-          shadowUrl: "/images/leaf-shadow.png",
-          shadowSize: [50, 64],
-          shadowAnchor: [4, 62],
-        });
-
-        window.L.marker(area.location, {
-          icon: custom_icon,
-        })
-          .addTo(map.current)
-          .bindPopup(
-            window.L.popup({
-              maxWidth: 250,
-              minWidth: 100,
-              top: -20,
-              autoClose: false,
-              closeOnClick: false,
-              /* className: ${workout.type}-popup, */
-            })
-          )
-          .setPopupContent(area.description)
-          .openPopup();
-
-        window.L.circleMarker(area.location, {
-          radius: 150,
-          color: "green",
-          fillColor: "#ffd77a",
-          fillOpacity: 0.5,
-        }).addTo(map.current);
-      });
-    }
-  }, [map.current]);
 
   useEffect(() => {
     mapEl.style.display = "block";
@@ -194,6 +199,14 @@ const AssignRoute = () => {
       zoom: 12,
     });
 
+    fetchData("/api/MCPs").then((mcps) => {
+      console.log(mcps);
+      setMcps(mcps);
+      mcpsEl.current = [...mcps];
+    });
+
+    fetchData("/api/areas").then((areas) => setAreas(areas));
+
     placeSearch.current.on("change", (e) => {
       try {
         const { lat, lng } = e.result.latlng;
@@ -205,10 +218,8 @@ const AssignRoute = () => {
     });
   }, []);
 
-  const showMCPs = async () => {
-    const mcps = await fetchData("/api/MCPs");
-    console.log(mcps);
-    mcps.forEach(async ({ id, name, point }) => {
+  const showMCPs = async (mcps, areas) => {
+    mcps?.forEach(async ({ name, point }, idx) => {
       const mcpLocation = [point.latitude, point.longitude];
       let custom_icon = window.L.icon({
         iconUrl: "/images/leaf-green.png",
@@ -220,7 +231,7 @@ const AssignRoute = () => {
         shadowAnchor: [4, 62],
       });
 
-      window.L.marker(mcpLocation, {
+      const mcpMaker = window.L.marker(mcpLocation, {
         icon: custom_icon,
       })
         .addTo(map.current)
@@ -237,6 +248,8 @@ const AssignRoute = () => {
         .setPopupContent(name)
         .openPopup();
 
+      mcpsEl.current[idx].maker = mcpMaker;
+
       window.L.circleMarker(mcpLocation, {
         radius: 150,
         color: "green",
@@ -244,7 +257,6 @@ const AssignRoute = () => {
         fillOpacity: 0.5,
       }).addTo(map.current);
 
-      const areas = await fetchData(`/api/areas/${id}`);
       areas.forEach(({ centerPoint, radius }) => {
         const areaLocation = [centerPoint.latitude, centerPoint.longitude];
         window.L.circleMarker(areaLocation, {
@@ -258,42 +270,70 @@ const AssignRoute = () => {
 
   useEffect(() => {
     if (map.current) {
-      showMCPs();
+      showMCPs(mcps, areas);
       map.current.on("click", onMapClick);
       return () => {
         map.current.off("click", onMapClick);
       };
     }
+  }, [onMapClick, areas, mcps]);
+
+  const handleClearMCPBtn = useCallback(() => {
+    if (layers.current.length > 0) {
+      layers.current?.forEach((el) => {
+        map.current.removeLayer(el);
+      });
+      if (makerStart.current) map.current.removeLayer(makerStart.current);
+      if (makerEnd.current) map.current.removeLayer(makerEnd.current);
+      makerStart.current = null;
+      makerEnd.current = null;
+      layers.current = [];
+      map.current.remove();
+      map.current = window.L.map("map", {
+        layers: window.MQ.mapLayer(),
+        center: hcmCity,
+        zoom: 12,
+        zoomControl: true,
+      });
+      routesEl.current = routesElInitState;
+
+      fetchData("/api/MCPs").then((mcps) => {
+        setMcps(mcps);
+        mcpsEl.current = [...mcps];
+      });
+
+      fetchData("/api/areas").then((areas) => setAreas(areas));
+      map.current.on("click", onMapClick);
+    }
   }, [onMapClick]);
 
   useEffect(() => {
     const clearMCPBtn = formBlock?.querySelector("#MCP-btn");
-    const handleClearMCPBtn = () => {
-      if (layers.current.length > 0 && coords.current.length > 0) {
-        layers.current?.forEach((el) => {
-          map.current.removeLayer(el);
-        });
-        if (makerStart.current) map.current.removeLayer(makerStart.current);
-        makerStart.current = null;
-        makerEnd.current = null;
-        layers.current = [];
-        coords.current = [];
-        points.current = [];
-        map.current.remove();
-        map.current = window.L.map("map", {
-          layers: window.MQ.mapLayer(),
-          center: hcmCity,
-          zoom: 12,
-          zoomControl: true,
-        });
-        map.current.on("click", onMapClick);
-      }
-    };
     clearMCPBtn?.addEventListener("click", handleClearMCPBtn);
     return () => {
       clearMCPBtn?.removeEventListener("click", handleClearMCPBtn);
     };
-  }, [formBlock, onMapClick]);
+  }, [formBlock, handleClearMCPBtn]);
+
+  useEffect(() => {
+    const saveRoute = formBlock?.querySelector("#save-route");
+    const handleSaveRoute = () => {
+      if (routesEl.current.points.length > 0) {
+        sweetAlertHelper("Save Route done", async () => {
+          const data = await postData(
+            { name: routesEl.current.name, points: routesEl.current.points },
+            `/api/route/save?mcpId=${routesEl.current.mcpId}`
+          );
+          console.log(data);
+          handleClearMCPBtn();
+        });
+      }
+    };
+    saveRoute?.addEventListener("click", handleSaveRoute);
+    return () => {
+      saveRoute?.removeEventListener("click", handleSaveRoute);
+    };
+  }, [formBlock, handleClearMCPBtn]);
 };
 
 export default AssignRoute;

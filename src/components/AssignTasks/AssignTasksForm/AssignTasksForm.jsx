@@ -12,8 +12,7 @@ import {
   AssignTasksListFormRow,
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
-import { fetchData } from "@utils/util";
-import Swal from "sweetalert2";
+import { fetchData, sweetAlertHelper } from "@utils/util";
 import { AiFillGithub } from "react-icons/ai";
 
 const AssignTasksForm = ({ url, type }) => {
@@ -41,51 +40,31 @@ const AssignTasksForm = ({ url, type }) => {
   }, [type]);
 
   const submitHandler = () => {
-    let timerInterval;
-    Swal.fire({
-      title: "<strong>Processing...</strong>",
-      html: "Please wait for a minute!!!",
-      timer: 2000,
-      timerProgressBar: true,
-      allowOutsideClick: false,
-      showCancelButton: true,
-      cancelButtonColor: "green",
-      didOpen: () => {
-        Swal.showLoading();
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Task Assignment done",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    });
+    sweetAlertHelper("Task Assignment done", () => {});
   };
 
   const changeMCPHandler = (e) => {
     const mcpName = e.target.value;
     if (type !== "Collectors") {
-      setAreas((_preAreas) => {
-        const newAreas = areasRef.current.filter(({ mcp }) => {
-          return mcp.name === mcpName;
+      console.log(areasRef.current);
+      if (areasRef.current.length > 0) {
+        setAreas((_preAreas) => {
+          const newAreas = areasRef.current?.filter(({ mcp }) => {
+            return mcp.name === mcpName;
+          });
+          return [...newAreas];
         });
-        return [...newAreas];
-      });
+      }
     } else {
-      setRoutes((_preRoutes) => {
-        console.log(routesRef.current);
-        const newRoutes = routesRef.current.filter(({ mcp }) => {
-          return mcp.name === mcpName;
+      if (routesRef.current.length > 0) {
+        setRoutes((_preRoutes) => {
+          console.log(routesRef.current);
+          const newRoutes = routesRef.current?.filter(({ mcp }) => {
+            return mcp.name === mcpName;
+          });
+          return [...newRoutes];
         });
-        return [...newRoutes];
-      });
+      }
     }
   };
 

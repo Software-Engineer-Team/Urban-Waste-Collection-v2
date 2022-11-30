@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ import { gapi } from "gapi-script";
 
 export default function Home() {
   const navigate = useNavigate();
+
   useBackDrop("login-container");
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Home() {
   return (
     <LoginContainer id="login-container">
       <LoginMain>
-        <LoginContent>
+        <LoginContent className="login-content">
           <SignInSection>
             <div className="group-name">
               <div>
