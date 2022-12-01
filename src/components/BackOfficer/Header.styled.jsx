@@ -240,6 +240,8 @@ export const LogoutBtn = styled.a`
   border: 1px solid black;
   border-radius: 4px;
   padding: 8px 16px;
+  width: 150px;
+  text-align: center;
   cursor: pointer;
   letter-spacing: 0.025rem;
   transition: all cubic-bezier(0.4, 0, 0.2, 1) 0.2s;

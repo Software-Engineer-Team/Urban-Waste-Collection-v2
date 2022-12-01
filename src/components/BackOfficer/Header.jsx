@@ -111,11 +111,11 @@ const Header = () => {
                     Quản lý tuyến đường
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/home/task-management/vehicle">
-                    Quản lý phương tiện
-                  </NavLink>
-                </li>
+                {/* <li> */}
+                {/*   <NavLink to="/home/task-management/vehicle"> */}
+                {/*     Quản lý phương tiện */}
+                {/*   </NavLink> */}
+                {/* </li> */}
                 <li>
                   <a href="#">Quản lý công nhân</a>
                   <div>
@@ -162,7 +162,7 @@ const Header = () => {
           </ul>
         </HeaderMiddle>
         <LogoutBtn href="/" className="logout">
-          LOGOUT
+          Đăng xuất
         </LogoutBtn>
       </Container>
     </MainHeader>

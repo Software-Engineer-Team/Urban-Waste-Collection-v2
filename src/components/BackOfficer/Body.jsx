@@ -1,5 +1,6 @@
 import React from "react";
 import { Fade } from "react-reveal";
+import { Link } from "react-router-dom";
 import {
   BodyContainer,
   BodyContent,
@@ -21,7 +22,7 @@ const Body = () => {
               </h2>
             </Fade>
             <Fade bottom>
-              <a href="/home/task-assignment">Phân công nhiệm vụ</a>
+              <Link to="/home/task-assignment">Phân công nhiệm vụ</Link>
             </Fade>
           </BodyMain>
         </BodyWrapper>
