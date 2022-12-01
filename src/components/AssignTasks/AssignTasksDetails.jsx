@@ -59,10 +59,10 @@ const AssignTasksDetails = () => {
           </AssignTasksButtons>
           <AssignTasksList>
             {janitorsState && (
-              <AssignTasksForm url={"/images/rubish1.jpg"} type="Janitors" />
+              <AssignTasksForm url={"/images/rubish1.png"} type="Janitors" />
             )}
             {collectorsState && (
-              <AssignTasksForm url={"/images/rubish2.jpg"} type="Collectors" />
+              <AssignTasksForm url={"/images/rubish3.png"} type="Collectors" />
             )}
           </AssignTasksList>
         </AssignTasksContent>

@@ -5,68 +5,74 @@ import { GrTwitter } from "react-icons/gr";
 import GeneralHeader from "@utils/GeneralHeader";
 import { Container } from "./MemberDetail.styled";
 import Progress from "@components/Staffs/Progress";
+import { Fade } from "react-reveal";
 
 const MemberDetail = () => {
   return (
     <>
-      <GeneralHeader type="Information Detail" />
+      <GeneralHeader type="Thông tin chi tiết" />
       <Container>
         <div className="member-detail">
           <div className="member-body">
-            <div className="member-body-left">
-              <div className="img">
-                <img
-                  src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/member/member-2.jpg`}
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="member-body-right">
-              <div className="content">
-                <p className="title">Co Founder</p>
-                <h3 className="name">Jessica Brown</h3>
-                <div className="social">
-                  <a href="#">
-                    <BsFacebook />
-                  </a>
-                  <a href="#">
-                    <GrTwitter />
-                  </a>
-                  <a href="#">
-                    <FaPinterestP />
-                  </a>
-                  <a href="#">
-                    <BsInstagram />
-                  </a>
+            <Fade left>
+              <div className="member-body-left">
+                <div className="img">
+                  <img src="/images/member/member-2.jpg" alt="" />
                 </div>
-                <p className="text1">
-                  I help my clients stand out and they help me grow.
-                </p>
-                <p className="text2">
-                  Lorem ipsum dolor sit amet, con adipiscing elit tiam convallis
-                  elit id impedie. Quisq commodo simply free ornare tortor.
-                </p>
-                <p className="text3">
-                  If you are going to use a passage of Lorem Ipsum, you need to
-                  be sure there isn't anything embarrassing hidden in the middle
-                  of text.
-                </p>
+              </div>
+            </Fade>
+            <Fade right>
+              <div className="member-body-right">
+                <div className="content">
+                  <p className="title">Co Founder</p>
+                  <h3 className="name">Jessica Brown</h3>
+                  <div className="social">
+                    <a href="#">
+                      <BsFacebook />
+                    </a>
+                    <a href="#">
+                      <GrTwitter />
+                    </a>
+                    <a href="#">
+                      <FaPinterestP />
+                    </a>
+                    <a href="#">
+                      <BsInstagram />
+                    </a>
+                  </div>
+                  <p className="text1">
+                    Tôi giúp khách hàng của mình nổi bật và họ giúp tôi phát
+                    triển.
+                  </p>
+                  <p className="text2">
+                    Lorem ipsum dolor sit amet, con adipiscing elit tiam
+                    convallis elit id impedie. Quisq commodo simply free ornare
+                    tortor.
+                  </p>
+                  <p className="text3">
+                    Nếu bạn định sử dụng một đoạn văn của Lorem Ipsum, bạn cần
+                    chắc chắn rằng không có điều gì đáng xấu hổ ẩn giấu ở giữa
+                    văn bản.
+                  </p>
+                </div>
+              </div>
+            </Fade>
+          </div>
+          <Fade bottom>
+            <div className="member-body-bottom">
+              <div className="member-body-bottom-left">
+                <span className="tagline">Nhiều điều cần biết</span>
+                <h2 className="title">
+                  Phục vụ Tập trung vào Tối đa hóa Nguồn lực
+                </h2>
+              </div>
+              <div className="member-body-bottom-right">
+                <Progress title="Quản lý chất thải" countText="90%" />
+                <Progress title="Tái chế" countText="48%" />
+                <Progress title="Thùng rác gia đình" countText="69%" />
               </div>
             </div>
-          </div>
-          <div className="member-body-bottom">
-            <div className="member-body-bottom-left">
-              <span className="tagline">More to Know</span>
-              <h2 className="title">
-                Serves with a Focus on Maximizing Resource
-              </h2>
-            </div>
-            <div className="member-body-bottom-right">
-              <Progress title="Waste Management" countText="90%" />
-              <Progress title="Recycling" countText="48%" />
-              <Progress title="Home Trash" countText="69%" />
-            </div>
-          </div>
+          </Fade>
         </div>
       </Container>
     </>

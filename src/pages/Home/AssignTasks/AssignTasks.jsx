@@ -2,23 +2,26 @@ import React from "react";
 import GeneralHeader from "@utils/GeneralHeader";
 import { AssignTasksHeader } from "./AssignTasks.styled";
 import AssignTasksDetails from "@components/AssignTasks/AssignTasksDetails";
+import { Slide } from "react-reveal";
 
 const AssignTasks = () => {
   return (
     <div style={{ overflow: "scroll", height: "100vh" }}>
       <GeneralHeader type="Assign Tasks" />
       <AssignTasksHeader>
-        <div className="container">
-          <div className="row">
-            <h2>Are you Interested in a Pickup?</h2>
-            <p>
-              Get tips and info on how to manage waste effectively and reduce
-              environmental impact.
-              <br /> Need more info? <a href="">Call +1- (246) 333-0088</a> to
-              speak with a Wostin expert.
-            </p>
+        <Slide right>
+          <div className="container">
+            <div className="row">
+              <h2>Bạn có quan tâm đến Phân công nhiệm vụ không?</h2>
+              <p>
+                Nhận các mẹo và thông tin về cách quản lý chất thải hiệu quả và
+                giảm tác động đến môi trường.
+                <br /> Cần thêm thông tin? <a href="">Gọi +84 0400-0096</a> để
+                nói chuyện với chuyên gia Wostin.
+              </p>
+            </div>
           </div>
-        </div>
+        </Slide>
       </AssignTasksHeader>
       <AssignTasksDetails></AssignTasksDetails>
     </div>

@@ -7,12 +7,12 @@ export const homeRoutes = [
   {
     path: "/list-staffs/collectors",
     component: Staffs,
-    type: "Collectors Information",
+    type: "Thông tin Collectors",
   },
   {
     path: "/list-staffs/janitors",
     component: Staffs,
-    type: "Janitors Information",
+    type: "Thông tin Janitors",
   },
   { path: "/staff-details/:id", component: MemberDetail },
   { path: "/task-management/calendar", component: Calendar },

@@ -13,6 +13,7 @@ import {
   AssignTasksListImg,
 } from "./AssignTasksForm.styled";
 import { fetchData, sweetAlertHelper, postData } from "@utils/util";
+import { Fade } from "react-reveal";
 
 const AssignTasksForm = ({ url, type }) => {
   const [areas, setAreas] = useState([]);
@@ -107,53 +108,28 @@ const AssignTasksForm = ({ url, type }) => {
 
   return (
     <AssignTasksListForm>
-      <AssignTasksCheckBoxes />
-      <AssignTasksListImg>
-        <img src={url} alt="Rubish" />
-      </AssignTasksListImg>
-      <AssignTasksListFormContent>
-        <AssignTasksListFormRow>
-          <AssignTasksListFormCol>
-            <AssignTasksListFormInputSelect
-              onChange={(e) => {
-                console.log(e.target.value);
-                if (type === "Collectors") {
-                  collectorTaskRef.current.userName = e.target.value;
-                } else {
-                  janitorTaskRef.current.userName = e.target.value;
-                }
-              }}
-            >
-              <option value="Assign route">Choose {type}</option>
-              {users?.map(({ name, email }, idx) => {
-                return (
-                  <option key={idx} value={`${name}`}>
-                    {name}
-                  </option>
-                );
-              })}
-            </AssignTasksListFormInputSelect>
-
-            <AssignTasksListFormInputSelect onChange={changeMCPHandler}>
-              <option value="Assign MCP">Assign MCP</option>
-              {mcps?.map(({ name }, idx) => {
-                return (
-                  <option key={idx} value={`${name}`}>
-                    {name}
-                  </option>
-                );
-              })}
-            </AssignTasksListFormInputSelect>
-
-            {type === "Collectors" && (
+      <Fade bottom>
+        <AssignTasksCheckBoxes />
+        <AssignTasksListImg>
+          <div style={{ background: "#f5f0ea", width: "400px" }}>
+            <img src={url} alt="Rubish" />
+          </div>
+        </AssignTasksListImg>
+        <AssignTasksListFormContent>
+          <AssignTasksListFormRow>
+            <AssignTasksListFormCol>
               <AssignTasksListFormInputSelect
                 onChange={(e) => {
                   console.log(e.target.value);
-                  collectorTaskRef.current.routeName = e.target.value;
+                  if (type === "Collectors") {
+                    collectorTaskRef.current.userName = e.target.value;
+                  } else {
+                    janitorTaskRef.current.userName = e.target.value;
+                  }
                 }}
               >
-                <option value="Assign route">Assign route</option>
-                {routes?.map(({ name, point, endPoint }, idx) => {
+                <option value="Assign route">Choose {type}</option>
+                {users?.map(({ name, email }, idx) => {
                   return (
                     <option key={idx} value={`${name}`}>
                       {name}
@@ -161,94 +137,123 @@ const AssignTasksForm = ({ url, type }) => {
                   );
                 })}
               </AssignTasksListFormInputSelect>
-            )}
 
-            {type !== "Collectors" && (
-              <AssignTasksListFormInputSelect
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  janitorTaskRef.current.areaName = e.target.value;
-                }}
-              >
-                <option value="Assign Area">Assign Area</option>
-                {areas?.map(({ description }, idx) => {
+              <AssignTasksListFormInputSelect onChange={changeMCPHandler}>
+                <option value="Assign MCP">Assign MCP</option>
+                {mcps?.map(({ name }, idx) => {
                   return (
-                    <option key={idx} value={`${description}`}>
-                      {description}
+                    <option key={idx} value={`${name}`}>
+                      {name}
                     </option>
                   );
                 })}
               </AssignTasksListFormInputSelect>
-            )}
-            {/* <AssignTasksListFormInputText */}
-            {/*   placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"} */}
-            {/*   wid="100%" */}
-            {/*   onClick={() => setIsAssignRoute(!isAssignRoute)} */}
-            {/* /> */}
-            <AssignTasksListFormDate>
-              <AssignTasksListFormInputText
-                type="text"
-                wid="45%"
+
+              {type === "Collectors" && (
+                <AssignTasksListFormInputSelect
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    collectorTaskRef.current.routeName = e.target.value;
+                  }}
+                >
+                  <option value="Assign route">Assign route</option>
+                  {routes?.map(({ name, point, endPoint }, idx) => {
+                    return (
+                      <option key={idx} value={`${name}`}>
+                        {name}
+                      </option>
+                    );
+                  })}
+                </AssignTasksListFormInputSelect>
+              )}
+
+              {type !== "Collectors" && (
+                <AssignTasksListFormInputSelect
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    janitorTaskRef.current.areaName = e.target.value;
+                  }}
+                >
+                  <option value="Assign Area">Assign Area</option>
+                  {areas?.map(({ description }, idx) => {
+                    return (
+                      <option key={idx} value={`${description}`}>
+                        {description}
+                      </option>
+                    );
+                  })}
+                </AssignTasksListFormInputSelect>
+              )}
+              {/* <AssignTasksListFormInputText */}
+              {/*   placeholder={type === "Collectors" ? "Assign MCP" : "Assign area"} */}
+              {/*   wid="100%" */}
+              {/*   onClick={() => setIsAssignRoute(!isAssignRoute)} */}
+              {/* /> */}
+              <AssignTasksListFormDate>
+                <AssignTasksListFormInputText
+                  type="text"
+                  wid="45%"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (type === "Collectors") {
+                      collectorTaskRef.current.day = e.target.value;
+                    } else {
+                      janitorTaskRef.current.day = e.target.value;
+                    }
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.disabled = false;
+                    return (e.target.type = "date");
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.disabled = true;
+                    return (e.target.type = "text");
+                  }}
+                  placeholder="Pick up date"
+                />
+                <AssignTasksListFormInputText
+                  type="text"
+                  wid="45%"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (type === "Collectors") {
+                      collectorTaskRef.current.time = e.target.value;
+                    } else {
+                      janitorTaskRef.current.time = e.target.value;
+                    }
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.disabled = false;
+                    return (e.target.type = "time");
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.disabled = true;
+                    return (e.target.type = "text");
+                  }}
+                  placeholder="Pick up time"
+                />
+              </AssignTasksListFormDate>
+            </AssignTasksListFormCol>
+            <AssignTasksListFormCol>
+              <AssignTasksListFormInputTextArea
+                placeholder="Brief description of waste to be removed"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   if (type === "Collectors") {
-                    collectorTaskRef.current.day = e.target.value;
+                    collectorTaskRef.current.description = e.target.value;
                   } else {
-                    janitorTaskRef.current.day = e.target.value;
+                    janitorTaskRef.current.description = e.target.value;
                   }
                 }}
-                onMouseEnter={(e) => {
-                  e.target.disabled = false;
-                  return (e.target.type = "date");
-                }}
-                onMouseLeave={(e) => {
-                  e.target.disabled = true;
-                  return (e.target.type = "text");
-                }}
-                placeholder="Pick up date"
               />
-              <AssignTasksListFormInputText
-                type="text"
-                wid="45%"
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  if (type === "Collectors") {
-                    collectorTaskRef.current.time = e.target.value;
-                  } else {
-                    janitorTaskRef.current.time = e.target.value;
-                  }
-                }}
-                onMouseEnter={(e) => {
-                  e.target.disabled = false;
-                  return (e.target.type = "time");
-                }}
-                onMouseLeave={(e) => {
-                  e.target.disabled = true;
-                  return (e.target.type = "text");
-                }}
-                placeholder="Pick up time"
-              />
-            </AssignTasksListFormDate>
-          </AssignTasksListFormCol>
-          <AssignTasksListFormCol>
-            <AssignTasksListFormInputTextArea
-              placeholder="Brief description of waste to be removed"
-              onChange={(e) => {
-                if (type === "Collectors") {
-                  collectorTaskRef.current.description = e.target.value;
-                } else {
-                  janitorTaskRef.current.description = e.target.value;
-                }
-              }}
-            />
-          </AssignTasksListFormCol>
-        </AssignTasksListFormRow>
-        <AssignTasksListFormBtn>
-          <a href="#" onClick={submitHandler}>
-            Submit
-          </a>
-        </AssignTasksListFormBtn>
-      </AssignTasksListFormContent>
+            </AssignTasksListFormCol>
+          </AssignTasksListFormRow>
+          <AssignTasksListFormBtn>
+            <a href="#" onClick={submitHandler}>
+              Submit
+            </a>
+          </AssignTasksListFormBtn>
+        </AssignTasksListFormContent>
+      </Fade>
     </AssignTasksListForm>
   );
 };

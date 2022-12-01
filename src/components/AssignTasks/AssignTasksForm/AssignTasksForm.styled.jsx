@@ -10,12 +10,16 @@ export const AssignTasksListImg = styled.div`
   max-width: 410px;
   width: 100%;
   margin-top: 27px;
-  img {
-    margin-left: 15px;
-    height: auto;
-    max-width: 100%;
-    border-radius: 0;
-    box-shadow: 0;
+  & > div {
+    background: #f5f0ea;
+    width: 400px;
+    img {
+      margin-left: 15px;
+      height: auto;
+      max-width: 90%;
+      border-radius: 0;
+      box-shadow: 0;
+    }
   }
 `;
 
