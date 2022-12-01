@@ -13,6 +13,7 @@ export const AssignTasksListImg = styled.div`
   & > div {
     background: #f5f0ea;
     width: 400px;
+    margin-left: 16px;
     img {
       margin-left: 15px;
       height: auto;

@@ -138,7 +138,7 @@ const Header = () => {
             </li>
             <li>
               <div className="dropdown" id="task-assignment">
-                <span className="text">Task Assignment</span>
+                <span className="text">Phân công nhiệm vụ</span>
               </div>
               <ul className="list small-drop">
                 <li>
@@ -155,7 +155,7 @@ const Header = () => {
                   to="/chat-room"
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  <span className="text">Send Messages</span>
+                  <span className="text">Gửi tin nhắn</span>
                 </NavLink>
               </div>
             </li>
