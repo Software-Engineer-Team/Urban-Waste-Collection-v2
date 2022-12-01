@@ -50,6 +50,7 @@ export const BodyMain = styled.div`
   flex-direction: column;
   justify-content: center;
   z-index: 30;
+  top: -120px;
   h2 {
     font-family: "Amatic SC", cursive;
     font-size: 120px;
@@ -59,7 +60,7 @@ export const BodyMain = styled.div`
     margin-top: 0;
     font-weight: 700;
     line-height: 110px;
-    margin-bottom: 43px;
+    margin-bottom: 23px;
     span {
       color: #ecdd5e;
     }

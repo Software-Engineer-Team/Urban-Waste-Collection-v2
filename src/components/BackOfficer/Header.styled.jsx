@@ -25,6 +25,14 @@ export const HeaderLeft = styled.div`
   background-color: #00993310;
   height: 100%;
   width: 256px;
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      object-fit: cover;
+    }
+  }
 `;
 
 export const HeaderMiddle = styled.div`
@@ -33,6 +41,9 @@ export const HeaderMiddle = styled.div`
   width: 100%;
 
   & > ul {
+    a {
+      text-decoration: none;
+    }
     display: flex;
     color: black;
     justify-content: flex-start;

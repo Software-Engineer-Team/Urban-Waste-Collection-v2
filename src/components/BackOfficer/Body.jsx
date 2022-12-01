@@ -1,4 +1,5 @@
 import React from "react";
+import { Fade } from "react-reveal";
 import {
   BodyContainer,
   BodyContent,
@@ -13,11 +14,15 @@ const Body = () => {
         <BodyWrapper>
           <BodyImageLayer></BodyImageLayer>
           <BodyMain>
-            <h2>
-              Your Clutter is
-              <br /> Our Bread <span>&</span> Butter
-            </h2>
-            <a href="/home/task-assignment">Assign tasks</a>
+            <Fade top>
+              <h2>
+                Hệ thống
+                <br /> thu gom <span>rác thải</span> đô thị
+              </h2>
+            </Fade>
+            <Fade bottom>
+              <a href="/home/task-assignment">Phân công nhiệm vụ</a>
+            </Fade>
           </BodyMain>
         </BodyWrapper>
       </BodyContent>

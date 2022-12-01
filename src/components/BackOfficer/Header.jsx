@@ -7,7 +7,7 @@ import {
   LogoutBtn,
   MainHeader,
 } from "./Header.styled";
-import { NavLink, useParams } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 
 const Header = () => {
   const params = useParams();
@@ -58,58 +58,66 @@ const Header = () => {
         <HeaderMiddle>
           <ul ref={ulEl}>
             <li>
-              <div className="dropdown" id="backofficer">
-                <span className="text">Home</span>
+              <div className="dropdown">
+                <Link
+                  to="/home/backofficer"
+                  className="dropdown"
+                  id="backofficer"
+                >
+                  <span className="text">Trang chủ</span>
+                </Link>
               </div>
-              <ul className="list">
-                <li>
-                  <NavLink to="/home/backofficer">Home Page 1</NavLink>
-                </li>
-                {/* <li> */}
-                {/*   <a href="#">View Information</a> */}
-                {/*   <div> */}
-                {/*     <FaAngleRight /> */}
-                {/*   </div> */}
-                {/*   <ul className="list small-drop"> */}
-                {/*     <li> */}
-                {/*       <NavLink to="/home/list-staffs/collectors"> */}
-                {/*         Collectors */}
-                {/*       </NavLink> */}
-                {/*     </li> */}
-                {/*     <li> */}
-                {/*       <NavLink to="/home/list-staffs/janitors"> */}
-                {/*         Janitors */}
-                {/*       </NavLink> */}
-                {/*     </li> */}
-                {/*   </ul> */}
-                {/* </li> */}
-              </ul>
+              {/* <ul className="list"> */}
+              {/* <li> */}
+              {/*   <NavLink to="/home/backofficer">Home Page</NavLink> */}
+              {/* </li> */}
+              {/* <li> */}
+              {/*   <a href="#">View Information</a> */}
+              {/*   <div> */}
+              {/*     <FaAngleRight /> */}
+              {/*   </div> */}
+              {/*   <ul className="list small-drop"> */}
+              {/*     <li> */}
+              {/*       <NavLink to="/home/list-staffs/collectors"> */}
+              {/*         Collectors */}
+              {/*       </NavLink> */}
+              {/*     </li> */}
+              {/*     <li> */}
+              {/*       <NavLink to="/home/list-staffs/janitors"> */}
+              {/*         Janitors */}
+              {/*       </NavLink> */}
+              {/*     </li> */}
+              {/*   </ul> */}
+              {/* </li> */}
+              {/* </ul> */}
             </li>
             <li>
               <div className="dropdown" id="task-management">
-                <span className="text">Task Management</span>
+                <span className="text">Quản lý tác vụ</span>
               </div>
               <ul className="list">
                 <li>
-                  <NavLink to="/home/task-management/area">Manage Area</NavLink>
+                  <NavLink to="/home/task-management/area">
+                    Quản lý khu vực
+                  </NavLink>
                 </li>
                 <li>
                   <NavLink to="/home/task-management/calendar">
-                    Manage Calendar
+                    Quản lý lịch
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/home/task-management/route">
-                    Manage Route
+                    Quản lý tuyến đường
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/home/task-management/vehicle">
-                    Manage Vehicle
+                    Quản lý phương tiện
                   </NavLink>
                 </li>
                 <li>
-                  <a href="#">Manage Worker</a>
+                  <a href="#">Quản lý công nhân</a>
                   <div>
                     <FaAngleRight />
                   </div>

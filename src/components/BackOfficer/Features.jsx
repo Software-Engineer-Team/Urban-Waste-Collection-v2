@@ -1,6 +1,10 @@
 import React from "react";
 import { Body, Container } from "./Features.styled";
 import { BsNewspaper, BsCalendar2Day, BsTrash } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { FaRoute } from "react-icons/fa";
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { TiMessages } from "react-icons/ti";
 
 const Features = () => {
   return (
@@ -8,52 +12,56 @@ const Features = () => {
       <Body>
         <ul>
           <li>
-            <div className="icon">
+            <Link to="/chat-room" className="icon">
               <span>
-                <BsNewspaper />
+                <TiMessages />
               </span>
-            </div>
+            </Link>
             <h3>
-              <a href="/">
-                You Estimate <br />
-                Load Size
-              </a>
+              <Link to="/chat-room">
+                Quản lý
+                <br />
+                tin nhắn
+              </Link>
             </h3>
           </li>
           <li>
-            <div className="icon">
+            <Link to="/home/task-management/calendar" className="icon">
               <span>
                 <BsCalendar2Day />
               </span>
-            </div>
+            </Link>
             <h3>
-              <a href="/">
-                You Choose <br />a Time
-              </a>
+              <Link to="/home/task-management/calendar">
+                Quản lý
+                <br /> thời gian
+              </Link>
             </h3>
           </li>
           <li>
-            <div className="icon">
+            <Link to="/home/task-management/route" className="icon">
               <span>
-                <BsTrash />
+                <FaRoute />
               </span>
-            </div>
+            </Link>
             <h3>
-              <a href="/">
-                We Pick <br />& Clean up
-              </a>
+              <Link to="/home/task-management/route">
+                Quản lý
+                <br /> tuyến đường
+              </Link>
             </h3>
           </li>
           <li>
-            <div className="icon">
+            <Link to="/home/list-staffs/janitors" className="icon">
               <span>
-                <BsTrash />
+                <HiOutlineUserGroup />
               </span>
-            </div>
+            </Link>
             <h3>
-              <a href="/">
-                We Responsibly <br /> dispose
-              </a>
+              <Link to="/home/list-staffs/janitors">
+                Quản lý
+                <br /> nhân viên
+              </Link>
             </h3>
           </li>
         </ul>

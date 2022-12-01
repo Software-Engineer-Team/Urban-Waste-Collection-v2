@@ -14,7 +14,7 @@ export const Body = styled.div`
   display: block;
   background-color: #404a3d;
   padding: 88px 0 74px;
-  margin-top: 180px;
+  /* margin-top: 180px; */
 
   & > ul {
     list-style: none;
