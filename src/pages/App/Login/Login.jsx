@@ -16,9 +16,13 @@ import {
 } from "./Login.styled";
 import { useGoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
+import { useDispatch } from "react-redux";
+import { setUser } from "@features/User/userSlice";
+import { postData } from "@utils/util";
 
 export default function Home() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useBackDrop("login-container");
 
@@ -44,9 +48,23 @@ export default function Home() {
     scope: "",
     cookiePolicy: "single_host_origin",
     isSignedIn: false,
-    onSuccess: (e) => {
-      console.log(e);
-      navigate("/home/backofficer");
+    onSuccess: async (e) => {
+      console.log(e.profileObj);
+      const user = await postData(
+        { email: e.profileObj.email },
+        "/user/sign-in-google"
+      );
+      console.log(user);
+      if (user) {
+        dispatch(
+          setUser({
+            name: e.profileObj.name,
+            imgUrl: e.profileObj.imageUrl,
+            roles: user.roles,
+          })
+        );
+        navigate("/home/backofficer");
+      }
     },
     onFailure: (e) => {
       console.log(e);
