@@ -24,7 +24,7 @@ const SideBar = () => {
             <div className="title-header">
               <h4>Chats</h4>
             </div>
-            <NavLink to="/home/backofficer">
+            <NavLink to="/home">
               <div className="add-contact">
                 <IoReturnDownBackOutline />
               </div>

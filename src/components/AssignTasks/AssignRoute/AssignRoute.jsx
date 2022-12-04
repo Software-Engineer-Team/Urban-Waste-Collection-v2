@@ -24,7 +24,7 @@ const AssignRoute = () => {
   const [areas, setAreas] = useState([]);
   const routesEl = useRef(routesElInitState);
 
-  const [formBlock] = usePlaceSearch("/home/backofficer", () => {
+  const [formBlock] = usePlaceSearch("/home", () => {
     mapEl.style.display = "none";
     map?.current.remove();
   });

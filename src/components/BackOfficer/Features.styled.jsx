@@ -22,6 +22,7 @@ export const Body = styled.div`
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 
     li {

@@ -155,6 +155,7 @@ export const SocialLoginSection = styled.div`
   }
   div.signin-btn {
     margin-top: 12px;
+    cursor: pointer;
     div {
       border-radius: 50px;
       border: 2px solid rgb(34, 197, 94);

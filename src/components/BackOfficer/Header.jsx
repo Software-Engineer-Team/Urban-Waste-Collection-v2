@@ -8,8 +8,11 @@ import {
   MainHeader,
 } from "./Header.styled";
 import { Link, NavLink, useParams } from "react-router-dom";
+import { checkRoleOfUser } from "@utils/util";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const { roles } = useSelector((state) => state.user);
   const params = useParams();
   const ulEl = useRef(null);
 
@@ -48,7 +51,7 @@ const Header = () => {
     <MainHeader>
       <Container>
         <HeaderLeft>
-          <NavLink to="/home/backofficer">
+          <NavLink to="/home">
             <img
               src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/UWC-logo.png`}
               alt="logo"
@@ -59,17 +62,13 @@ const Header = () => {
           <ul ref={ulEl}>
             <li>
               <div className="dropdown">
-                <Link
-                  to="/home/backofficer"
-                  className="dropdown"
-                  id="backofficer"
-                >
+                <Link to="/home" className="dropdown" id="backofficer">
                   <span className="text">Trang chủ</span>
                 </Link>
               </div>
               {/* <ul className="list"> */}
               {/* <li> */}
-              {/*   <NavLink to="/home/backofficer">Home Page</NavLink> */}
+              {/*   <NavLink to="/home">Home Page</NavLink> */}
               {/* </li> */}
               {/* <li> */}
               {/*   <a href="#">View Information</a> */}
@@ -91,74 +90,78 @@ const Header = () => {
               {/* </li> */}
               {/* </ul> */}
             </li>
-            <li>
-              <div className="dropdown" id="task-management">
-                <span className="text">Quản lý tác vụ</span>
-              </div>
-              <ul className="list">
+            {checkRoleOfUser(roles) && (
+              <>
                 <li>
-                  <NavLink to="/home/task-management/area">
-                    Quản lý khu vực
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/home/task-management/calendar">
-                    Quản lý lịch
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/home/task-management/route">
-                    Quản lý tuyến đường
-                  </NavLink>
-                </li>
-                {/* <li> */}
-                {/*   <NavLink to="/home/task-management/vehicle"> */}
-                {/*     Quản lý phương tiện */}
-                {/*   </NavLink> */}
-                {/* </li> */}
-                <li>
-                  <a href="#">Quản lý công nhân</a>
-                  <div>
-                    <FaAngleRight />
+                  <div className="dropdown" id="task-management">
+                    <span className="text">Quản lý tác vụ</span>
                   </div>
-                  <ul className="list small-drop">
+                  <ul className="list">
                     <li>
-                      <NavLink to="/home/list-staffs/collectors">
-                        Collectors
+                      <NavLink to="/home/task-management/area">
+                        Quản lý khu vực
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/home/list-staffs/janitors">
-                        Janitors
+                      <NavLink to="/home/task-management/calendar">
+                        Quản lý lịch
                       </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/home/task-management/route">
+                        Quản lý tuyến đường
+                      </NavLink>
+                    </li>
+                    {/* <li> */}
+                    {/*   <NavLink to="/home/task-management/vehicle"> */}
+                    {/*     Quản lý phương tiện */}
+                    {/*   </NavLink> */}
+                    {/* </li> */}
+                    <li>
+                      <a href="#">Quản lý công nhân</a>
+                      <div>
+                        <FaAngleRight />
+                      </div>
+                      <ul className="list small-drop">
+                        <li>
+                          <NavLink to="/home/list-staffs/collectors">
+                            Collectors
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/home/list-staffs/janitors">
+                            Janitors
+                          </NavLink>
+                        </li>
+                      </ul>
                     </li>
                   </ul>
                 </li>
-              </ul>
-            </li>
-            <li>
-              <div className="dropdown" id="task-assignment">
-                <span className="text">Phân công nhiệm vụ</span>
-              </div>
-              <ul className="list small-drop">
                 <li>
-                  <NavLink to="/home/task-assignment">Collectors</NavLink>
+                  <div className="dropdown" id="task-assignment">
+                    <span className="text">Phân công nhiệm vụ</span>
+                  </div>
+                  <ul className="list small-drop">
+                    <li>
+                      <NavLink to="/home/task-assignment">Collectors</NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/home/task-assignment">Janitors</NavLink>
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  <NavLink to="/home/task-assignment">Janitors</NavLink>
+                  <div className="dropdown">
+                    <NavLink
+                      to="/chat-room"
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <span className="text">Gửi tin nhắn</span>
+                    </NavLink>
+                  </div>
                 </li>
-              </ul>
-            </li>
-            <li>
-              <div className="dropdown">
-                <NavLink
-                  to="/chat-room"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <span className="text">Gửi tin nhắn</span>
-                </NavLink>
-              </div>
-            </li>
+              </>
+            )}
           </ul>
         </HeaderMiddle>
         <LogoutBtn href="/" className="logout">

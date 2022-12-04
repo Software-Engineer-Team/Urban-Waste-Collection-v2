@@ -2,7 +2,7 @@ import { AssignTasks, BackOfficer, MemberDetail, Staffs } from "@pages/Home";
 import { Calendar, AssignRoute, AssignArea } from "@components/index";
 
 export const homeRoutes = [
-  { path: "/backofficer", component: BackOfficer },
+  { path: "/", component: BackOfficer },
   { path: "/task-assignment", component: AssignTasks },
   {
     path: "/list-staffs/collectors",

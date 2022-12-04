@@ -11,7 +11,7 @@ const AssignArea = () => {
   const map = useRef(null);
   const placeSearch = useRef(null);
 
-  const [formBlock] = usePlaceSearch("/home/backofficer", () => {
+  const [formBlock] = usePlaceSearch("/home", () => {
     mapEl.style.display = "none";
     map?.current.remove();
   });

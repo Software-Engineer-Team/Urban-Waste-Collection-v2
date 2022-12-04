@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useBackDrop from "@hook/useBackDrop";
 import {
   LoginContainer,
@@ -18,11 +19,13 @@ import { useGoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { setUser } from "@features/User/userSlice";
-import { postData } from "@utils/util";
+import { postData, sweetAlertHelper } from "@utils/util";
 
 export default function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useBackDrop("login-container");
 
@@ -52,7 +55,7 @@ export default function Home() {
       console.log(e.profileObj);
       const user = await postData(
         { email: e.profileObj.email },
-        "/user/sign-in-google"
+        "/api/user/sign-in-google"
       );
       console.log(user);
       if (user) {
@@ -63,7 +66,7 @@ export default function Home() {
             roles: user.roles,
           })
         );
-        navigate("/home/backofficer");
+        navigate("/home");
       }
     },
     onFailure: (e) => {
@@ -75,6 +78,43 @@ export default function Home() {
     signIn();
   };
 
+  const signInHandler = async () => {
+    let timerInterval;
+    Swal.fire({
+      title: "<strong>Processing...</strong>",
+      html: "Please wait for a minute!!!",
+      timer: 1000,
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: async () => {
+        Swal.showLoading();
+        const data = await postData({ email, password }, "/api/user/sign-in");
+        if (!data.error) {
+          dispatch(
+            setUser({
+              name: data.name,
+              imgUrl: data.imageUrl,
+              roles: data.roles,
+            })
+          );
+          Swal.close();
+          navigate("/home");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            html: data?.error || "Something went wrong!!!",
+            showConfirmButton: "Ok",
+            allowOutsideClick: false,
+          });
+        }
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
+  };
+
   return (
     <LoginContainer id="login-container">
       <LoginMain>
@@ -82,7 +122,7 @@ export default function Home() {
           <SignInSection>
             <div className="group-name">
               <div>
-                <span>Group </span> name
+                <span>Urban-Waste-Collection-v2</span>
               </div>
             </div>
             <div className="header-sign-in">
@@ -109,25 +149,35 @@ export default function Home() {
                 <span>
                   <FaRegEnvelope />
                 </span>
-                <input type="email" placeholder="Email" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
               </div>
 
               <div className="password">
                 <span>
                   <MdLockOutline />
                 </span>
-                <input type="password" placeholder="Password" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
               </div>
 
               <div className="forgot-password">
                 <a href="#">Forgot password?</a>
               </div>
 
-              <Link to="/home/backofficer">
-                <div className="signin-btn">
-                  <div>Sign in</div>
-                </div>
-              </Link>
+              {/* <Link to="/home"> */}
+              <div className="signin-btn" onClick={signInHandler}>
+                <div>Sign in</div>
+              </div>
+              {/* </Link> */}
             </SocialLoginSection>
           </SignInSection>
           <SignUpSection>

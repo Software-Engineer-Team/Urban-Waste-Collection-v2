@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
+import { checkRoleOfUser } from "@utils/util";
 import {
   BodyContainer,
   BodyContent,
@@ -9,6 +11,7 @@ import {
   BodyMain,
 } from "./Body.styled";
 const Body = () => {
+  const { roles } = useSelector((state) => state.user);
   return (
     <BodyContainer>
       <BodyContent>
@@ -22,7 +25,9 @@ const Body = () => {
               </h2>
             </Fade>
             <Fade bottom>
-              <Link to="/home/task-assignment">Phân công nhiệm vụ</Link>
+              {checkRoleOfUser(roles) && (
+                <Link to="/home/task-assignment">Phân công nhiệm vụ</Link>
+              )}
             </Fade>
           </BodyMain>
         </BodyWrapper>

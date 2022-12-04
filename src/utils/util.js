@@ -67,7 +67,7 @@ export const fetchData = async (url) => {
   }
 };
 
-export const sweetAlertHelper = (title, cb) => {
+export const sweetAlertHelper = (title, cb, icon = "success") => {
   let timerInterval;
   Swal.fire({
     title: "<strong>Processing...</strong>",
@@ -87,11 +87,23 @@ export const sweetAlertHelper = (title, cb) => {
     if (result.dismiss === Swal.DismissReason.timer) {
       Swal.fire({
         position: "center",
-        icon: "success",
+        icon,
         title,
         showConfirmButton: false,
         timer: 1500,
       }).then(() => cb());
     }
   });
+};
+
+export const checkRoleOfUser = (roles) => {
+  let flag = false;
+  if (roles) {
+    for (let index = 0; index < roles.length && !flag; index++) {
+      if (roles[index].name === "ROLE_BACKOFFICER") {
+        flag = true;
+      }
+    }
+  }
+  return flag;
 };
