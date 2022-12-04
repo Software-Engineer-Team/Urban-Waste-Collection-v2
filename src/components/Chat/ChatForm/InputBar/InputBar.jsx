@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatFooter, InputGroup } from "./InputBar.styled";
 import { MdOutlineInsertEmoticon } from "react-icons/md";
 import { ImImages, ImAttachment } from "react-icons/im";
 import { AiOutlineSend } from "react-icons/ai";
 
-const InputBar = () => {
+const InputBar = ({ handleMessage }) => {
+  const [message, setMessage] = useState("");
+
+  const messageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
   return (
     <ChatFooter>
       <InputGroup>
@@ -38,10 +44,21 @@ const InputBar = () => {
           <MdOutlineInsertEmoticon />
         </div>
         <div className="enter-text">
-          <input type="text" placeholder="Enter your message..."></input>
+          <input
+            type="text"
+            placeholder="Enter your message..."
+            value={message}
+            onChange={messageChange}
+          ></input>
         </div>
       </InputGroup>
-      <button type="submit">
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          handleMessage(message);
+          setMessage("");
+        }}
+      >
         <AiOutlineSend />
       </button>
     </ChatFooter>

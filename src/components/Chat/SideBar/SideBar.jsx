@@ -15,7 +15,7 @@ import {
 } from "./SideBar.styled";
 import { v4 as uuidv4 } from "uuid";
 
-const SideBar = () => {
+const SideBar = ({ usersJoin }) => {
   return (
     <Container>
       <Content>
@@ -37,27 +37,22 @@ const SideBar = () => {
         <ContentBody>
           <h5>Collectors</h5>
           <ChatsList>
-            {Array(1)
-              .fill()
-              .map(() => {
-                return (
-                  <ChatItem key={uuidv4()}>
-                    <Link to="#">
-                      <Avatar isLoggined={true}>
-                        <img
-                          src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/member/member-1.jpg`}
-                          alt=""
-                        />
-                      </Avatar>
-                      <ChatContent>
-                        <ChatInfo>
-                          <h6>caohoangkiet</h6>
-                        </ChatInfo>
-                      </ChatContent>
-                    </Link>
-                  </ChatItem>
-                );
-              })}
+            {usersJoin?.map(({ name, imgUrl, roles }) => {
+              return (
+                <ChatItem key={uuidv4()}>
+                  <Link to="#">
+                    <Avatar isLoggined={true}>
+                      <img src={imgUrl} alt="" />
+                    </Avatar>
+                    <ChatContent>
+                      <ChatInfo>
+                        <h6>{name}</h6>
+                      </ChatInfo>
+                    </ChatContent>
+                  </Link>
+                </ChatItem>
+              );
+            })}
           </ChatsList>
         </ContentBody>
       </Content>

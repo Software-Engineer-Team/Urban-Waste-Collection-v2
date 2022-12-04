@@ -107,3 +107,14 @@ export const checkRoleOfUser = (roles) => {
   }
   return flag;
 };
+
+export const checkSameDate = (predate, date) => {
+  date = new Date(date);
+  predate = new Date(predate);
+  if (
+    dayjs(date).format("YYYY/MM/DD") === dayjs(predate).format("YYYY/MM/DD")
+  ) {
+    return true;
+  }
+  return false;
+};

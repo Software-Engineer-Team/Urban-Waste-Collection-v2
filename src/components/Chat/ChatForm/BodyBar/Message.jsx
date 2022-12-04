@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   MessageContainer,
   MessageDivider,
@@ -9,10 +9,16 @@ import {
   AvatarUser,
 } from "./Message.styled";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-const Message = ({ type, text }) => {
+import dayjs from "dayjs";
+
+const Message = ({ type, text, imgUrl, date, timeChange }) => {
   return (
     <MessageContainer type={type}>
-      <MessageDivider data-label={"Yesterday"}></MessageDivider>
+      {timeChange && (
+        <MessageDivider
+          data-label={dayjs(date).format("DD/MM/YYYY")}
+        ></MessageDivider>
+      )}
       <MessageContent type={type}>
         <MessageWrapper type={type}>
           <div className="text">
@@ -22,9 +28,9 @@ const Message = ({ type, text }) => {
 
         <MessageOptions type={type}>
           <AvatarUser>
-            <img src="/images/member/member-1.jpg" alt="User" />
+            <img src={imgUrl} alt="User" />
           </AvatarUser>
-          <span>{"10:07am"}</span>
+          <span>{dayjs(date).format("HH:mm")}</span>
           <MessageOptionsDropDown>
             <BiDotsHorizontalRounded />
           </MessageOptionsDropDown>
