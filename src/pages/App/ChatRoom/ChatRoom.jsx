@@ -6,106 +6,48 @@ import SockJS from "sockjs-client";
 import { useSelector } from "react-redux";
 
 const ChatRoom = () => {
-  const [usersJoin, setUsersJoin] = useState([
-    {
-      name: "kietcao",
-      imgUrl: "/images/member/member-1.jpg",
-      roles: [],
-    },
-  ]);
-  const [messages, setMessages] = useState([
-    {
-      sender: {
-        name: "",
-        imgUrl: "/images/member/member-1.jpg",
-      },
-      date: new Date(Date.now()),
-      message: "Hello World",
-    },
-  ]);
+  const [usersJoin, setUsersJoin] = useState([]);
+  const [messages, setMessages] = useState([]);
   const user = useSelector((state) => state.user);
   const stompClient = useRef(null);
 
-  const onMessageReceived = useCallback(
-    (payload) => {
-      console.log(JSON.parse(payload.body));
-      const { status, sender, message, date } = JSON.parse(payload.body);
-      console.log(sender, status);
-      switch (status) {
-        case "JOIN":
-          console.log(sender.name, user.name);
-          if (sender.name !== user.name) {
-            setUsersJoin([
-              ...usersJoin,
-              { name: sender.name, imgUrl: sender.imgUrl, roles: sender.roles },
-            ]);
-          }
-          break;
-        case "MESSAGE":
-          setMessages((preMes) => [...preMes, { sender, message, date }]);
-          break;
-        default:
-          break;
-      }
-    },
-    [usersJoin, user]
-  );
+  const onMessageReceived = useCallback((payload) => {
+    const { sender, message, date } = JSON.parse(payload.body);
+    setMessages((preMes) => [...preMes, { sender, message, date }]);
+  }, []);
 
-  useEffect(() => {
-    if (stompClient.current) {
-      const { id } = stompClient.current.subscribe(
-        "/chatroom/public",
-        onMessageReceived
-      );
+  const onJoinRoom = useCallback((payload) => {
+    const users = JSON.parse(payload.body);
+    setUsersJoin(users);
+  }, []);
 
-      return () => {
-        stompClient.current.unsubscribe(id);
-      };
-    }
-  }, [stompClient.current, onMessageReceived]);
+  const onConnected = async () => {
+    stompClient.current.subscribe("/chatroom/public", onMessageReceived);
 
-  useEffect(() => {
-    if (stompClient.current) {
-      const { id } = stompClient.current.subscribe(
-        "/chatroom/users-in-room",
-        (payload) => {
-          const usersJoinRoom = JSON.parse(payload.body);
-          console.log(usersJoinRoom);
-          setUsersJoin(usersJoinRoom);
-        }
-      );
+    stompClient.current.subscribe("/chatroom/public/joinroom", onJoinRoom);
 
-      return () => {
-        stompClient.current.unsubscribe(id);
-      };
-    }
-  }, [stompClient.current]);
+    stompClient.current.subscribe("/chatroom/leaveroom", (payload) => {
+      const remainUsers = JSON.parse(payload.body);
+      setUsersJoin(remainUsers);
+    });
 
-  useEffect(() => {
-    if (stompClient.current) {
-      stompClient.current.send(
-        "/app/joinroom",
-        {},
-        JSON.stringify({
-          sender: user,
-          date: new Date(Date.now()),
-          status: "JOIN",
-        })
-      );
-      stompClient.current.send(
-        "/app/users-in-room",
-        {},
-        JSON.stringify({ sender: user })
-      );
-    }
-  }, [user, stompClient.current]);
+    stompClient.current.send(
+      "/app/joinroom",
+      {},
+      JSON.stringify({
+        sender: user,
+        date: new Date(Date.now()),
+      })
+    );
+  };
 
   useEffect(() => {
     const socket = new SockJS(`${process.env.REACT_APP_ENDPOINT_SERVER}/ws`);
     stompClient.current = over(socket);
-    stompClient.current.connect();
+    stompClient.current.connect({}, onConnected);
 
     return () => {
+      stompClient.current.send("/app/leaveroom", {}, JSON.stringify(user));
       stompClient.current.disconnect();
     };
   }, []);
@@ -118,7 +60,6 @@ const ChatRoom = () => {
         sender: user,
         message,
         date: new Date(Date.now()),
-        status: "MESSAGE",
       })
     );
   };
