@@ -71,7 +71,6 @@ const AssignRoute = () => {
       return mcp1ToPointDistance - mcp2ToPointDistance;
     });
 
-    console.log(mcps?.[0]);
     const point = mcps?.[0].point;
     routesEl.current.mcpId = mcps?.[0].id;
     makerStart.current = mcps?.[0].maker;
@@ -107,7 +106,6 @@ const AssignRoute = () => {
   const onMapClick = useCallback(
     (e) => {
       const { lat, lng } = e.latlng;
-      console.log([lat, lng]);
 
       if (lat && lng) {
         loading_spinner.style.display = "inline-block";
@@ -177,8 +175,6 @@ const AssignRoute = () => {
               routesEl.current.name =
                 routesEl.current.name + " -> " + popupContent;
             }
-
-            console.log(routesEl.current);
           });
       }
     },
@@ -200,7 +196,6 @@ const AssignRoute = () => {
     });
 
     fetchData("/api/MCPs").then((mcps) => {
-      console.log(mcps);
       setMcps(mcps);
       mcpsEl.current = [...mcps];
     });
@@ -324,7 +319,6 @@ const AssignRoute = () => {
             { name: routesEl.current.name, points: routesEl.current.points },
             `/api/route/save?mcpId=${routesEl.current.mcpId}`
           );
-          console.log(data);
           handleClearMCPBtn();
         });
       }

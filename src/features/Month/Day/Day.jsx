@@ -28,7 +28,6 @@ const Day = ({ day, rowIdx }) => {
   const handleJobClick = async (e, type) => {
     if (!isMaking) {
       const date = dayjs(day).format("YYYY-MM-DD");
-      console.log(date);
 
       const colPos = {
         left: e.target.offsetLeft,
@@ -75,8 +74,6 @@ const Day = ({ day, rowIdx }) => {
           })
         );
       }
-      console.log(collectorTasks);
-      console.log(janitorTasks);
       /* dispatch( */
       /*   jobMakerPreMounted( */
       /*     calcPosX(), */

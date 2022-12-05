@@ -26,7 +26,6 @@ const AssignArea = () => {
       );
 
       fetchData(`/api/MCPs`).then((Mcps) => {
-        console.log(Mcps);
         Mcps.forEach((mcp) => {
           let custom_icon = window.L.icon({
             iconUrl: "/images/leaf-green.png",
@@ -95,7 +94,6 @@ const AssignArea = () => {
   useEffect(() => {
     if (map.current) {
       const drawnItems = new window.L.FeatureGroup();
-      console.log(drawnItems);
       map.current.addLayer(drawnItems);
       const drawControl = new window.L.Control.Draw({
         draw: {
@@ -113,7 +111,7 @@ const AssignArea = () => {
       map.current.on(window.L.Draw.Event.CREATED, function (e) {
         let layer = e.layer;
         // get lat, long via this layer
-        console.log(layer);
+        /* console.log(layer); */
         drawnItems.addLayer(layer);
       });
     }
@@ -136,7 +134,6 @@ const AssignArea = () => {
     placeSearch.current.on("change", (e) => {
       try {
         const { lat, lng } = e.result.latlng;
-        console.log([lat, lng]);
         map.current.panTo([lat, lng]);
         map.current.zoomIn(2);
       } catch (err) {

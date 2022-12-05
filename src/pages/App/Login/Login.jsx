@@ -52,12 +52,10 @@ export default function Home() {
     cookiePolicy: "single_host_origin",
     isSignedIn: false,
     onSuccess: async (e) => {
-      console.log(e.profileObj);
       const user = await postData(
         { email: e.profileObj.email },
         "/api/user/sign-in-google"
       );
-      console.log(user);
       if (user) {
         dispatch(
           setUser({

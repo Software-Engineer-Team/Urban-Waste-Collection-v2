@@ -57,8 +57,6 @@ const AssignTasksForm = ({ url, type }) => {
   }, [type]);
 
   const submitHandler = () => {
-    console.log(collectorTaskRef.current);
-    console.log(janitorTaskRef.current);
     let url = "";
     let data = {};
     if (type === "Collectors") {
@@ -90,7 +88,6 @@ const AssignTasksForm = ({ url, type }) => {
 
   const changeMCPHandler = (e) => {
     const mcpName = e.target.value;
-    console.log(mcpName);
     if (type !== "Collectors") {
       janitorTaskRef.current.mcpName = mcpName;
       setAreas((_preAreas) => {
@@ -124,7 +121,6 @@ const AssignTasksForm = ({ url, type }) => {
             <AssignTasksListFormCol>
               <AssignTasksListFormInputSelect
                 onChange={(e) => {
-                  console.log(e.target.value);
                   if (type === "Collectors") {
                     collectorTaskRef.current.userName = e.target.value;
                   } else {
@@ -156,7 +152,6 @@ const AssignTasksForm = ({ url, type }) => {
               {type === "Collectors" && (
                 <AssignTasksListFormInputSelect
                   onChange={(e) => {
-                    console.log(e.target.value);
                     collectorTaskRef.current.routeName = e.target.value;
                   }}
                 >
@@ -174,7 +169,6 @@ const AssignTasksForm = ({ url, type }) => {
               {type !== "Collectors" && (
                 <AssignTasksListFormInputSelect
                   onChange={(e) => {
-                    console.log(e.target.value);
                     janitorTaskRef.current.areaName = e.target.value;
                   }}
                 >
@@ -198,7 +192,6 @@ const AssignTasksForm = ({ url, type }) => {
                   type="text"
                   wid="45%"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     if (type === "Collectors") {
                       collectorTaskRef.current.day = e.target.value;
                     } else {
@@ -219,7 +212,6 @@ const AssignTasksForm = ({ url, type }) => {
                   type="text"
                   wid="45%"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     if (type === "Collectors") {
                       collectorTaskRef.current.time = e.target.value;
                     } else {

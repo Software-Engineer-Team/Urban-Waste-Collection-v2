@@ -18,7 +18,6 @@ const Header = () => {
 
   useEffect(() => {
     let el = null;
-    console.log(params["*"].split("/")[0]);
     switch (params["*"].split("/")[0]) {
       case "backofficer":
         el = ulEl.current.querySelector("#backofficer span");

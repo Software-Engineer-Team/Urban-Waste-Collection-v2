@@ -7,7 +7,6 @@ import {
 import { Flip } from "react-reveal";
 
 const GeneralHeader = (props) => {
-  console.log(props);
   return (
     <PageHeader>
       <PageHeaderBg />

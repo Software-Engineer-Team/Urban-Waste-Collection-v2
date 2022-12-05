@@ -4,12 +4,11 @@ import JanitorTaskForm from "./JanitorTaskForm";
 import CollectorTaskForm from "./CollectorTaskForm";
 
 const JobMakerForm = ({ type, janitorTasks, collectorTasks }) => {
-  console.log(janitorTasks, collectorTasks, type);
   return (
     <Container>
       {type === "Janitors" ? (
         <>
-          {janitorTasks.map(
+          {janitorTasks?.map(
             ({ taskTime, description, areas, mcp, janitor }, idx) => {
               return (
                 <JanitorTaskForm
@@ -26,7 +25,7 @@ const JobMakerForm = ({ type, janitorTasks, collectorTasks }) => {
         </>
       ) : (
         <>
-          {collectorTasks.map(
+          {collectorTasks?.map(
             ({ description, taskTime, collector, route }, idx) => {
               return (
                 <CollectorTaskForm
