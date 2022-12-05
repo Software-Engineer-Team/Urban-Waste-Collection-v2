@@ -10,10 +10,7 @@ const Member = (props) => {
   return (
     <Container>
       <div className="image">
-        <img
-          src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/${props.url}`}
-          alt=""
-        />
+        <img src={`/${props.url}`} alt="" />
         <div className="shape">
           <img
             src={`${process.env.REACT_APP_ENDPOINT_CLIENT}/images/shape.png`}

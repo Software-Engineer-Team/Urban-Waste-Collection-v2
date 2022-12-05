@@ -7,7 +7,7 @@ import { Slide } from "react-reveal";
 const AssignTasks = () => {
   return (
     <div style={{ overflow: "scroll", height: "100vh" }}>
-      <GeneralHeader type="Assign Tasks" />
+      <GeneralHeader type="Phân công nhiệm vụ" />
       <AssignTasksHeader>
         <Slide right>
           <div className="container">

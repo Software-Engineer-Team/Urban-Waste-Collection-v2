@@ -14,6 +14,7 @@ import {
 } from "./AssignTasksForm.styled";
 import { fetchData, sweetAlertHelper, postData } from "@utils/util";
 import { Fade } from "react-reveal";
+import { useNavigate } from "react-router-dom";
 
 const AssignTasksForm = ({ url, type }) => {
   const [areas, setAreas] = useState([]);
@@ -25,6 +26,7 @@ const AssignTasksForm = ({ url, type }) => {
   const [users, setUsers] = useState([]);
   const usersRef = useRef([]);
   const [mcps, setMcps] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (type !== "Collectors") {
@@ -81,6 +83,7 @@ const AssignTasksForm = ({ url, type }) => {
     }
     sweetAlertHelper("Task Assignment done", () => {
       postData(data, url);
+      navigate("/home");
     });
   };
 
