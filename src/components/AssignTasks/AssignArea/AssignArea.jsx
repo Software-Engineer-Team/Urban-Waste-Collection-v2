@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import usePlaceSearch from "@hook/usePlaceSearch";
-import { postData, fetchData } from "@utils/util";
+import { fetchData } from "@utils/util";
 
 const hcmCity = [10.8326, 106.6581];
-const loading_spinner = document.getElementById("loader");
-const background_blur = document.getElementById("background-blur");
+/* const loading_spinner = document.getElementById("loader"); */
+/* const background_blur = document.getElementById("background-blur"); */
 const mapEl = document.getElementById("map");
 
 const AssignArea = () => {

@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import { TiTick } from "react-icons/ti";
 import { useRef } from "react";

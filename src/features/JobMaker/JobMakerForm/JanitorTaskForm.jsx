@@ -1,4 +1,5 @@
 import { AssignContent, Icon, Title, TitleBody } from "./JobMakerForm.styled";
+import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineDateRange } from "react-icons/md";
 import { HiOutlineLocationMarker } from "react-icons/hi";

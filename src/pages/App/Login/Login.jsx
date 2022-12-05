@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaFacebookF, FaGoogle, FaRegEnvelope } from "react-icons/fa";
 import { MdLockOutline } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useBackDrop from "@hook/useBackDrop";
 import {
@@ -19,7 +19,7 @@ import { useGoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 import { setUser } from "@features/User/userSlice";
-import { postData, sweetAlertHelper } from "@utils/util";
+import { postData } from "@utils/util";
 
 export default function Home() {
   const navigate = useNavigate();

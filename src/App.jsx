@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { appRoutes } from "@routes/App";
 import { v4 as uuidv4 } from "uuid";
