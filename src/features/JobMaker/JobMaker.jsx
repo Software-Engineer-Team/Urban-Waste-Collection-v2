@@ -12,7 +12,9 @@ import useClickOutside from "@hook/useClickOutside";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isMakingTurnOff } from "@features/JobMaker/jobMakerSlice";
+
 import JobMakerForm from "./JobMakerForm/JobMakerForm";
+import { CircularProgress } from "@mui/material";
 
 const JobMaker = () => {
   const dispatch = useDispatch();
@@ -24,6 +26,7 @@ const JobMaker = () => {
     janitorTasks,
     collectorTasks,
     type,
+    isFetching,
   } = useSelector((state) => state.jobMaker);
   const cardRef = useRef(null);
 
@@ -54,11 +57,17 @@ const JobMaker = () => {
                 <GrClose />
               </CloseBtn>
             </Header>
-            <JobMakerForm
-              type={type}
-              janitorTasks={janitorTasks}
-              collectorTasks={collectorTasks}
-            />
+            {isFetching ? (
+              <div className="loading">
+                <CircularProgress />
+              </div>
+            ) : (
+              <JobMakerForm
+                type={type}
+                janitorTasks={janitorTasks}
+                collectorTasks={collectorTasks}
+              />
+            )}
           </FormContainer>
         </MoveLeft>
       </Container>

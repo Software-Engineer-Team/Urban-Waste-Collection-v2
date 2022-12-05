@@ -28,7 +28,7 @@ const Message = ({ type, text, imgUrl, date, timeChange }) => {
 
         <MessageOptions type={type}>
           <AvatarUser>
-            <img src={imgUrl} alt="User" />
+            <img src={imgUrl ? imgUrl : "images/user-img.png"} alt="User" />
           </AvatarUser>
           <span>{dayjs(date).format("HH:mm")}</span>
           <MessageOptionsDropDown>

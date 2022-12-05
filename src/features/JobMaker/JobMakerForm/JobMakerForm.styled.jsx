@@ -27,6 +27,7 @@ export const TitleBody = styled.div`
     height: 14px;
     width: 14px;
     background-color: rgb(11, 128, 67);
+    min-width: 14px;
   }
 
   &.title-right {
@@ -34,6 +35,10 @@ export const TitleBody = styled.div`
     .title-right-content {
       font-size: 28px;
       color: #3c4043;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;

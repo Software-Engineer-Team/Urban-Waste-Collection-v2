@@ -3,42 +3,17 @@ import Swal from "sweetalert2";
 
 const DEFAULT_MONTH = dayjs().month();
 
-export const getMonth = async (isFetching = false, month = DEFAULT_MONTH) => {
+export const getMonth = (month = DEFAULT_MONTH) => {
   month = Math.floor(month);
   const year = dayjs().year();
   const firstDayOfTheMonth = dayjs(new Date(year, month, 1)).day();
   let currentMonthCount = 0 - firstDayOfTheMonth;
-  let jTasks = [];
-  let cTasks = [];
-  if (isFetching) {
-    jTasks = await fetchData(`/api/janitor-tasks`);
-    cTasks = await fetchData(`/api/collector-tasks`);
-  }
 
   const daysMatrix = new Array(5).fill([]).map(() => {
     return new Array(7).fill(null).map(() => {
       currentMonthCount++;
       const date = dayjs(new Date(year, month, currentMonthCount));
-      let janitorTasks = [];
-      let collectorTasks = [];
-      if (isFetching) {
-        janitorTasks = jTasks.filter((jTask) => {
-          return (
-            jTask.taskTime.day === date.format("YYYY/MM/DD") ||
-            jTask.taskTime.day === date.format("YYYY-MM-DD") ||
-            jTask.taskTime.day === date.format("MM/DD/YYYY")
-          );
-        });
-        collectorTasks = cTasks.filter((cTask) => {
-          return (
-            cTask.taskTime.day === date.format("YYYY/MM/DD") ||
-            cTask.taskTime.day === date.format("YYYY-MM-DD") ||
-            cTask.taskTime.day === date.format("MM/DD/YYYY")
-          );
-        });
-      }
-
-      return { date, janitorTasks, collectorTasks };
+      return { date };
     });
   });
   return daysMatrix;

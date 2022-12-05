@@ -35,14 +35,17 @@ const SideBar = ({ usersJoin }) => {
           </div>
         </ContentTop>
         <ContentBody>
-          <h5>Collectors</h5>
+          <h5>Users In Room</h5>
           <ChatsList>
             {usersJoin?.map(({ name, imgUrl, roles }) => {
               return (
                 <ChatItem key={uuidv4()}>
                   <Link to="#">
                     <Avatar isLoggined={true}>
-                      <img src={imgUrl} alt="" />
+                      <img
+                        src={imgUrl ? imgUrl : "images/user-img.png"}
+                        alt=""
+                      />
                     </Avatar>
                     <ChatContent>
                       <ChatInfo>

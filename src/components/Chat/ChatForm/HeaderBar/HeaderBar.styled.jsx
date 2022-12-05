@@ -15,15 +15,16 @@ export const ChatHeader = styled.header`
 `;
 
 export const AvatarUser = styled.div`
-  width: 48px;
-  height: 48px;
+  --general-wh: 48px;
+  width: var(--general-wh);
+  height: var(--general-wh);
   position: relative;
   z-index: 1;
   display: flex;
   align-items: center;
   img {
-    width: 38px;
-    height: 38px;
+    width: var(--general-wh);
+    height: var(--general-wh);
     border-radius: 50%;
     object-fit: cover;
   }

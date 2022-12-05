@@ -48,6 +48,13 @@ export const FormContainer = styled.div`
     transform: translateX(0);
     opacity: 1;
   `}
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 `;
 
 export const Header = styled.header`

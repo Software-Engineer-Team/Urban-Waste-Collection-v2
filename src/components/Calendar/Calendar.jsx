@@ -12,22 +12,11 @@ const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState([[]]);
   const { monthIndex } = useSelector((state) => state.month);
   useEffect(() => {
-    console.log("ssssssssssssssssssssss");
-    getMonth(false, monthIndex).then((data) => {
-      setCurrentMonth(data);
-    });
-    getMonth(true, monthIndex).then((data) => {
-      setCurrentMonth(data);
-    });
+    setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
   useEffect(() => {
-    getMonth(false).then((data) => {
-      setCurrentMonth(data);
-    });
-    getMonth(true).then((data) => {
-      setCurrentMonth(data);
-    });
+    setCurrentMonth(getMonth());
   }, []);
 
   return (

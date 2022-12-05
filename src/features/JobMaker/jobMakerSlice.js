@@ -10,6 +10,7 @@ const initialState = {
   janitorTasks: [],
   collectorTasks: [],
   type: "",
+  isFetching: false,
 };
 
 const jobMakerSlice = createSlice({
@@ -28,47 +29,52 @@ const jobMakerSlice = createSlice({
     },
     jobMakerPreMounted: {
       reducer: (state, action) => {
-        const {
-          posX,
-          posY,
-          isTranslateRight,
-          type,
-          janitorTasks,
-          collectorTasks,
-        } = action.payload;
+        const { posX, posY, isTranslateRight } = action.payload;
         state.isMaking = true;
         state.pos = {
           x: posX,
           y: posY,
         };
         state.isTranslateRight = isTranslateRight;
-        state.janitorTasks = janitorTasks;
-        state.collectorTasks = collectorTasks;
-        state.type = type;
       },
-      prepare: (
-        posX,
-        posY,
-        isTranslateRight,
-        type,
-        janitorTasks,
-        collectorTasks
-      ) => {
+      prepare: (posX, posY, isTranslateRight) => {
         return {
           payload: {
             posX,
             posY,
             isTranslateRight,
-            janitorTasks,
-            collectorTasks,
-            type,
           },
         };
+      },
+    },
+    setJanitorTasks: {
+      reducer: (state, action) => {
+        state.janitorTasks = action.payload.janitorTasks;
+        state.type = action.payload.type;
+        state.isFetching = false;
+      },
+    },
+    setCollectorTasks: {
+      reducer: (state, action) => {
+        state.collectorTasks = action.payload.collectorTasks;
+        state.type = action.payload.type;
+        state.isFetching = !state.isFetching;
+      },
+    },
+    toggleIsFetching: {
+      reducer: (state) => {
+        state.isFetching = !state.isFetching;
       },
     },
   },
 });
 
-export const { isMakingTurnOn, isMakingTurnOff, jobMakerPreMounted } =
-  jobMakerSlice.actions;
+export const {
+  isMakingTurnOn,
+  isMakingTurnOff,
+  jobMakerPreMounted,
+  setJanitorTasks,
+  setCollectorTasks,
+  toggleIsFetching,
+} = jobMakerSlice.actions;
 export default jobMakerSlice.reducer;

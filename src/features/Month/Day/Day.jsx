@@ -9,20 +9,27 @@ import {
   JobContainer,
   JobName,
 } from "./Day.styled";
-import { jobMakerPreMounted } from "~/features/JobMaker/jobMakerSlice";
+import {
+  jobMakerPreMounted,
+  setCollectorTasks,
+  setJanitorTasks,
+  toggleIsFetching,
+} from "~/features/JobMaker/jobMakerSlice";
 import dayjs from "dayjs";
 import { fetchData } from "~/utils/util";
 
 const CARD_WIDTH = 450;
 
-const Day = ({ day, rowIdx, janitorTasks, collectorTasks }) => {
+const Day = ({ day, rowIdx }) => {
   useEffect(() => {}, [day]);
   const jobColRef = useRef();
   const dispatch = useDispatch();
   const { isMaking } = useSelector((state) => state.jobMaker);
-  /* console.log(day); */
-  const handleJobClick = (e, type) => {
+  const handleJobClick = async (e, type) => {
     if (!isMaking) {
+      const date = dayjs(day).format("YYYY-MM-DD");
+      console.log(date);
+
       const colPos = {
         left: e.target.offsetLeft,
         top: e.target.offsetTop,
@@ -41,16 +48,45 @@ const Day = ({ day, rowIdx, janitorTasks, collectorTasks }) => {
       const calcPosY = () => {
         return colPos.top - 50;
       };
-      dispatch(
-        jobMakerPreMounted(
-          calcPosX(),
-          calcPosY(),
-          isTranslateToRight,
-          type,
-          janitorTasks,
-          collectorTasks
-        )
-      );
+
+      dispatch(jobMakerPreMounted(calcPosX(), calcPosY(), isTranslateToRight));
+
+      let janitorTasks = [];
+      let collectorTasks = [];
+
+      if (type === "Collectors") {
+        dispatch(toggleIsFetching());
+        collectorTasks = await fetchData(
+          `/api/collector-tasks-date?date=${date}`
+        );
+        dispatch(
+          setCollectorTasks({
+            type,
+            collectorTasks,
+          })
+        );
+      } else {
+        dispatch(toggleIsFetching());
+        janitorTasks = await fetchData(`/api/janitor-tasks-date?date=${date}`);
+        dispatch(
+          setJanitorTasks({
+            type,
+            janitorTasks,
+          })
+        );
+      }
+      console.log(collectorTasks);
+      console.log(janitorTasks);
+      /* dispatch( */
+      /*   jobMakerPreMounted( */
+      /*     calcPosX(), */
+      /*     calcPosY(), */
+      /*     isTranslateToRight */
+      /*     type, */
+      /*     janitorTasks, */
+      /*     collectorTasks */
+      /*   ) */
+      /* ); */
     }
   };
 

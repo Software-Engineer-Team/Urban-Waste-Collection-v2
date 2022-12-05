@@ -15,10 +15,10 @@ const HeaderBar = () => {
     <ChatHeader>
       <ChatHeaderAvatar className="text-truncate">
         <AvatarUser status={true}>
-          <img src="/images/member/member-1.jpg" alt="User" />
+          <img src="/images/message.png" alt="User" />
         </AvatarUser>
         <Media>
-          <h6 className="text-truncate">Kiet Cao</h6>
+          <h6 className="text-truncate">Public Chat</h6>
           <small>Active</small>
         </Media>
       </ChatHeaderAvatar>
