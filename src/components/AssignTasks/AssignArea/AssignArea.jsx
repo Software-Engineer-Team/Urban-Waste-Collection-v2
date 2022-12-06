@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { fetchData } from "@utils/util";
+import usePlaceSearch from "@hook/usePlaceSearch";
 
 const hcmCity = [10.8326, 106.6581];
 /* const loading_spinner = document.getElementById("loader"); */
@@ -9,6 +10,10 @@ const mapEl = document.getElementById("map");
 const AssignArea = () => {
   const map = useRef(null);
   const placeSearch = useRef(null);
+  const [formBlock] = usePlaceSearch("/home", () => {
+    mapEl.style.display = "none";
+    map?.current.remove();
+  });
 
   // show MCPs
   useEffect(() => {
