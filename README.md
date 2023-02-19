@@ -38,6 +38,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#%E2%9A%99-our-demo-site">Demo</a></li>
   </ol>
 </details>
 
@@ -128,6 +129,12 @@ To access the UWC 2.0 system, there are some account you can try:
 | thuctanphu12@gmail.com | 123456 | backofficer |
 | loclepnvx@gmail.com | thangcho | backofficer |
 | caotuankietc3a@gmail.com | 123456 | janitor, collector |
+
+### ⚙ Our demo site
+
+- Here you can easily visit our SIMCAREER Web App with a live preview.
+
+🎯 <https://urban-waste-collection-v2.netlify.app/>
 
 <h1 align="center">🌟 Good Luck and Cheers! 🌟</h1>
 
